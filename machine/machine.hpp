@@ -9,6 +9,10 @@
 #define MACHINE_MACHINE_HPP_
 
 #include <stdint.h>
+#include <iostream>
+#include "Drivers/DigitalInput.hpp"
+#include "Drivers/DigitalOut.hpp"
+#include "Drivers/AnalogInput.hpp"
 
 //namespace Machine
 //{
@@ -17,7 +21,7 @@ enum MachineStates
 {
 	machineError,
 	machineOk,
-	none
+	machineNone
 };
 
 enum ToolStates
@@ -28,7 +32,7 @@ enum ToolStates
 	toolErrorUpperTip,
 	toolErrorLowerTip,
 	toolErrorPositionSensor,
-	none
+	toolNone
 };
 
 //}
@@ -65,8 +69,19 @@ private:
 	uint32_t m_LowerTipPosition;
 	uint32_t m_PositionScale;
 
+	cDigitalOut m_IO_MachinePowerSwitch;
+	cDigitalOut m_VerticalFeedMotorSwitch;
+	cDigitalOut m_RotatedMotorToolSwitch;
+	cDigitalOut m_ToolLiftUpSwitch;
+	cDigitalOut m_ToolLiftDownSwich;
+
+	cDigitalInput m_UpperToolTip;
+	cDigitalInput m_LowerToolTip;
+
+	cAnalogInput m_ToolPositionSensor;
+	cAnalogInput m_CurrentSensor;
+
 	void (*ErrorCallback)();
 };
-
 
 #endif /* MACHINE_MACHINE_HPP_ */

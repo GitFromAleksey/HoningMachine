@@ -6,10 +6,13 @@
  */
 
 #include <iostream>
-//#include <std>
+#include "../machine/machine.hpp"
+
 
 int main()
 {
+	cMachine machine;
+
 	std::cout << "Hi!!!" << std::endl;
 
 }
