@@ -4,7 +4,7 @@
  *  Created on: 19 мар. 2020 г.
  *      Author: borzenkov
  */
-#include "machine.hpp"
+#include "../Model/machine.hpp"
 
 
 cMachine::cMachine():

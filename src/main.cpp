@@ -6,12 +6,15 @@
  */
 
 #include <iostream>
-#include "../machine/machine.hpp"
+
+#include "../Model/machine.hpp"
+#include "../Model/Controller.hpp"
 
 
 int main()
 {
 	cMachine machine;
+	cController controller(&machine);
 
 	std::cout << "-> Machine is create!!! <-" << std::endl;
 

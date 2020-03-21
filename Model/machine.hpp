@@ -5,8 +5,8 @@
  *      Author: borzenkov
  */
 
-#ifndef MACHINE_MACHINE_HPP_
-#define MACHINE_MACHINE_HPP_
+#ifndef MODEL_MACHINE_HPP_
+#define MODEL_MACHINE_HPP_
 
 #include <stdint.h>
 #include <iostream>
@@ -85,4 +85,4 @@ private:
 	void (*ErrorCallback)();
 };
 
-#endif /* MACHINE_MACHINE_HPP_ */
+#endif /* MODEL_MACHINE_HPP_ */
