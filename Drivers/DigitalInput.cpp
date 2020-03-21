@@ -23,3 +23,8 @@ void cDigitalInput::Init(void (*_CallbackChangeState)(), void (*_CallbackSetHi)(
 	m_Ivversion = inversion;
 }
 // ----------------------------------------------------------------------------
+bool cDigitalInput::IsOn()
+{
+	return false;
+}
+// ----------------------------------------------------------------------------

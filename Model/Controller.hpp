@@ -12,6 +12,8 @@ public:
 	cController(cMachine *machine);
 	~cController();
 
+	void run();
+
 	void AddMachine(cMachine *machine);
 
 private:

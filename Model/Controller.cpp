@@ -22,3 +22,11 @@ void cController::AddMachine(cMachine *machine)
 		m_Machine = machine;
 }
 // ----------------------------------------------------------------------------
+void cController::run()
+{
+	if(m_Machine == nullptr)
+		return;
+
+	m_Machine->run();
+}
+// ----------------------------------------------------------------------------

@@ -22,7 +22,7 @@ enum MachineStates
 {
 	machineError,
 	machineOk,
-	machineNone
+	machineStateNone
 };
 
 enum ToolStates
@@ -33,7 +33,7 @@ enum ToolStates
 	toolErrorUpperTip,
 	toolErrorLowerTip,
 	toolErrorPositionSensor,
-	toolNone
+	toolStateNone
 };
 
 //}
@@ -45,7 +45,10 @@ public:
 	cMachine();
 	~cMachine();
 
+	void run();
+
 	void MachinePowerOn();
+	void MachinePowerOff();
 	void ToolLiftUp();
 	void ToolLiftDown();
 	void ToolLiftStop();
@@ -53,10 +56,10 @@ public:
 	void ToolRotateStop();
 	void ToolStop();
 
-	bool ToolIsRotate()const;
-	bool ToolIsLiftUp()const;
-	bool ToolIsLiftDown()const;
-	bool ToolIsStoped()const;
+	bool ToolIsRotate();
+	bool ToolIsLiftUp();
+	bool ToolIsLiftDown();
+	bool ToolIsStoped();
 
 	uint32_t GetCurrentPosotion()const;
 

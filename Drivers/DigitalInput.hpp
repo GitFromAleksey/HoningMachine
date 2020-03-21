@@ -12,7 +12,7 @@ public:
 
 	void Init(void (*_CallbackChangeState)(), void (*_CallbackSetHi)(),
 				void (*_CallbackSetLo)(), bool inversion);
-	void IsOn();
+	bool IsOn();
 
 private:
 	bool m_Ivversion;
