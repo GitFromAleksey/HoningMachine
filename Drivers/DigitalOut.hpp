@@ -1,5 +1,5 @@
-#ifndef MACHINE_DRIVERS_DIGITALOUT_HPP_
-#define MACHINE_DRIVERS_DIGITALOUT_HPP_
+#ifndef DRIVERS_DIGITALOUT_HPP_
+#define DRIVERS_DIGITALOUT_HPP_
 
 #include <stdint.h>
 #include <iostream>
@@ -21,4 +21,4 @@ private:
 	bool m_Inversion;
 };
 
-#endif /* MACHINE_DRIVERS_DIGITALOUT_HPP_ */
+#endif /* DRIVERS_DIGITALOUT_HPP_ */

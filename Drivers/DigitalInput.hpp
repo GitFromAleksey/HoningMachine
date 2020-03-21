@@ -1,5 +1,5 @@
-#ifndef MACHINE_DRIVERS_DIGITALINPUT_HPP_
-#define MACHINE_DRIVERS_DIGITALINPUT_HPP_
+#ifndef DRIVERS_DIGITALINPUT_HPP_
+#define DRIVERS_DIGITALINPUT_HPP_
 
 #include <stdint.h>
 #include <iostream>
@@ -23,4 +23,4 @@ private:
 
 };
 
-#endif /* MACHINE_DRIVERS_DIGITALINPUT_HPP_ */
+#endif /* DRIVERS_DIGITALINPUT_HPP_ */

@@ -10,9 +10,10 @@
 
 #include <stdint.h>
 #include <iostream>
-#include "Drivers/DigitalInput.hpp"
-#include "Drivers/DigitalOut.hpp"
-#include "Drivers/AnalogInput.hpp"
+
+#include "../Drivers/AnalogInput.hpp"
+#include "../Drivers/DigitalInput.hpp"
+#include "../Drivers/DigitalOut.hpp"
 
 //namespace Machine
 //{

@@ -13,7 +13,7 @@ int main()
 {
 	cMachine machine;
 
-	std::cout << "Hi!!!" << std::endl;
+	std::cout << "-> Machine is create!!! <-" << std::endl;
 
 }
 

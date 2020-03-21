@@ -1,5 +1,5 @@
-#ifndef MACHINE_DRIVERS_ANALOGINPUT_HPP_
-#define MACHINE_DRIVERS_ANALOGINPUT_HPP_
+#ifndef DRIVERS_ANALOGINPUT_HPP_
+#define DRIVERS_ANALOGINPUT_HPP_
 
 #include <stdint.h>
 #include <iostream>
@@ -19,4 +19,4 @@ private:
 	uint32_t m_MaxValue;
 };
 
-#endif /* MACHINE_DRIVERS_ANALOGINPUT_HPP_ */
+#endif /* DRIVERS_ANALOGINPUT_HPP_ */
