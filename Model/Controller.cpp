@@ -8,7 +8,7 @@ cController::cController() : m_Machine(nullptr)
 cController::cController(cMachine *machine)
 {
 	AddMachine(machine);
-	std::cout << "cController(cMachine machine)" << std::endl;
+	std::cout << "cController(cMachine *machine)" << std::endl;
 }
 // ----------------------------------------------------------------------------
 cController::~cController()
@@ -30,3 +30,16 @@ void cController::run()
 	m_Machine->run();
 }
 // ----------------------------------------------------------------------------
+void cController::EventsHandler(MacineEvent event)
+{
+	switch(event)
+	{
+	case MacineEvent::evUpperTipReached:
+		break;
+	case MacineEvent::evLowerTipReached:
+		break;
+
+	default:
+		break;
+	}
+}

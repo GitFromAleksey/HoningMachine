@@ -14,9 +14,16 @@
 #include "../Drivers/AnalogInput.hpp"
 #include "../Drivers/DigitalInput.hpp"
 #include "../Drivers/DigitalOut.hpp"
+#include "../Interfaces/iProcess.hpp"
 
 //namespace Machine
 //{
+enum MacineEvent
+{
+	evUpperTipReached,
+	evLowerTipReached,
+	evAnyError
+};
 
 enum MachineStates
 {
@@ -38,14 +45,14 @@ enum ToolStates
 
 //}
 
-class cMachine
+class cMachine : public iProcess
 {
 public:
 
 	cMachine();
 	~cMachine();
 
-	void run();
+	virtual void run();
 
 	void MachinePowerOn();
 	void MachinePowerOff();
@@ -63,7 +70,7 @@ public:
 
 	uint32_t GetCurrentPosotion()const;
 
-	void SetErrorCallback(void (*ErrorCallback)());
+	void SetErrorCallback(void (*ControllerEventCallback)(MacineEvent event));
 
 private:
 	MachineStates m_MachineState;
@@ -85,7 +92,7 @@ private:
 	cAnalogInput m_ToolPositionSensor;
 	cAnalogInput m_CurrentSensor;
 
-	void (*ErrorCallback)();
+	void (*ControllerEventCallback)(MacineEvent event);
 };
 
 #endif /* MODEL_MACHINE_HPP_ */

@@ -14,7 +14,7 @@ cMachine::cMachine():
 		m_UpperTipPosition(0),
 		m_LowerTipPosition(0),
 		m_PositionScale(0),
-		ErrorCallback(nullptr)
+		ControllerEventCallback(nullptr)
 {
 	std::cout << "cMachine::cMachine():" << std::endl;
 }
@@ -23,8 +23,10 @@ cMachine::~cMachine(){}
 // ----------------------------------------------------------------------------
 void cMachine::run()
 {
-	if(m_UpperToolTip.IsOn() || m_LowerToolTip.IsOn())
+	if( m_UpperToolTip.IsOn() )
 	{ ToolLiftStop(); }
+	if( m_LowerToolTip.IsOn() )
+	{}
 }
 // ----------------------------------------------------------------------------
 void cMachine::MachinePowerOn()
