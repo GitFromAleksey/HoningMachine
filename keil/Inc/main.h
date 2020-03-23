@@ -32,7 +32,7 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "Controller.hpp"
+
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

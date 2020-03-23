@@ -114,6 +114,7 @@ HAL_StatusTypeDef HAL_RCCEx_PeriphCLKConfig(RCC_PeriphCLKInitTypeDef  *PeriphClk
     assert_param(IS_RCC_RTCCLKSOURCE(PeriphClkInit->RTCClockSelection));
 
     FlagStatus       pwrclkchanged = RESET;
+
     /* As soon as function is called to change RTC clock source, activation of the
        power domain is done. */
     /* Requires to enable write access to Backup Domain of necessary */
