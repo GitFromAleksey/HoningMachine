@@ -1,11 +1,11 @@
 #include "DigitalOut.hpp"
 
 cDigitalOut::cDigitalOut() :
-	m_Port(nullptr),
+	m_Port(NULL),
 	m_PinNumber(0),
 	m_Inversion(false)
 {
-	std::cout << "cDigitalOut::cDigitalOut()" << std::endl;
+	//std::cout << "cDigitalOut::cDigitalOut()" << std::endl;
 }
 // ----------------------------------------------------------------------------
 cDigitalOut::~cDigitalOut()

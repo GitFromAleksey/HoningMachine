@@ -14,7 +14,7 @@
         <TargetCommonOption>
           <Device>STM32F103C8</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32F1xx_DFP.2.1.0</PackID>
+          <PackID>Keil.STM32F1xx_DFP.2.3.0</PackID>
           <PackURL>http://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000-0x20004FFF) IROM(0x8000000-0x800FFFF) CLOCK(8000000) CPUTYPE("Cortex-M3")</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -365,7 +365,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F103xB</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include</IncludePath>
+              <IncludePath>../Inc;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include;..\..\Interfaces;..\..\Drivers;..\..\Model</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -412,6 +412,41 @@
               <FileName>startup_stm32f103xb.s</FileName>
               <FileType>2</FileType>
               <FilePath>startup_stm32f103xb.s</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Model</GroupName>
+          <Files>
+            <File>
+              <FileName>Controller.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Model\Controller.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>machine.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Model\machine.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Drivers</GroupName>
+          <Files>
+            <File>
+              <FileName>AnalogInput.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Drivers\AnalogInput.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>DigitalInput.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Drivers\DigitalInput.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>DigitalOut.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Drivers\DigitalOut.cpp</FilePath>
             </File>
           </Files>
         </Group>

@@ -8,15 +8,15 @@
 
 // ----------------------------------------------------------------------------
 cMachine::cMachine():
-		m_MachineState(MachineStates::machineStateNone),
-		m_ToolState(ToolStates::toolStateNone),
+		m_MachineState(machineStateNone),
+		m_ToolState(toolStateNone),
 		m_CurrentPosition(0),
 		m_UpperTipPosition(0),
 		m_LowerTipPosition(0),
 		m_PositionScale(0),
-		ControllerEventCallback(nullptr)
+		ControllerEventCallback(NULL)
 {
-	std::cout << "cMachine::cMachine():" << std::endl;
+//	std::cout << "cMachine::cMachine():" << std::endl;
 }
 // ----------------------------------------------------------------------------
 cMachine::~cMachine(){}

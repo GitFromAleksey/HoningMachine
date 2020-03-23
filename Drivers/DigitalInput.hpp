@@ -2,7 +2,9 @@
 #define DRIVERS_DIGITALINPUT_HPP_
 
 #include <stdint.h>
-#include <iostream>
+#include <stddef.h>
+//#include <iostream>
+
 
 class cDigitalInput
 {

@@ -9,7 +9,8 @@
 #define MODEL_MACHINE_HPP_
 
 #include <stdint.h>
-#include <iostream>
+#include <stddef.h>
+//#include <iostream>
 
 #include "../Drivers/AnalogInput.hpp"
 #include "../Drivers/DigitalInput.hpp"

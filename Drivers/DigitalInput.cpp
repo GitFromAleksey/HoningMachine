@@ -2,11 +2,11 @@
 
 cDigitalInput::cDigitalInput() :
 	m_Ivversion(false),
-	CallbackChangeState(nullptr),
-	CallbackSetHi(nullptr),
-	CallbackSetLo(nullptr)
+	CallbackChangeState(NULL),
+	CallbackSetHi(NULL),
+	CallbackSetLo(NULL)
 {
-	std::cout << "cDigitalInput::cDigitalInput()" << std::endl;
+//	std::cout << "cDigitalInput::cDigitalInput()" << std::endl;
 }
 // ----------------------------------------------------------------------------
 cDigitalInput::~cDigitalInput()
@@ -17,9 +17,9 @@ cDigitalInput::~cDigitalInput()
 void cDigitalInput::Init(void (*_CallbackChangeState)(), void (*_CallbackSetHi)(),
 						void (*_CallbackSetLo)(), bool inversion)
 {
-	CallbackChangeState = (_CallbackChangeState == nullptr) ? (nullptr) : (_CallbackChangeState);
-	CallbackSetHi = (_CallbackSetHi == nullptr) ? (nullptr) : (_CallbackSetHi);
-	CallbackSetLo = (_CallbackSetLo == nullptr) ? (nullptr) : (_CallbackSetLo);
+	CallbackChangeState = (_CallbackChangeState == NULL) ? (NULL) : (_CallbackChangeState);
+	CallbackSetHi = (_CallbackSetHi == NULL) ? (NULL) : (_CallbackSetHi);
+	CallbackSetLo = (_CallbackSetLo == NULL) ? (NULL) : (_CallbackSetLo);
 	m_Ivversion = inversion;
 }
 // ----------------------------------------------------------------------------

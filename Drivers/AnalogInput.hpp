@@ -2,7 +2,8 @@
 #define DRIVERS_ANALOGINPUT_HPP_
 
 #include <stdint.h>
-#include <iostream>
+#include <stddef.h>
+//#include <iostream>
 
 class cAnalogInput
 {

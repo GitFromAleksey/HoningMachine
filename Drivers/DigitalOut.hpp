@@ -2,7 +2,8 @@
 #define DRIVERS_DIGITALOUT_HPP_
 
 #include <stdint.h>
-#include <iostream>
+#include <stddef.h>
+//#include <iostream>
 
 class cDigitalOut
 {

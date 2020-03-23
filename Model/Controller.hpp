@@ -1,7 +1,8 @@
 #ifndef MODEL_CONTROLLER_HPP_
 #define MODEL_CONTROLLER_HPP_
 
-#include <iostream>
+//#include <iostream>
+#include <stddef.h>
 #include "../Interfaces/iController.hpp"
 #include "../Interfaces/iProcess.hpp"
 #include "../Model/machine.hpp"

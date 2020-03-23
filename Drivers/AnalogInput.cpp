@@ -6,7 +6,7 @@ m_DataRaw(0),
 m_DataScaling(0),
 m_MaxValue(0)
 {
-	std::cout << "cAnalogInput::cAnalogInput()" << std::endl;
+//std::cout << "cAnalogInput::cAnalogInput()" << std::endl;
 }
 // ----------------------------------------------------------------------------
 cAnalogInput::~cAnalogInput()
@@ -16,6 +16,6 @@ cAnalogInput::~cAnalogInput()
 // ----------------------------------------------------------------------------
 void cAnalogInput::Init()
 {
-	std::cout << "cAnalogInput::Init()" << std::endl;
+	//std::cout << "cAnalogInput::Init()" << std::endl;
 }
 // ----------------------------------------------------------------------------

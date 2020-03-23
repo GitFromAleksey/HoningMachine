@@ -1,14 +1,14 @@
 #include "Controller.hpp"
 
-cController::cController() : m_Machine(nullptr)
+cController::cController() : m_Machine(NULL)
 {
-	std::cout << "cController()" << std::endl;
+	//std::cout << "cController()" << std::endl;
 }
 // ----------------------------------------------------------------------------
 cController::cController(cMachine *machine)
 {
 	AddMachine(machine);
-	std::cout << "cController(cMachine *machine)" << std::endl;
+//	std::cout << "cController(cMachine *machine)" << std::endl;
 }
 // ----------------------------------------------------------------------------
 cController::~cController()
@@ -18,13 +18,13 @@ cController::~cController()
 // ----------------------------------------------------------------------------
 void cController::AddMachine(cMachine *machine)
 {
-	if(machine != nullptr)
+	if(machine != NULL)
 		m_Machine = machine;
 }
 // ----------------------------------------------------------------------------
 void cController::run()
 {
-	if(m_Machine == nullptr)
+	if(m_Machine == NULL)
 		return;
 
 	m_Machine->run();
@@ -34,9 +34,9 @@ void cController::EventsHandler(MacineEvent event)
 {
 	switch(event)
 	{
-	case MacineEvent::evUpperTipReached:
+	case evUpperTipReached:
 		break;
-	case MacineEvent::evLowerTipReached:
+	case evLowerTipReached:
 		break;
 
 	default:
