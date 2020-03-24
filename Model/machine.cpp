@@ -16,7 +16,7 @@ cMachine::cMachine():
 		m_PositionScale(0),
 		ControllerEventCallback(NULL)
 {
-//	std::cout << "cMachine::cMachine():" << std::endl;
+
 }
 // ----------------------------------------------------------------------------
 cMachine::~cMachine(){}

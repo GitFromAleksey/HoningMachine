@@ -12,17 +12,17 @@ public:
 	cDigitalInput();
 	~cDigitalInput();
 
-	void Init(void (*_CallbackChangeState)(), void (*_CallbackSetHi)(),
-				void (*_CallbackSetLo)(), bool inversion);
+	void Init(void *port, uint16_t pinNumber, bool inversion);
+	void SetCheckStateCallback(bool (*CheckStateCallback)(void *port, uint16_t pinNumber));
 	bool IsOn();
 
 private:
+	void *m_Port;
+	uint16_t m_PinNumber;
 	bool m_Iversion;
 
+	bool (*CheckStateCallback)(void *port, uint16_t pinNumber);
 	void (*CallbackChangeState)();
-	void (*CallbackSetHi)();
-	void (*CallbackSetLo)();
-
 };
 
 #endif /* DRIVERS_DIGITALINPUT_HPP_ */

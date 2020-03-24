@@ -1,12 +1,12 @@
 #include "DigitalInput.hpp"
 
 cDigitalInput::cDigitalInput() :
+	m_Port(NULL),
+	m_PinNumber(0),
 	m_Iversion(false),
-	CallbackChangeState(NULL),
-	CallbackSetHi(NULL),
-	CallbackSetLo(NULL)
+	CallbackChangeState(NULL)
 {
-//	std::cout << "cDigitalInput::cDigitalInput()" << std::endl;
+
 }
 // ----------------------------------------------------------------------------
 cDigitalInput::~cDigitalInput()
@@ -14,17 +14,25 @@ cDigitalInput::~cDigitalInput()
 
 }
 // ----------------------------------------------------------------------------
-void cDigitalInput::Init(void (*_CallbackChangeState)(), void (*_CallbackSetHi)(),
-						void (*_CallbackSetLo)(), bool inversion)
+void cDigitalInput::Init(void *port, uint16_t pinNumber, bool inversion)
 {
-	CallbackChangeState = (_CallbackChangeState == NULL) ? (NULL) : (_CallbackChangeState);
-	CallbackSetHi = (_CallbackSetHi == NULL) ? (NULL) : (_CallbackSetHi);
-	CallbackSetLo = (_CallbackSetLo == NULL) ? (NULL) : (_CallbackSetLo);
-	m_Iversion = inversion;
+	if(port == NULL) return;
+	
+	this->m_Port = port;
+	this->m_PinNumber = pinNumber;
+	this->m_Iversion = inversion;
+}
+// ----------------------------------------------------------------------------
+void cDigitalInput::SetCheckStateCallback(bool (*CheckStateCallback)(void *port, uint16_t pinNumber))
+{
+	if(CheckStateCallback != NULL)
+		this->CheckStateCallback = CheckStateCallback;
 }
 // ----------------------------------------------------------------------------
 bool cDigitalInput::IsOn()
 {
-	return false;
+	if((this->CheckStateCallback == NULL) || (this->m_Port == NULL)) return false;
+	
+	return CheckStateCallback(this->m_Port, this->m_PinNumber);
 }
 // ----------------------------------------------------------------------------

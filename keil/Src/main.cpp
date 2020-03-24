@@ -96,7 +96,9 @@ int main(void)
 	DO.SetDoSwitchCallback(DO_SwitchCallback);
 	DO.SetCheckStateCallback(DO_CheckStateCallback);
 	
-	
+	cDigitalInput DI;
+	DI.Init(GPIOA, GPIO_PIN_8, false);
+	DI.SetCheckStateCallback(DO_CheckStateCallback);
 	
 	cMachine machine;
 	cController controller;
@@ -110,7 +112,10 @@ int main(void)
   while (1)
   {
 		//HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_15);
-		DO.Toggle();
+		if(DI.IsOn())	
+			DO.SetOff();
+		else					
+			DO.SetOn();
 		HAL_Delay(1000);
     /* USER CODE END WHILE */
 
@@ -179,6 +184,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+	
+  /*Configure GPIO pin : PA8 */
+  GPIO_InitStruct.Pin = GPIO_PIN_8;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 }
 
 /* USER CODE BEGIN 4 */
