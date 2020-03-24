@@ -1,7 +1,7 @@
 #include "DigitalInput.hpp"
 
 cDigitalInput::cDigitalInput() :
-	m_Ivversion(false),
+	m_Iversion(false),
 	CallbackChangeState(NULL),
 	CallbackSetHi(NULL),
 	CallbackSetLo(NULL)
@@ -20,7 +20,7 @@ void cDigitalInput::Init(void (*_CallbackChangeState)(), void (*_CallbackSetHi)(
 	CallbackChangeState = (_CallbackChangeState == NULL) ? (NULL) : (_CallbackChangeState);
 	CallbackSetHi = (_CallbackSetHi == NULL) ? (NULL) : (_CallbackSetHi);
 	CallbackSetLo = (_CallbackSetLo == NULL) ? (NULL) : (_CallbackSetLo);
-	m_Ivversion = inversion;
+	m_Iversion = inversion;
 }
 // ----------------------------------------------------------------------------
 bool cDigitalInput::IsOn()

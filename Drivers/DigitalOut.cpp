@@ -3,9 +3,11 @@
 cDigitalOut::cDigitalOut() :
 	m_Port(NULL),
 	m_PinNumber(0),
-	m_Inversion(false)
+	m_Inversion(false),
+	SwitchCallback(NULL),
+	CheckStateCallback(NULL)
 {
-	//std::cout << "cDigitalOut::cDigitalOut()" << std::endl;
+
 }
 // ----------------------------------------------------------------------------
 cDigitalOut::~cDigitalOut()
@@ -20,18 +22,41 @@ void cDigitalOut::Init(void *port, uint16_t pinNumber, bool inversion)
 	m_Inversion = inversion;
 }
 // ----------------------------------------------------------------------------
+void cDigitalOut::SetDoSwitchCallback(void (*SwitchCallback)(void *port, uint16_t pinNumber, bool hi_lo))
+{
+	if(SwitchCallback != NULL)
+		this->SwitchCallback = SwitchCallback;
+}
+// ----------------------------------------------------------------------------
+void cDigitalOut::SetCheckStateCallback(bool (*CheckStateCallback)(void *port, uint16_t pinNumber))
+{
+	if(CheckStateCallback != NULL)
+		this->CheckStateCallback = CheckStateCallback;
+}
+// ----------------------------------------------------------------------------
 void cDigitalOut::SetOn()
 {
-
+	if((this->SwitchCallback == NULL) || (this->m_Port == NULL)) return;
+	
+	this->SwitchCallback(this->m_Port, this->m_PinNumber, true);
 }
 // ----------------------------------------------------------------------------
 void cDigitalOut::SetOff()
 {
+	if((this->SwitchCallback == NULL) || (this->m_Port == NULL)) return;
 
+	this->SwitchCallback(this->m_Port, this->m_PinNumber, false);
+}
+// ----------------------------------------------------------------------------
+void cDigitalOut::Toggle()
+{
+	(IsOn()) ? (SetOff()) : (SetOn());
 }
 // ----------------------------------------------------------------------------
 bool cDigitalOut::IsOn()
 {
-	return false;
+	if((this->CheckStateCallback == NULL) || (this->m_Port == NULL)) return false;
+	
+	return CheckStateCallback(this->m_Port, this->m_PinNumber);
 }
 // ----------------------------------------------------------------------------

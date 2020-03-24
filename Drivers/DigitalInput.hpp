@@ -17,7 +17,7 @@ public:
 	bool IsOn();
 
 private:
-	bool m_Ivversion;
+	bool m_Iversion;
 
 	void (*CallbackChangeState)();
 	void (*CallbackSetHi)();

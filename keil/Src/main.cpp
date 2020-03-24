@@ -23,6 +23,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "DigitalOut.hpp"
+#include "DigitalInput.hpp"
 #include "machine.hpp"
 #include "Controller.hpp"
 /* USER CODE END Includes */
@@ -51,7 +53,8 @@
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
-
+void DO_SwitchCallback(void *port, uint16_t pinNumber, bool hi_lo);
+bool DO_CheckStateCallback(void *port, uint16_t pinNumber);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -88,6 +91,13 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
+	cDigitalOut DO;
+	DO.Init(GPIOB, GPIO_PIN_15, false);
+	DO.SetDoSwitchCallback(DO_SwitchCallback);
+	DO.SetCheckStateCallback(DO_CheckStateCallback);
+	
+	
+	
 	cMachine machine;
 	cController controller;
 	
@@ -99,6 +109,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+		//HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_15);
+		DO.Toggle();
+		HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -150,15 +163,33 @@ void SystemClock_Config(void)
   */
 static void MX_GPIO_Init(void)
 {
-
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+	
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
+	
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : PB15 */
+  GPIO_InitStruct.Pin = GPIO_PIN_15;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 }
 
 /* USER CODE BEGIN 4 */
-
+void DO_SwitchCallback(void *port, uint16_t pinNumber, bool hi_lo)
+{
+	HAL_GPIO_WritePin((GPIO_TypeDef*)port, pinNumber, (GPIO_PinState) (hi_lo)?(GPIO_PIN_SET):(GPIO_PIN_RESET));
+}
+bool DO_CheckStateCallback(void *port, uint16_t pinNumber)
+{
+	return (HAL_GPIO_ReadPin((GPIO_TypeDef *)port, pinNumber) == GPIO_PIN_SET) ? (true) : (false);
+}
 /* USER CODE END 4 */
 
 /**
