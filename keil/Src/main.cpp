@@ -40,14 +40,17 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+volatile uint16_t adcVal = 0;
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
 ADC_HandleTypeDef hadc1;
 
 /* USER CODE BEGIN PV */
-
+cDigitalOut DO;
+cDigitalInput DI;
+cMachine machine;
+cController controller;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -99,17 +102,14 @@ int main(void)
   MX_NVIC_Init();
 	
   /* USER CODE BEGIN 2 */
-	cDigitalOut DO;
+	
 	DO.Init(GPIOB, GPIO_PIN_15, false);
 	DO.SetDoSwitchCallback(DO_SwitchCallback);
 	DO.SetCheckStateCallback(DO_CheckStateCallback);
 	
-	cDigitalInput DI;
+	
 	DI.Init(GPIOA, GPIO_PIN_8, false);
 	DI.SetCheckStateCallback(DO_CheckStateCallback);
-	
-	cMachine machine;
-	cController controller;
 	
 	controller.AddMachine(&machine);
 	
@@ -117,23 +117,16 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-	volatile uint16_t adcVal = 0;
+
 	
 	HAL_ADC_Start_IT(&hadc1);
 	
   while (1)
   {
-		//HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_15);
-		if(DI.IsOn())	
-			DO.SetOff();
-		else					
-			DO.SetOn();
-		
-		//HAL_ADC_Start(&hadc1);
-		//HAL_ADC_PollForConversion(&hadc1, 100);
-		//adcVal = HAL_ADC_GetValue(&hadc1); 
-		//HAL_ADC_Stop(&hadc1);
-		HAL_Delay(1000);
+//		if(DI.IsOn())	
+//			DO.SetOff();
+//		else					
+//			DO.SetOn();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -171,14 +164,14 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV4;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
   {
     Error_Handler();
   }
   PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_ADC;
-  PeriphClkInit.AdcClockSelection = RCC_ADCPCLK2_DIV8;
+  PeriphClkInit.AdcClockSelection = RCC_ADCPCLK2_DIV6;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     Error_Handler();
@@ -215,7 +208,7 @@ static void MX_ADC1_Init(void)
   */
   hadc1.Instance = ADC1;
   hadc1.Init.ScanConvMode = ADC_SCAN_DISABLE;
-  hadc1.Init.ContinuousConvMode = DISABLE;
+  hadc1.Init.ContinuousConvMode = ENABLE;
   hadc1.Init.DiscontinuousConvMode = DISABLE;
   hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
   hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
@@ -275,8 +268,8 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 	uint16_t adcVal = 0;
 	
 	adcVal = hadc->Instance->DR;
-	
-	HAL_ADC_Start_IT(&hadc1);
+	DO.Toggle();
+//	HAL_ADC_Start_IT(&hadc1);
 }
 /* USER CODE END 4 */
 
