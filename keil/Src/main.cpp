@@ -54,6 +54,7 @@ ADC_HandleTypeDef hadc1;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_ADC1_Init(void);
+static void MX_NVIC_Init(void);
 /* USER CODE BEGIN PFP */
 void DO_SwitchCallback(void *port, uint16_t pinNumber, bool hi_lo);
 bool DO_CheckStateCallback(void *port, uint16_t pinNumber);
@@ -93,6 +94,10 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
 	MX_ADC1_Init();
+
+  /* Initialize interrupts */
+  MX_NVIC_Init();
+	
   /* USER CODE BEGIN 2 */
 	cDigitalOut DO;
 	DO.Init(GPIOB, GPIO_PIN_15, false);
@@ -113,6 +118,9 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	volatile uint16_t adcVal = 0;
+	
+	HAL_ADC_Start_IT(&hadc1);
+	
   while (1)
   {
 		//HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_15);
@@ -121,11 +129,10 @@ int main(void)
 		else					
 			DO.SetOn();
 		
-		HAL_ADC_Start(&hadc1);
+		//HAL_ADC_Start(&hadc1);
 		//HAL_ADC_PollForConversion(&hadc1, 100);
-		HAL_Delay(1);
-		adcVal = HAL_ADC_GetValue(&hadc1); 
-		HAL_ADC_Stop(&hadc1);
+		//adcVal = HAL_ADC_GetValue(&hadc1); 
+		//HAL_ADC_Stop(&hadc1);
 		HAL_Delay(1000);
     /* USER CODE END WHILE */
 
@@ -177,6 +184,18 @@ void SystemClock_Config(void)
     Error_Handler();
   }
 }
+
+/**
+  * @brief NVIC Configuration.
+  * @retval None
+  */
+static void MX_NVIC_Init(void)
+{
+  /* ADC1_2_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(ADC1_2_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(ADC1_2_IRQn);
+}
+
 /**
   * @brief ADC1 Initialization Function
   * @param None
@@ -188,8 +207,6 @@ static void MX_ADC1_Init(void)
   /* USER CODE BEGIN ADC1_Init 0 */
 
   /* USER CODE END ADC1_Init 0 */
-
-  ADC_ChannelConfTypeDef sConfig = {0};
 
   /* USER CODE BEGIN ADC1_Init 1 */
 
@@ -204,15 +221,6 @@ static void MX_ADC1_Init(void)
   hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
   hadc1.Init.NbrOfConversion = 1;
   if (HAL_ADC_Init(&hadc1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /** Configure Regular Channel 
-  */
-  sConfig.Channel = ADC_CHANNEL_0;
-  sConfig.Rank = ADC_REGULAR_RANK_1;
-  sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
-  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
   {
     Error_Handler();
   }
@@ -267,6 +275,8 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 	uint16_t adcVal = 0;
 	
 	adcVal = hadc->Instance->DR;
+	
+	HAL_ADC_Start_IT(&hadc1);
 }
 /* USER CODE END 4 */
 
