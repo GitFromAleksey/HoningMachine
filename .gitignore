@@ -2,4 +2,8 @@
 *.d
 *.crf
 *.dep
+*.htm
+*.lnp
+*.map
+*.uvguix.*
 /Debug/

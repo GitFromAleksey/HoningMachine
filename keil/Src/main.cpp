@@ -112,7 +112,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-	uint16_t adsVal = 0;
+	volatile uint16_t adcVal = 0;
   while (1)
   {
 		//HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_15);
@@ -122,8 +122,9 @@ int main(void)
 			DO.SetOn();
 		
 		HAL_ADC_Start(&hadc1);
-		HAL_ADC_PollForConversion(&hadc1, 100);
-		adsVal = HAL_ADC_GetValue(&hadc1); 
+		//HAL_ADC_PollForConversion(&hadc1, 100);
+		HAL_Delay(1);
+		adcVal = HAL_ADC_GetValue(&hadc1); 
 		HAL_ADC_Stop(&hadc1);
 		HAL_Delay(1000);
     /* USER CODE END WHILE */
@@ -259,6 +260,13 @@ void DO_SwitchCallback(void *port, uint16_t pinNumber, bool hi_lo)
 bool DO_CheckStateCallback(void *port, uint16_t pinNumber)
 {
 	return (HAL_GPIO_ReadPin((GPIO_TypeDef *)port, pinNumber) == GPIO_PIN_SET) ? (true) : (false);
+}
+
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
+{
+	uint16_t adcVal = 0;
+	
+	adcVal = hadc->Instance->DR;
 }
 /* USER CODE END 4 */
 
