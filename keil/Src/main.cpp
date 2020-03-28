@@ -40,11 +40,12 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-volatile uint16_t adcVal = 0;
+volatile uint16_t adcDmaData[2];
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
 ADC_HandleTypeDef hadc1;
+DMA_HandleTypeDef hdma_adc1;
 
 /* USER CODE BEGIN PV */
 cDigitalOut DO;
@@ -57,6 +58,7 @@ cController controller;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_ADC1_Init(void);
+static void MX_DMA_Init(void);
 static void MX_NVIC_Init(void);
 /* USER CODE BEGIN PFP */
 void DO_SwitchCallback(void *port, uint16_t pinNumber, bool hi_lo);
@@ -96,10 +98,11 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+	MX_DMA_Init();
 	MX_ADC1_Init();
 
   /* Initialize interrupts */
-  MX_NVIC_Init();
+//  MX_NVIC_Init();
 	
   /* USER CODE BEGIN 2 */
 	
@@ -119,7 +122,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 
 	
-	HAL_ADC_Start_IT(&hadc1);
+	//HAL_ADC_Start_IT(&hadc1);
+	HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&adcDmaData, 2);
 	
   while (1)
   {
@@ -127,6 +131,8 @@ int main(void)
 //			DO.SetOff();
 //		else					
 //			DO.SetOn();
+		DO.Toggle();
+		HAL_Delay(100);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -222,8 +228,17 @@ static void MX_ADC1_Init(void)
   /** Configure Regular Channel 
   */
   sConfig.Channel = ADC_CHANNEL_0;
+  sConfig.Rank = ADC_REGULAR_RANK_1;
+  sConfig.SamplingTime = ADC_SAMPLETIME_28CYCLES_5;
+  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /** Configure Regular Channel 
+  */
+  sConfig.Channel = ADC_CHANNEL_1;
   sConfig.Rank = ADC_REGULAR_RANK_2;
-  sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+	sConfig.SamplingTime = ADC_SAMPLETIME_28CYCLES_5;
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
   {
     Error_Handler();
@@ -231,6 +246,21 @@ static void MX_ADC1_Init(void)
   /* USER CODE BEGIN ADC1_Init 2 */
 
   /* USER CODE END ADC1_Init 2 */
+
+}
+/** 
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void) 
+{
+
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA1_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA1_Channel1_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQn);
 
 }
 /**
@@ -276,12 +306,13 @@ bool DO_CheckStateCallback(void *port, uint16_t pinNumber)
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 {
-	uint16_t adcVal = 0;
-	//if(&hadc1 == hadc)
-		adcVal = hadc->Instance->DR;
-	DO.Toggle();
 
-//	HAL_ADC_Start_IT(&hadc1);
+	if(&hadc1 == hadc)
+	{
+		//HAL_ADC_Stop_DMA(&hadc1);
+		HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&adcDmaData, 2);
+	}
+//	DO.Toggle();
 }
 /* USER CODE END 4 */
 

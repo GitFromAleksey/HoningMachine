@@ -4,6 +4,7 @@
 *.dep
 *.htm
 *.lnp
+*.lst
 *.map
 *.uvguix.*
 /Debug/

@@ -1,7 +1,7 @@
 [PreviousGenFiles]
-HeaderPath=C:/Users/borzenkov/eclipse-workspace/HoningMachine/keil/Inc
+HeaderPath=C:/Users/HP-G7000/eclipse-workspace/HoningMachine/keil/Inc
 HeaderFiles=stm32f1xx_it.h;stm32f1xx_hal_conf.h;main.h;
-SourcePath=C:/Users/borzenkov/eclipse-workspace/HoningMachine/keil/Src
+SourcePath=C:/Users/HP-G7000/eclipse-workspace/HoningMachine/keil/Src
 SourceFiles=stm32f1xx_it.c;stm32f1xx_hal_msp.c;main.c;
 
 [PreviousLibFiles]
