@@ -44,6 +44,21 @@ enum ToolStates
 	toolStateNone
 };
 
+typedef struct
+{
+	cDigitalOut *MachinePowerSwitch;
+	cDigitalOut *VerticalFeedMotorSwitch;
+	cDigitalOut *RotatedMotorToolSwitch;
+	cDigitalOut *ToolLiftUpSwitch;
+	cDigitalOut *ToolLiftDownSwich;
+
+	cDigitalInput *UpperToolTip;
+	cDigitalInput *LowerToolTip;
+
+	cAnalogInput *ToolPositionSensor;
+	cAnalogInput *CurrentSensor;
+} t_MachineInitStruct;
+
 //}
 
 class cMachine : public iProcess
@@ -53,6 +68,7 @@ public:
 	cMachine();
 	~cMachine();
 
+	void Init(t_MachineInitStruct initStruct);
 	virtual void run();
 
 	void MachinePowerOn();
@@ -73,8 +89,8 @@ public:
 
 	void SetErrorCallback(void (*ControllerEventCallback)(MacineEvent event));
 
-	void SetPositionSensor(cAnalogInput *posSens);
-	void SetCurrentSensor(cAnalogInput *curSens);
+//	void SetPositionSensor(cAnalogInput *posSens);
+//	void SetCurrentSensor(cAnalogInput *curSens);
 
 private:
 	MachineStates m_MachineState;
@@ -84,14 +100,14 @@ private:
 	uint32_t m_LowerTipPosition;
 	uint32_t m_PositionScale;
 
-	cDigitalOut m_IO_MachinePowerSwitch;
-	cDigitalOut m_VerticalFeedMotorSwitch;
-	cDigitalOut m_RotatedMotorToolSwitch;
-	cDigitalOut m_ToolLiftUpSwitch;
-	cDigitalOut m_ToolLiftDownSwich;
+	cDigitalOut *m_MachinePowerSwitch;
+	cDigitalOut *m_VerticalFeedMotorSwitch;
+	cDigitalOut *m_RotatedMotorToolSwitch;
+	cDigitalOut *m_ToolLiftUpSwitch;
+	cDigitalOut *m_ToolLiftDownSwich;
 
-	cDigitalInput m_UpperToolTip;
-	cDigitalInput m_LowerToolTip;
+	cDigitalInput *m_UpperToolTip;
+	cDigitalInput *m_LowerToolTip;
 
 	cAnalogInput *m_ToolPositionSensor;
 	cAnalogInput *m_CurrentSensor;

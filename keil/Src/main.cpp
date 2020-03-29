@@ -27,6 +27,7 @@
 #include "DigitalInput.hpp"
 #include "machine.hpp"
 #include "Controller.hpp"
+#include "../Interfaces/iProcess.hpp"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -50,11 +51,25 @@ ADC_HandleTypeDef hadc1;
 DMA_HandleTypeDef hdma_adc1;
 
 /* USER CODE BEGIN PV */
-cAnalogInput PositionSensor;
+#define I_PROCESS_ARRAY_SIZE	12
+uint8_t iProcessArrCnt = 0;
+iProcess* ProcessesArr[I_PROCESS_ARRAY_SIZE];
+cDigitalOut DO;
+
+cDigitalOut MachinePowerSwitch;
+cDigitalOut VerticalFeedMotorSwitch;
+cDigitalOut RotatedMotorToolSwitch;
+cDigitalOut ToolLiftUpSwitch;
+cDigitalOut ToolLiftDownSwich;
+
+cDigitalInput DI;
+
+cDigitalInput UpperToolTip;
+cDigitalInput LowerToolTip;
+
+cAnalogInput ToolPositionSensor;
 cAnalogInput CurrentSensor;
 
-cDigitalOut DO;
-cDigitalInput DI;
 cMachine machine;
 cController controller;
 /* USER CODE END PV */
@@ -72,7 +87,88 @@ bool DO_CheckStateCallback(void *port, uint16_t pinNumber);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+bool AddToProcessArray(iProcess* proc)
+{
+	if(iProcessArrCnt < I_PROCESS_ARRAY_SIZE)
+	{
+		if(proc != NULL)
+		{
+			ProcessesArr[iProcessArrCnt++] = proc;
+			return true;
+		}
+		else
+		{ 
+			return false; 
+		}
+	}
+	else
+	{ 
+		return false;
+	}
+}
+void RunProcesses()
+{
+	if(iProcessArrCnt >= I_PROCESS_ARRAY_SIZE)
+		iProcessArrCnt = 0;
+	if(ProcessesArr[iProcessArrCnt] != NULL)
+		ProcessesArr[iProcessArrCnt++]->run();
+}
+void SetupDigitalOut()
+{
+	DO.Init(GPIOB, GPIO_PIN_15, false);
+	DO.SetDoSwitchCallback(DO_SwitchCallback);
+	DO.SetCheckStateCallback(DO_CheckStateCallback);
 
+	AddToProcessArray(&DO);
+	AddToProcessArray(&MachinePowerSwitch);
+	AddToProcessArray(&VerticalFeedMotorSwitch);
+	AddToProcessArray(&RotatedMotorToolSwitch);
+	AddToProcessArray(&ToolLiftUpSwitch);
+	AddToProcessArray(&ToolLiftDownSwich);
+}
+void SetupDigitalInput()
+{
+	DI.Init(GPIOA, GPIO_PIN_8, false);
+	DI.SetCheckStateCallback(DO_CheckStateCallback);
+
+	AddToProcessArray(&UpperToolTip);
+	AddToProcessArray(&LowerToolTip);
+//UpperToolTip;
+//LowerToolTip;
+}
+void SetupAnalogInput()
+{
+	AddToProcessArray(&ToolPositionSensor);
+	AddToProcessArray(&CurrentSensor);
+//ToolPositionSensor;
+//CurrentSensor;
+}
+void SetupMachine()
+{
+	t_MachineInitStruct setupMachine;
+
+	setupMachine.MachinePowerSwitch = &MachinePowerSwitch;
+	setupMachine.VerticalFeedMotorSwitch = &VerticalFeedMotorSwitch;
+	setupMachine.RotatedMotorToolSwitch = &RotatedMotorToolSwitch;
+	setupMachine.ToolLiftUpSwitch = &ToolLiftUpSwitch;
+	setupMachine.ToolLiftDownSwich = &ToolLiftDownSwich;
+
+	setupMachine.UpperToolTip = &UpperToolTip;
+	setupMachine.LowerToolTip = &LowerToolTip;
+
+	setupMachine.ToolPositionSensor = &ToolPositionSensor;
+	setupMachine.CurrentSensor = &CurrentSensor;
+	
+	machine.Init(setupMachine);
+	
+	AddToProcessArray(&machine);
+}
+void SetupController()
+{
+	controller.AddMachine(&machine);
+	
+	AddToProcessArray(&controller);
+}
 /* USER CODE END 0 */
 
 /**
@@ -110,19 +206,11 @@ int main(void)
 //  MX_NVIC_Init();
 	
   /* USER CODE BEGIN 2 */
-	
-	DO.Init(GPIOB, GPIO_PIN_15, false);
-	DO.SetDoSwitchCallback(DO_SwitchCallback);
-	DO.SetCheckStateCallback(DO_CheckStateCallback);
-	
-	
-	DI.Init(GPIOA, GPIO_PIN_8, false);
-	DI.SetCheckStateCallback(DO_CheckStateCallback);
-	
-	machine.SetCurrentSensor(&CurrentSensor);
-	machine.SetPositionSensor(&PositionSensor);
-	
-	controller.AddMachine(&machine);
+	SetupDigitalOut();
+	SetupDigitalInput();
+	SetupAnalogInput();
+	SetupMachine();
+	SetupController();
 	
   /* USER CODE END 2 */
 
@@ -139,6 +227,8 @@ int main(void)
 //			DO.SetOff();
 //		else					
 //			DO.SetOn();
+		RunProcesses();
+		
 		DO.Toggle();
 		HAL_Delay(100);
     /* USER CODE END WHILE */
@@ -319,7 +409,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 	{
 		//HAL_ADC_Stop_DMA(&hadc1);
 
-		PositionSensor.SetDataFromADC(POSITION_SENSOR);
+		ToolPositionSensor.SetDataFromADC(POSITION_SENSOR);
 		CurrentSensor.SetDataFromADC(CURRENT_SENSOR);
 		
 		HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&adcDmaData, 2);

@@ -21,50 +21,65 @@ cMachine::cMachine():
 // ----------------------------------------------------------------------------
 cMachine::~cMachine(){}
 // ----------------------------------------------------------------------------
+void cMachine::Init(t_MachineInitStruct initStruct)
+{
+	m_MachinePowerSwitch = initStruct.MachinePowerSwitch;
+	m_VerticalFeedMotorSwitch = initStruct.VerticalFeedMotorSwitch;
+	m_RotatedMotorToolSwitch = initStruct.RotatedMotorToolSwitch;
+	m_ToolLiftUpSwitch = initStruct.ToolLiftUpSwitch;
+	m_ToolLiftDownSwich = initStruct.ToolLiftDownSwich;
+
+	m_UpperToolTip = initStruct.UpperToolTip;
+	m_LowerToolTip = initStruct.LowerToolTip;
+
+	m_ToolPositionSensor = initStruct.ToolPositionSensor;
+	m_CurrentSensor = initStruct.CurrentSensor;
+}
+// ----------------------------------------------------------------------------
 void cMachine::run()
 {
-	if( m_UpperToolTip.IsOn() )
+	if( m_UpperToolTip->IsOn() )
 	{ ToolLiftStop(); }
-	if( m_LowerToolTip.IsOn() )
+	if( m_LowerToolTip->IsOn() )
 	{}
 }
 // ----------------------------------------------------------------------------
 void cMachine::MachinePowerOn()
 {
-	m_IO_MachinePowerSwitch.SetOn();
+	m_MachinePowerSwitch->SetOn();
 }
 // ----------------------------------------------------------------------------
 void cMachine::MachinePowerOff()
 {
-	m_IO_MachinePowerSwitch.SetOff();
+	m_MachinePowerSwitch->SetOff();
 }
 // ----------------------------------------------------------------------------
 void cMachine::ToolLiftUp()
 {
-	m_ToolLiftDownSwich.SetOff();
-	m_ToolLiftUpSwitch.SetOn();
+	m_ToolLiftDownSwich->SetOff();
+	m_ToolLiftUpSwitch->SetOn();
 }
 // ----------------------------------------------------------------------------
 void cMachine::ToolLiftDown()
 {
-	m_ToolLiftUpSwitch.SetOff();
-	m_ToolLiftDownSwich.SetOn();
+	m_ToolLiftUpSwitch->SetOff();
+	m_ToolLiftDownSwich->SetOn();
 }
 // ----------------------------------------------------------------------------
 void cMachine::ToolLiftStop()
 {
-	m_ToolLiftDownSwich.SetOff();
-	m_ToolLiftUpSwitch.SetOff();
+	m_ToolLiftDownSwich->SetOff();
+	m_ToolLiftUpSwitch->SetOff();
 }
 // ----------------------------------------------------------------------------
 void cMachine::ToolRotateRun()
 {
-	m_RotatedMotorToolSwitch.SetOn();
+	m_RotatedMotorToolSwitch->SetOn();
 }
 // ----------------------------------------------------------------------------
 void cMachine::ToolRotateStop()
 {
-	m_RotatedMotorToolSwitch.SetOff();
+	m_RotatedMotorToolSwitch->SetOff();
 }
 // ----------------------------------------------------------------------------
 void cMachine::ToolStop()
@@ -75,38 +90,28 @@ void cMachine::ToolStop()
 // ----------------------------------------------------------------------------
 bool cMachine::ToolIsRotate()
 {
-	return m_RotatedMotorToolSwitch.IsOn();
+	return m_RotatedMotorToolSwitch->IsOn();
 }
 // ----------------------------------------------------------------------------
 bool cMachine::ToolIsLiftUp()
 {
-	return m_ToolLiftUpSwitch.IsOn();
+	return m_ToolLiftUpSwitch->IsOn();
 }
 // ----------------------------------------------------------------------------
 bool cMachine::ToolIsLiftDown()
 {
-	return m_ToolLiftDownSwich.IsOn();
+	return m_ToolLiftDownSwich->IsOn();
 }
 // ----------------------------------------------------------------------------
 bool cMachine::ToolIsStoped()
 {
-	return (m_ToolLiftDownSwich.IsOn() &&
-			m_ToolLiftUpSwitch.IsOn() &&
-			m_RotatedMotorToolSwitch.IsOn());
+	return (m_ToolLiftDownSwich->IsOn() &&
+			m_ToolLiftUpSwitch->IsOn() &&
+			m_RotatedMotorToolSwitch->IsOn());
 }
 // ----------------------------------------------------------------------------
 uint32_t cMachine::GetCurrentPosotion()const
 {
 	return m_CurrentPosition;
-}
-// ----------------------------------------------------------------------------
-void cMachine::SetPositionSensor(cAnalogInput *posSens)
-{
-	m_ToolPositionSensor = posSens;
-}
-// ----------------------------------------------------------------------------
-void cMachine::SetCurrentSensor(cAnalogInput *curSens)
-{
-	m_CurrentSensor = curSens;
 }
 // ----------------------------------------------------------------------------

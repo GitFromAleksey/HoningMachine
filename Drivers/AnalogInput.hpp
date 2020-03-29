@@ -3,13 +3,16 @@
 
 #include <stdint.h>
 #include <stddef.h>
+#include "../Interfaces/iProcess.hpp"
 //#include <iostream>
 
-class cAnalogInput
+class cAnalogInput : public iProcess
 {
 public:
 	cAnalogInput();
 	~cAnalogInput();
+
+	virtual void run();
 
 	void Init();
 	void SetDataFromADC(uint32_t data);

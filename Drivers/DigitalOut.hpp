@@ -3,13 +3,16 @@
 
 #include <stdint.h>
 #include <stddef.h>
+#include "../Interfaces/iProcess.hpp"
 //#include <iostream>
 
-class cDigitalOut
+class cDigitalOut : public iProcess
 {
 public:
 	cDigitalOut();
 	~cDigitalOut();
+
+	virtual void run();
 
 	void Init(void *port, uint16_t pinNumber, bool inversion);
 	void SetDoSwitchCallback(void (*SwitchCallback)(void *port, uint16_t pinNumber, bool hi_lo));

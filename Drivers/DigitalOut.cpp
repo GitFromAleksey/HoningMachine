@@ -15,6 +15,11 @@ cDigitalOut::~cDigitalOut()
 
 }
 // ----------------------------------------------------------------------------
+void cDigitalOut::run()
+{
+	// TODO доделать реализацию
+}
+// ----------------------------------------------------------------------------
 void cDigitalOut::Init(void *port, uint16_t pinNumber, bool inversion)
 {
 	m_Port = port;

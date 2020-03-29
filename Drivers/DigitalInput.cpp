@@ -14,6 +14,11 @@ cDigitalInput::~cDigitalInput()
 
 }
 // ----------------------------------------------------------------------------
+void cDigitalInput::run()
+{
+	// TODO доделать реализацию
+}
+// ----------------------------------------------------------------------------
 void cDigitalInput::Init(void *port, uint16_t pinNumber, bool inversion)
 {
 	if(port == NULL) return;

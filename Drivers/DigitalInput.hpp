@@ -3,14 +3,17 @@
 
 #include <stdint.h>
 #include <stddef.h>
+#include "../Interfaces/iProcess.hpp"
 //#include <iostream>
 
 
-class cDigitalInput
+class cDigitalInput : public iProcess
 {
 public:
 	cDigitalInput();
 	~cDigitalInput();
+
+	virtual void run();
 
 	void Init(void *port, uint16_t pinNumber, bool inversion);
 	void SetCheckStateCallback(bool (*CheckStateCallback)(void *port, uint16_t pinNumber));

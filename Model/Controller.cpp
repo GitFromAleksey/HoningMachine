@@ -27,7 +27,6 @@ void cController::run()
 	if(m_Machine == NULL)
 		return;
 
-	m_Machine->run();
 }
 // ----------------------------------------------------------------------------
 void cController::EventsHandler(MacineEvent event)
