@@ -100,3 +100,13 @@ uint32_t cMachine::GetCurrentPosotion()const
 	return m_CurrentPosition;
 }
 // ----------------------------------------------------------------------------
+void cMachine::SetPositionSensor(cAnalogInput *posSens)
+{
+	m_ToolPositionSensor = posSens;
+}
+// ----------------------------------------------------------------------------
+void cMachine::SetCurrentSensor(cAnalogInput *curSens)
+{
+	m_CurrentSensor = curSens;
+}
+// ----------------------------------------------------------------------------

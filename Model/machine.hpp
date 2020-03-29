@@ -73,6 +73,9 @@ public:
 
 	void SetErrorCallback(void (*ControllerEventCallback)(MacineEvent event));
 
+	void SetPositionSensor(cAnalogInput *posSens);
+	void SetCurrentSensor(cAnalogInput *curSens);
+
 private:
 	MachineStates m_MachineState;
 	ToolStates m_ToolState;
@@ -90,8 +93,8 @@ private:
 	cDigitalInput m_UpperToolTip;
 	cDigitalInput m_LowerToolTip;
 
-	cAnalogInput m_ToolPositionSensor;
-	cAnalogInput m_CurrentSensor;
+	cAnalogInput *m_ToolPositionSensor;
+	cAnalogInput *m_CurrentSensor;
 
 	void (*ControllerEventCallback)(MacineEvent event);
 };

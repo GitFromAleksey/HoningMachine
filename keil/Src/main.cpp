@@ -41,6 +41,8 @@
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
 volatile uint16_t adcDmaData[2];
+#define POSITION_SENSOR		adcDmaData[0]
+#define CURRENT_SENSOR		adcDmaData[1]
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -48,6 +50,9 @@ ADC_HandleTypeDef hadc1;
 DMA_HandleTypeDef hdma_adc1;
 
 /* USER CODE BEGIN PV */
+cAnalogInput PositionSensor;
+cAnalogInput CurrentSensor;
+
 cDigitalOut DO;
 cDigitalInput DI;
 cMachine machine;
@@ -113,6 +118,9 @@ int main(void)
 	
 	DI.Init(GPIOA, GPIO_PIN_8, false);
 	DI.SetCheckStateCallback(DO_CheckStateCallback);
+	
+	machine.SetCurrentSensor(&CurrentSensor);
+	machine.SetPositionSensor(&PositionSensor);
 	
 	controller.AddMachine(&machine);
 	
@@ -310,6 +318,10 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 	if(&hadc1 == hadc)
 	{
 		//HAL_ADC_Stop_DMA(&hadc1);
+
+		PositionSensor.SetDataFromADC(POSITION_SENSOR);
+		CurrentSensor.SetDataFromADC(CURRENT_SENSOR);
+		
 		HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&adcDmaData, 2);
 	}
 //	DO.Toggle();
