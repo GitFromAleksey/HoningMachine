@@ -366,7 +366,7 @@
               <MiscControls>--exceptions</MiscControls>
               <Define>USE_HAL_DRIVER,STM32F103xB</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc;                ../Drivers/STM32F1xx_HAL_Driver/Inc;                ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;                ../Drivers/CMSIS/Device/ST/STM32F1xx/Include;                ../Drivers/CMSIS/Include;                ..\..\Interfaces;                ..\..\Drivers;                ..\..\Model</IncludePath>
+              <IncludePath>../Inc;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include;..\..\Interfaces;..\..\Drivers;..\..\Model;..\..\Uart;..\..\Common</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -448,6 +448,26 @@
               <FileName>DigitalOut.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\..\Drivers\DigitalOut.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Uart</GroupName>
+          <Files>
+            <File>
+              <FileName>ByteReceiver.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Uart\ByteReceiver.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Common</GroupName>
+          <Files>
+            <File>
+              <FileName>queue.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Common\queue.cpp</FilePath>
             </File>
           </Files>
         </Group>

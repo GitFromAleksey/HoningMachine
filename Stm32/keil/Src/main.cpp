@@ -27,7 +27,9 @@
 #include "DigitalInput.hpp"
 #include "machine.hpp"
 #include "Controller.hpp"
+#include "ByteReceiver.hpp"
 #include "../Interfaces/iProcess.hpp"
+#include "queue.hpp"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -53,7 +55,7 @@ DMA_HandleTypeDef hdma_adc1;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-#define I_PROCESS_ARRAY_SIZE	12
+#define I_PROCESS_ARRAY_SIZE	13
 uint8_t iProcessArrCnt = 0;
 iProcess* ProcessesArr[I_PROCESS_ARRAY_SIZE];
 cDigitalOut DO;
@@ -74,6 +76,8 @@ cAnalogInput CurrentSensor;
 
 cMachine machine;
 cController controller;
+
+cByteReceiver ByteReceiver(10);
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -86,6 +90,7 @@ static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
 void DO_SwitchCallback(void *port, uint16_t pinNumber, bool hi_lo);
 bool DO_CheckStateCallback(void *port, uint16_t pinNumber);
+bool GetByteCallback(uint8_t *data);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -172,6 +177,12 @@ void SetupController()
 	
 	AddToProcessArray(&controller);
 }
+void SetupUart()
+{
+	ByteReceiver.SetByteCalback(GetByteCallback);
+	
+	AddToProcessArray(&ByteReceiver);
+}
 /* USER CODE END 0 */
 
 /**
@@ -214,7 +225,7 @@ int main(void)
 	SetupAnalogInput();
 	SetupMachine();
 	SetupController();
-	
+	SetupUart();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -223,25 +234,36 @@ int main(void)
 	
 	//HAL_ADC_Start_IT(&hadc1);
 	HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&adcDmaData, 2);
-	HAL_StatusTypeDef st;
-	uint8_t uartData[10];
+	
+	uint32_t ticks = HAL_GetTick();
+	uint8_t uartData[10] = {1,2,3,4,5,6,7,8,9,0};
 
+	uint8_t item = 0;
+	cQueue q(5);
+	
   while (1)
   {
+		q.AddItem(&(++item));
+		q.AddItem(&(++item));
+		q.AddItem(&(++item));
+		q.AddItem(&(++item));
+		q.AddItem(&(++item));
+		q.AddItem(&(++item));
+
+		item = *q.GetItem();
+		item = *q.GetItem();
+		item = *q.GetItem();
+		item = *q.GetItem();
+		item = *q.GetItem();
+		item = *q.GetItem();
 		
-		st = HAL_UART_Receive(&huart1, uartData, sizeof(uartData), 0x100);
-		//if(st != HAL_TIMEOUT)
-			HAL_UART_Transmit(&huart1, uartData, sizeof(uartData), 100);
-// (UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout)
-		
-//		if(DI.IsOn())	
-//			DO.SetOff();
-//		else					
-//			DO.SetOn();
 		RunProcesses();
-		
-		DO.Toggle();
-		HAL_Delay(100);
+
+		if((HAL_GetTick() - ticks) > 1000)
+		{
+			ticks = HAL_GetTick();
+			DO.Toggle();
+		}
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -445,7 +467,10 @@ bool DO_CheckStateCallback(void *port, uint16_t pinNumber)
 {
 	return (HAL_GPIO_ReadPin((GPIO_TypeDef *)port, pinNumber) == GPIO_PIN_SET) ? (true) : (false);
 }
-
+bool GetByteCallback(uint8_t *data)
+{
+	return (HAL_UART_Receive(&huart1, data, 1, 0x1) == HAL_OK);
+}
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 {
 
