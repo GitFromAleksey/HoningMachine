@@ -28,8 +28,9 @@
 #include "machine.hpp"
 #include "Controller.hpp"
 #include "ByteReceiver.hpp"
+#include "ProtocolDetector.hpp"
 #include "../Interfaces/iProcess.hpp"
-#include "queue.hpp"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -55,7 +56,7 @@ DMA_HandleTypeDef hdma_adc1;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-#define I_PROCESS_ARRAY_SIZE	13
+#define I_PROCESS_ARRAY_SIZE	14
 uint8_t iProcessArrCnt = 0;
 iProcess* ProcessesArr[I_PROCESS_ARRAY_SIZE];
 cDigitalOut DO;
@@ -77,7 +78,8 @@ cAnalogInput CurrentSensor;
 cMachine machine;
 cController controller;
 
-cByteReceiver ByteReceiver(10);
+cByteReceiver ByteReceiver(50);
+cProtocolDetector ProtocolDetector(&ByteReceiver);
 uint8_t tmp; //TODO test
 /* USER CODE END PV */
 
@@ -183,6 +185,7 @@ void SetupUart()
 	ByteReceiver.SetByteCalback(GetByteCallback);
 	
 	AddToProcessArray(&ByteReceiver);
+	AddToProcessArray(&ProtocolDetector);
 }
 /* USER CODE END 0 */
 
@@ -232,34 +235,16 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-	
-	//HAL_ADC_Start_IT(&hadc1);
 	HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&adcDmaData, 2);
 	
 	uint32_t ticks = HAL_GetTick();
-	uint8_t uartData[10] = {1,2,3,4,5,6,7,8,9,0};
-
-	cQueue q(5);
 	
   while (1)
   {
-		q.AddItem(1);
-		q.AddItem(2);
-//		q.AddItem(3);
-//		q.AddItem(4);
-//		q.AddItem(5);
-//		q.AddItem(6);
 
-		tmp = q.GetItem();
-		tmp = q.GetItem();
-		tmp = q.GetItem();
-		tmp = q.GetItem();
-		tmp = q.GetItem();
-		tmp = q.GetItem();
-		
 		RunProcesses();
 
-		if((HAL_GetTick() - ticks) > 1000)
+		if((HAL_GetTick() - ticks) > 250)
 		{
 			ticks = HAL_GetTick();
 			DO.Toggle();

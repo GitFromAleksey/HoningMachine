@@ -459,6 +459,11 @@
               <FileType>8</FileType>
               <FilePath>..\..\Uart\ByteReceiver.cpp</FilePath>
             </File>
+            <File>
+              <FileName>ProtocolDetector.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Uart\ProtocolDetector.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

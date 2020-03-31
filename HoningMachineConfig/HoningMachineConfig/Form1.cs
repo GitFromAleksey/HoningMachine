@@ -13,11 +13,15 @@ namespace HoningMachineConfig
 {
     public partial class MainForm1 : Form
     {
+        private cProtocol m_Protocol;
+        
         public MainForm1()
         {
             InitializeComponent();
             // разворачиваем форму на весь экран
             this.WindowState = FormWindowState.Maximized;
+
+            m_Protocol = new cProtocol(1);
         }
 
         // вывод списка com портов
@@ -105,11 +109,23 @@ namespace HoningMachineConfig
             serialPort1.Write(textBoxToSend.Text);
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (!serialPort1.IsOpen)
+                return;
+
+            //Byte[] request =  m_Protocol.GetRequestToRead(8);
+            Byte[] request = m_Protocol.GetRequestToWhite(9);
+
+            serialPort1.Write(request, 0, request.Length);
+        }
 
         void Logging(string text)
         {
             textBoxLog.Text += text + "\r\n";
         }
+
+
 
     }
 }

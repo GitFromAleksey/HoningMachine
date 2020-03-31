@@ -1,11 +1,11 @@
 #include "ByteReceiver.hpp"
 
-cByteReceiver::cByteReceiver() :
-m_Queue(NULL),
-GetByteCallback(NULL)
-{
+//cByteReceiver::cByteReceiver() :
+//m_Queue(NULL),
+//GetByteCallback(NULL)
+//{
 
-}
+//}
 cByteReceiver::cByteReceiver(uint16_t bufSize) :
 m_Queue(NULL),
 GetByteCallback(NULL)
