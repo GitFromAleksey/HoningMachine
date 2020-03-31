@@ -78,6 +78,7 @@ cMachine machine;
 cController controller;
 
 cByteReceiver ByteReceiver(10);
+uint8_t tmp; //TODO test
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -238,24 +239,23 @@ int main(void)
 	uint32_t ticks = HAL_GetTick();
 	uint8_t uartData[10] = {1,2,3,4,5,6,7,8,9,0};
 
-	uint8_t item = 0;
 	cQueue q(5);
 	
   while (1)
   {
-		q.AddItem(&(++item));
-		q.AddItem(&(++item));
-		q.AddItem(&(++item));
-		q.AddItem(&(++item));
-		q.AddItem(&(++item));
-		q.AddItem(&(++item));
+		q.AddItem(1);
+		q.AddItem(2);
+//		q.AddItem(3);
+//		q.AddItem(4);
+//		q.AddItem(5);
+//		q.AddItem(6);
 
-		item = *q.GetItem();
-		item = *q.GetItem();
-		item = *q.GetItem();
-		item = *q.GetItem();
-		item = *q.GetItem();
-		item = *q.GetItem();
+		tmp = q.GetItem();
+		tmp = q.GetItem();
+		tmp = q.GetItem();
+		tmp = q.GetItem();
+		tmp = q.GetItem();
+		tmp = q.GetItem();
 		
 		RunProcesses();
 

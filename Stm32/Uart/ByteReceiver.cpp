@@ -1,24 +1,16 @@
 #include "ByteReceiver.hpp"
 
 cByteReceiver::cByteReceiver() :
-m_ReceiveData(0),
-m_ArraySize(1),
-m_ReceiveArray(NULL),
-m_ArrayHead(0),
-m_ArrayTail(0),
+m_Queue(NULL),
 GetByteCallback(NULL)
 {
-	CreateReceiveArray(m_ArraySize);
+
 }
 cByteReceiver::cByteReceiver(uint16_t bufSize) :
-m_ReceiveData(0),
-m_ArraySize(bufSize),
-m_ReceiveArray(NULL),
-m_ArrayHead(0),
-m_ArrayTail(0),
+m_Queue(NULL),
 GetByteCallback(NULL)
 {
-	CreateReceiveArray(m_ArraySize);
+	m_Queue = new cQueue(bufSize);
 }
 // ----------------------------------------------------------------------------
 cByteReceiver::~cByteReceiver()
@@ -28,9 +20,10 @@ cByteReceiver::~cByteReceiver()
 // ----------------------------------------------------------------------------
 void cByteReceiver::run()
 {
+	uint8_t receiveData = 0;
 	if(this->GetByteCallback != NULL)
-		if(this->GetByteCallback(&m_ReceiveData))
-			QueueAddData(m_ReceiveData);
+		if(this->GetByteCallback(&receiveData))
+			QueueAddData(receiveData);
 }
 // ----------------------------------------------------------------------------
 void cByteReceiver::SetByteCalback(bool (*GetByteCallback)(uint8_t *data))
@@ -43,22 +36,15 @@ void cByteReceiver::SetByteCalback(bool (*GetByteCallback)(uint8_t *data))
 // ----------------------------------------------------------------------------
 void cByteReceiver::CreateReceiveArray(uint16_t size)
 {
-	if(size == 0) 
-		return;
-	m_ArraySize = size;
-	m_ReceiveArray = new uint8_t[m_ArraySize];
+
 }
 // ----------------------------------------------------------------------------
 void cByteReceiver::QueueAddData(uint8_t data)
 {
-	if(m_ArrayHead == m_ArrayTail)
-		return;
-	m_ReceiveArray_[m_ArrayHead++] = data;//m_ReceiveArray[m_ArrayHead++] = data;
-	if(m_ArrayHead == m_ArraySize)
-		m_ArrayHead = 0;
+	m_Queue->AddItem(data);
 }
 // ----------------------------------------------------------------------------
 uint8_t cByteReceiver::QueueGetData()
 {
-	
+	return m_Queue->GetItem();
 }

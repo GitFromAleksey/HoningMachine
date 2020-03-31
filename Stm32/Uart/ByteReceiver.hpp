@@ -5,6 +5,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include "../Interfaces/iProcess.hpp"
+#include "queue.hpp"
 
 
 class cByteReceiver : public iProcess
@@ -18,12 +19,7 @@ public:
 	void SetByteCalback(bool (*GetByteCallback)(uint8_t *data));
 
 private:
-	uint8_t m_ReceiveData;
-	uint16_t m_ArraySize;
-	uint8_t *m_ReceiveArray;
-uint8_t m_ReceiveArray_[10];
-	uint16_t m_ArrayHead;
-	uint16_t m_ArrayTail;
+	cQueue *m_Queue;
 	bool (*GetByteCallback)(uint8_t *data);
 
 	void CreateReceiveArray(uint16_t size);
