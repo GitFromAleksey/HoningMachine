@@ -19,7 +19,7 @@ namespace HoningMachineConfig
         {
             InitializeComponent();
             // разворачиваем форму на весь экран
-            this.WindowState = FormWindowState.Maximized;
+            //this.WindowState = FormWindowState.Maximized;
 
             m_Protocol = new cProtocol(1);
         }
@@ -120,10 +120,30 @@ namespace HoningMachineConfig
             serialPort1.Write(request, 0, request.Length);
         }
 
+        private void buttonsMachineDriving_Click(object sender, EventArgs e)
+            //private void buttonMachinePwrOn_Click(object sender, EventArgs e)
+        {
+            Byte[] request;
+            
+            if(sender == buttonMachinePwrOn)
+            {
+                request = m_Protocol.GetCommand(ProtocolCommands.PROTOCOL_CMD_MACHINE_PWR_ON);
+                serialPort1.Write(request, 0, request.Length);
+            }
+            if (sender == buttonMachinePwrOff)
+            {
+                request = m_Protocol.GetCommand(ProtocolCommands.PROTOCOL_CMD_MACHINE_PWR_OFF);
+                serialPort1.Write(request, 0, request.Length);
+            }
+
+        }
+
         void Logging(string text)
         {
             textBoxLog.Text += text + "\r\n";
         }
+
+
 
 
 

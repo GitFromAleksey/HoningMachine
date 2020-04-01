@@ -42,6 +42,8 @@
             this.textBoxLog = new System.Windows.Forms.TextBox();
             this.textBoxToSend = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.buttonMachinePwrOn = new System.Windows.Forms.Button();
+            this.buttonMachinePwrOff = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,7 +55,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(843, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(705, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -149,11 +151,33 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // buttonMachinePwrOn
+            // 
+            this.buttonMachinePwrOn.Location = new System.Drawing.Point(557, 27);
+            this.buttonMachinePwrOn.Name = "buttonMachinePwrOn";
+            this.buttonMachinePwrOn.Size = new System.Drawing.Size(128, 23);
+            this.buttonMachinePwrOn.TabIndex = 4;
+            this.buttonMachinePwrOn.Text = "MachinePwrOn";
+            this.buttonMachinePwrOn.UseVisualStyleBackColor = true;
+            this.buttonMachinePwrOn.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
+            // 
+            // buttonMachinePwrOff
+            // 
+            this.buttonMachinePwrOff.Location = new System.Drawing.Point(557, 56);
+            this.buttonMachinePwrOff.Name = "buttonMachinePwrOff";
+            this.buttonMachinePwrOff.Size = new System.Drawing.Size(128, 23);
+            this.buttonMachinePwrOff.TabIndex = 5;
+            this.buttonMachinePwrOff.Text = "MachinePwrOff";
+            this.buttonMachinePwrOff.UseVisualStyleBackColor = true;
+            this.buttonMachinePwrOff.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
+            // 
             // MainForm1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(843, 545);
+            this.ClientSize = new System.Drawing.Size(705, 545);
+            this.Controls.Add(this.buttonMachinePwrOff);
+            this.Controls.Add(this.buttonMachinePwrOn);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBoxToSend);
             this.Controls.Add(this.textBoxLog);
@@ -183,6 +207,8 @@
         private System.Windows.Forms.ToolStripMenuItem closePortToolStripMenuItem;
         private System.Windows.Forms.TextBox textBoxToSend;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonMachinePwrOn;
+        private System.Windows.Forms.Button buttonMachinePwrOff;
     }
 }
 
