@@ -464,6 +464,16 @@
               <FileType>8</FileType>
               <FilePath>..\..\Uart\ProtocolDetector.cpp</FilePath>
             </File>
+            <File>
+              <FileName>ByteSender.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Uart\ByteSender.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ProtocolFormer.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Uart\ProtocolFormer.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

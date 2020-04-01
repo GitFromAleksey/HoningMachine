@@ -29,6 +29,8 @@
 #include "Controller.hpp"
 #include "ByteReceiver.hpp"
 #include "ProtocolDetector.hpp"
+#include "ByteSender.hpp"
+#include "ProtocolFormer.hpp"
 #include "../Interfaces/iProcess.hpp"
 
 /* USER CODE END Includes */
@@ -56,7 +58,7 @@ DMA_HandleTypeDef hdma_adc1;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-#define I_PROCESS_ARRAY_SIZE	14
+#define I_PROCESS_ARRAY_SIZE	16
 uint8_t iProcessArrCnt = 0;
 iProcess* ProcessesArr[I_PROCESS_ARRAY_SIZE];
 cDigitalOut DO;
@@ -80,6 +82,8 @@ cController controller;
 
 cByteReceiver ByteReceiver(50);
 cProtocolDetector ProtocolDetector(&ByteReceiver, &controller);
+cByteSender ByteSender(50);
+cProtocolFormer ProtocolFormer(&ByteSender);
 uint8_t tmp; //TODO test
 /* USER CODE END PV */
 
@@ -94,6 +98,7 @@ static void MX_USART1_UART_Init(void);
 void DO_SwitchCallback(void *port, uint16_t pinNumber, bool hi_lo);
 bool DO_CheckStateCallback(void *port, uint16_t pinNumber);
 bool GetByteCallback(uint8_t *data);
+bool SetByteCallback(uint8_t *data);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -177,15 +182,21 @@ void SetupMachine()
 void SetupController()
 {
 	controller.AddMachine(&machine);
+	controller.AddView(&ProtocolFormer);
+	controller.SetGetTicksCallback(HAL_GetTick);
 	
 	AddToProcessArray(&controller);
 }
 void SetupUart()
 {
 	ByteReceiver.SetByteCalback(GetByteCallback);
+	ByteSender.SetSendByteCallback(SetByteCallback);
 	
 	AddToProcessArray(&ByteReceiver);
 	AddToProcessArray(&ProtocolDetector);
+	
+	AddToProcessArray(&ByteSender);
+	AddToProcessArray(&ProtocolFormer);
 }
 /* USER CODE END 0 */
 
@@ -243,8 +254,8 @@ int main(void)
   {
 
 		RunProcesses();
-
-		if((HAL_GetTick() - ticks) > 250)
+		
+		if((HAL_GetTick() - ticks) > 500)
 		{
 			ticks = HAL_GetTick();
 			DO.Toggle();
@@ -455,6 +466,15 @@ bool DO_CheckStateCallback(void *port, uint16_t pinNumber)
 bool GetByteCallback(uint8_t *data)
 {
 	return (HAL_UART_Receive(&huart1, data, 1, 0x1) == HAL_OK);
+}
+bool SetByteCallback(uint8_t *data)
+{
+	// это проверка передатчика на занятость
+	// if(huart1.Instance->SR & USART_SR_TC)
+	// пока решил ее не использовать. Скорости вроде хватает
+
+	// шлем по одному байту
+	return (HAL_UART_Transmit(&huart1, data, 1, 0x1) == HAL_OK);	
 }
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 {

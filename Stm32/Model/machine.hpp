@@ -85,7 +85,7 @@ public:
 	bool ToolIsLiftDown();
 	bool ToolIsStoped();
 
-	uint32_t GetCurrentPosotion()const;
+	uint32_t GetCurrentPosition()const;
 
 	void SetErrorCallback(void (*ControllerEventCallback)(MacineEvent event));
 

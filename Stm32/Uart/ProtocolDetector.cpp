@@ -16,14 +16,6 @@
 #define PROTOCOL_CMD_TOOL_ROTATE_STOP	12
 #define PROTOCOL_CMD_TOOL_STOP				13
 
-//	virtual void MachinePowerOn();
-//	virtual void MachinePowerOff();
-//	virtual void ToolLiftUp();
-//	virtual void ToolLiftDown();
-//	virtual void ToolLiftStop();
-//	virtual void ToolRotateRun();
-//	virtual void ToolRotateStop();
-//	virtual void ToolStop();
 
 cProtocolDetector::cProtocolDetector(cByteReceiver *byteReceiver, 
 																		iController *machineController) :
@@ -121,4 +113,3 @@ void cProtocolDetector::PacketParse(uint8_t *pData)
 	}
 }
 // ----------------------------------------------------------------------------
-		

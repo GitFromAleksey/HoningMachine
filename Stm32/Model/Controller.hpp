@@ -5,6 +5,7 @@
 #include <stddef.h>
 #include "../Interfaces/iController.hpp"
 #include "../Interfaces/iProcess.hpp"
+#include "../Interfaces/iView.hpp"
 #include "../Model/machine.hpp"
 
 
@@ -18,6 +19,8 @@ public:
 	virtual void run();
 
 	void AddMachine(cMachine *machine);
+	void AddView(iView *view);
+	void SetGetTicksCallback(uint32_t (*GetTicksCallback)());
 
 	void EventsHandler(MacineEvent event);
 
@@ -32,7 +35,12 @@ public:
 	virtual void ToolStop();
 
 private:
+	uint32_t m_Ticks;
+	uint32_t m_TicksSendRepeat;
 	cMachine *m_Machine;
+	iView *m_View;
+	
+	uint32_t (*GetTicksCallback)();
 };
 
 #endif /* MODEL_CONTROLLER_HPP_ */

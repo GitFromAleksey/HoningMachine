@@ -33,6 +33,11 @@ void cAnalogInput::SetDataFromADC(uint32_t data)
 	CalcAverage(data);
 }
 // ----------------------------------------------------------------------------
+uint32_t cAnalogInput::GetAverageData()const
+{
+	return m_DataAvg;
+}
+// ----------------------------------------------------------------------------
 void cAnalogInput::CalcAverage(uint32_t data)
 {
 	m_DataAcc -= m_DataAvg;

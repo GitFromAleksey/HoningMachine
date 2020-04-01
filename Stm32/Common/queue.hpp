@@ -12,10 +12,11 @@ class cQueue
 		~cQueue();
 	
 		void AddItem(uint8_t item);
+		bool IsData();
 		uint8_t GetItem();
 		uint16_t GetQueueSize();
 	
-	private:
+	protected://private:
 		uint16_t m_QueueSize;
 		uint8_t *m_QueueArray;
 		uint16_t m_QueueHead;

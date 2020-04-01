@@ -1,6 +1,10 @@
 #include "Controller.hpp"
 
-cController::cController() : m_Machine(NULL)
+cController::cController() : 
+m_Ticks(0),
+m_TicksSendRepeat(500),
+m_Machine(NULL),
+m_View(NULL)
 {
 	//std::cout << "cController()" << std::endl;
 }
@@ -22,11 +26,29 @@ void cController::AddMachine(cMachine *machine)
 		m_Machine = machine;
 }
 // ----------------------------------------------------------------------------
+void cController::AddView(iView *view)
+{
+	m_View = view;
+}
+// ----------------------------------------------------------------------------
+void  cController::SetGetTicksCallback(uint32_t (*GetTicksCallback)())
+{
+	this->GetTicksCallback = GetTicksCallback;
+}
+// ----------------------------------------------------------------------------
 void cController::run()
 {
 	if(m_Machine == NULL)
 		return;
 
+	if(GetTicksCallback != NULL)
+	{
+		if((GetTicksCallback() - m_Ticks) > m_TicksSendRepeat)
+		{
+			m_Ticks = GetTicksCallback();
+			m_View->SendCurrentPosition( m_Machine->GetCurrentPosition());
+		}
+	}
 }
 // ----------------------------------------------------------------------------
 void cController::EventsHandler(MacineEvent event)

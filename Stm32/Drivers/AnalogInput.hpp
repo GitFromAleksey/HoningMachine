@@ -16,6 +16,7 @@ public:
 
 	void Init();
 	void SetDataFromADC(uint32_t data);
+	uint32_t GetAverageData()const;
 
 private:
 	uint32_t m_Scale;

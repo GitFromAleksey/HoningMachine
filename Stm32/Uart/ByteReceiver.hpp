@@ -8,7 +8,7 @@
 #include "queue.hpp"
 
 
-class cByteReceiver : public iProcess
+class cByteReceiver : public iProcess // TODO наверное нужно былонаследоваться от очереди
 {
 public:
 	cByteReceiver(uint16_t bufSize);

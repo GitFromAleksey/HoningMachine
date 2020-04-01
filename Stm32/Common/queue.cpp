@@ -35,23 +35,35 @@ void cQueue::AddItem(uint8_t item)
 	}
 }
 // ----------------------------------------------------------------------------
+bool cQueue::IsData()
+{
+	return (m_QueueTail != m_QueueHead);
+}
+// ----------------------------------------------------------------------------
 uint8_t cQueue::GetItem()
 {
 	uint8_t res = 0;
 
-	if(Increment(m_QueueTail) != m_QueueHead)
+	if(m_QueueTail != m_QueueHead)
 	{
 		m_HeadCaughtTail = false;
 		res = m_QueueArray[m_QueueTail];
 		m_QueueTail = Increment(m_QueueTail);
 	}
-	else
-	{
-		// TODO здесь мы посто€нно отсылаем элемент головы, если уперлись в голову
-		// нужно будет обыграть этот момент. 
-		// Ќапример возвращать bool, а данные по указателю
-		res = m_QueueArray[m_QueueTail];
-	}
+	
+//	if(Increment(m_QueueTail) != m_QueueHead)
+//	{
+//		m_HeadCaughtTail = false;
+//		res = m_QueueArray[m_QueueTail];
+//		m_QueueTail = Increment(m_QueueTail);
+//	}
+//	else
+//	{
+//		// TODO здесь мы посто€нно отсылаем элемент головы, если уперлись в голову
+//		// нужно будет обыграть этот момент. 
+//		// Ќапример возвращать bool, а данные по указателю
+//		res = m_QueueArray[m_QueueTail];
+//	}
 	
 	return res;
 }

@@ -42,6 +42,7 @@ void cMachine::run()
 	{ ToolLiftStop(); }
 	if( m_LowerToolTip->IsOn() )
 	{}
+	m_CurrentPosition = m_ToolPositionSensor->GetAverageData();
 }
 // ----------------------------------------------------------------------------
 void cMachine::MachinePowerOn()
@@ -110,7 +111,7 @@ bool cMachine::ToolIsStoped()
 			m_RotatedMotorToolSwitch->IsOn());
 }
 // ----------------------------------------------------------------------------
-uint32_t cMachine::GetCurrentPosotion()const
+uint32_t cMachine::GetCurrentPosition()const
 {
 	return m_CurrentPosition;
 }
