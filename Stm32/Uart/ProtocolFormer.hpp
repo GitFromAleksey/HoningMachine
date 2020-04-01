@@ -12,13 +12,19 @@ typedef enum
 	CurrentPosition = 1
 } teSendingParam;
 
+//typedef struct
+//{
+//	unsigned DeviceNumber : 8;	// номер устройства
+//	unsigned RegisterNumber : 16;	// номер регистра
+//	unsigned Data : 32;	// если команда чтения, то поле игнорируется
+//	unsigned CRC8 : 8;	// контрольная сумма
+//} t_out_protocol;
+
 typedef struct
 {
 	uint8_t DeviceNumber;	// номер устройства
-	uint8_t CMD;	// команда
 	uint16_t RegisterNumber;	// номер регистра
-	uint32_t DataToWrite;	// если команда чтения, то поле игнорируется
-	uint16_t RegistersToRead;	// кол-во регистров для чтения
+	uint32_t Data;	// если команда чтения, то поле игнорируется
 	uint8_t CRC8;	// контрольная сумма
 } t_out_protocol;
 

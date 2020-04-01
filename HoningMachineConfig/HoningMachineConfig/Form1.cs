@@ -13,7 +13,9 @@ namespace HoningMachineConfig
 {
     public partial class MainForm1 : Form
     {
-        private cProtocol m_Protocol;
+        const Byte DEVICE_NUMBER = 1;
+        private cProtocolSerializer m_ProtocolSerializer;
+        private cProtocolDeSerializer m_ProtocolDeSerializer;
         
         public MainForm1()
         {
@@ -21,8 +23,12 @@ namespace HoningMachineConfig
             // разворачиваем форму на весь экран
             //this.WindowState = FormWindowState.Maximized;
 
-            m_Protocol = new cProtocol(1);
+            m_ProtocolSerializer = new cProtocolSerializer(DEVICE_NUMBER);
+            m_ProtocolDeSerializer = new cProtocolDeSerializer(DEVICE_NUMBER);
+            //m_ProtocolDeSerializer.SetFunc(Logging);
         }
+
+
 
         // вывод списка com портов
         private void portToolStripMenuItem_Click(object sender, EventArgs e)
@@ -83,6 +89,9 @@ namespace HoningMachineConfig
             {
                 buf[bytesCnt++] = serialPort1.ReadByte();
             }
+
+            m_ProtocolDeSerializer.AddBytes(buf);
+
             bytesCnt = 0;
             while (bytesCnt < bytesToRead)
             {
@@ -115,7 +124,7 @@ namespace HoningMachineConfig
                 return;
 
             //Byte[] request =  m_Protocol.GetRequestToRead(8);
-            Byte[] request = m_Protocol.GetRequestToWhite(9);
+            Byte[] request = m_ProtocolSerializer.GetRequestToWhite(9);
 
             serialPort1.Write(request, 0, request.Length);
         }
@@ -125,21 +134,21 @@ namespace HoningMachineConfig
         {
 
             if(sender == buttonMachinePwrOn)
-            { SendData(m_Protocol.GetCommand(ProtocolCommands.PROTOCOL_CMD_MACHINE_PWR_ON)); }
+            { SendData(m_ProtocolSerializer.GetCommand(ProtocolCommands.PROTOCOL_CMD_MACHINE_PWR_ON)); }
             if (sender == buttonMachinePwrOff)
-            { SendData(m_Protocol.GetCommand(ProtocolCommands.PROTOCOL_CMD_MACHINE_PWR_OFF)); }
+            { SendData(m_ProtocolSerializer.GetCommand(ProtocolCommands.PROTOCOL_CMD_MACHINE_PWR_OFF)); }
             if (sender == buttonToolLiftUp)
-            { SendData(m_Protocol.GetCommand(ProtocolCommands.PROTOCOL_CMD_TOOL_LIFT_UP));  }
+            { SendData(m_ProtocolSerializer.GetCommand(ProtocolCommands.PROTOCOL_CMD_TOOL_LIFT_UP));  }
             if (sender == buttonToolLiftDown)
-            { SendData(m_Protocol.GetCommand(ProtocolCommands.PROTOCOL_CMD_TOOL_LIFT_DOWN));  }
+            { SendData(m_ProtocolSerializer.GetCommand(ProtocolCommands.PROTOCOL_CMD_TOOL_LIFT_DOWN));  }
             if (sender == buttonToolLiftStop)
-            { SendData(m_Protocol.GetCommand(ProtocolCommands.PROTOCOL_CMD_TOOL_LIFT_STOP));  }
+            { SendData(m_ProtocolSerializer.GetCommand(ProtocolCommands.PROTOCOL_CMD_TOOL_LIFT_STOP));  }
             if (sender == buttonToolRotateRun)
-            { SendData(m_Protocol.GetCommand(ProtocolCommands.PROTOCOL_CMD_TOOL_ROTATE_RUN));  }
+            { SendData(m_ProtocolSerializer.GetCommand(ProtocolCommands.PROTOCOL_CMD_TOOL_ROTATE_RUN));  }
             if (sender == buttonToolRotateStop)
-            { SendData(m_Protocol.GetCommand(ProtocolCommands.PROTOCOL_CMD_TOOL_ROTATE_STOP)); }
+            { SendData(m_ProtocolSerializer.GetCommand(ProtocolCommands.PROTOCOL_CMD_TOOL_ROTATE_STOP)); }
             if (sender == buttonToolStop)
-            { SendData(m_Protocol.GetCommand(ProtocolCommands.PROTOCOL_CMD_TOOL_STOP)); }
+            { SendData(m_ProtocolSerializer.GetCommand(ProtocolCommands.PROTOCOL_CMD_TOOL_STOP)); }
         }
 
         private void SendData(Byte[] data)

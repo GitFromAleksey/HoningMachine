@@ -44,7 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="cProtocol.cs" />
+    <Compile Include="cProtocolDeSerializer.cs" />
+    <Compile Include="cProtocolSerializer.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

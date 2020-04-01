@@ -32,18 +32,18 @@ namespace HoningMachineConfig
         PROTOCOL_CMD_TOOL_STOP = 13
     }
 
-    class cProtocol
+    class cProtocolSerializer
     {
-        const Byte CMD_READ_RO_REG = 3;
-        const Byte CMD_WRITE_RW_REG = 4;
-        const Byte CMD_READ_RW_REG = 5;
+        //const Byte CMD_READ_RO_REG = 3;
+        //const Byte CMD_WRITE_RW_REG = 4;
+        //const Byte CMD_READ_RW_REG = 5;
 
         const Byte SIGN_BEGIN_PACKET = (Byte)'<';
         const Byte SIGN_END_PACKET = (Byte)'>';
 
         private Byte m_DeviceNumber;
         
-        public cProtocol(Byte deviceNumber)
+        public cProtocolSerializer(Byte deviceNumber)
         {
             m_DeviceNumber = deviceNumber;
         }
@@ -54,7 +54,7 @@ namespace HoningMachineConfig
             Byte[] b = new Byte[13];
             
             request.DeviceNumber = m_DeviceNumber;
-            request.CMD = CMD_READ_RO_REG;
+            request.CMD = (Byte)ProtocolCommands.CMD_READ_RO_REG;
             request.RegisterNumber = registerNumber;
             request.RegistersToRead = 9;
             request.DataToWrite = 0x12345678;
@@ -68,7 +68,7 @@ namespace HoningMachineConfig
             RequestProtocol request;
 
             request.DeviceNumber = m_DeviceNumber;
-            request.CMD = CMD_WRITE_RW_REG;
+            request.CMD = (Byte)ProtocolCommands.CMD_WRITE_RW_REG;
             request.RegisterNumber = registerNumber;
             request.RegistersToRead = 9;
             request.DataToWrite = 0x12345678;
