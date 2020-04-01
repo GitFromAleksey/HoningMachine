@@ -44,6 +44,12 @@
             this.button1 = new System.Windows.Forms.Button();
             this.buttonMachinePwrOn = new System.Windows.Forms.Button();
             this.buttonMachinePwrOff = new System.Windows.Forms.Button();
+            this.buttonToolLiftUp = new System.Windows.Forms.Button();
+            this.buttonToolLiftDown = new System.Windows.Forms.Button();
+            this.buttonToolLiftStop = new System.Windows.Forms.Button();
+            this.buttonToolRotateRun = new System.Windows.Forms.Button();
+            this.buttonToolRotateStop = new System.Windows.Forms.Button();
+            this.buttonToolStop = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -171,11 +177,77 @@
             this.buttonMachinePwrOff.UseVisualStyleBackColor = true;
             this.buttonMachinePwrOff.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
             // 
+            // buttonToolLiftUp
+            // 
+            this.buttonToolLiftUp.Location = new System.Drawing.Point(557, 85);
+            this.buttonToolLiftUp.Name = "buttonToolLiftUp";
+            this.buttonToolLiftUp.Size = new System.Drawing.Size(128, 23);
+            this.buttonToolLiftUp.TabIndex = 6;
+            this.buttonToolLiftUp.Text = "ToolLiftUp";
+            this.buttonToolLiftUp.UseVisualStyleBackColor = true;
+            this.buttonToolLiftUp.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
+            // 
+            // buttonToolLiftDown
+            // 
+            this.buttonToolLiftDown.Location = new System.Drawing.Point(557, 114);
+            this.buttonToolLiftDown.Name = "buttonToolLiftDown";
+            this.buttonToolLiftDown.Size = new System.Drawing.Size(128, 23);
+            this.buttonToolLiftDown.TabIndex = 7;
+            this.buttonToolLiftDown.Text = "ToolLiftDown";
+            this.buttonToolLiftDown.UseVisualStyleBackColor = true;
+            this.buttonToolLiftDown.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
+            // 
+            // buttonToolLiftStop
+            // 
+            this.buttonToolLiftStop.Location = new System.Drawing.Point(557, 143);
+            this.buttonToolLiftStop.Name = "buttonToolLiftStop";
+            this.buttonToolLiftStop.Size = new System.Drawing.Size(128, 23);
+            this.buttonToolLiftStop.TabIndex = 8;
+            this.buttonToolLiftStop.Text = "ToolLiftStop";
+            this.buttonToolLiftStop.UseVisualStyleBackColor = true;
+            this.buttonToolLiftStop.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
+            // 
+            // buttonToolRotateRun
+            // 
+            this.buttonToolRotateRun.Location = new System.Drawing.Point(557, 172);
+            this.buttonToolRotateRun.Name = "buttonToolRotateRun";
+            this.buttonToolRotateRun.Size = new System.Drawing.Size(128, 23);
+            this.buttonToolRotateRun.TabIndex = 9;
+            this.buttonToolRotateRun.Text = "ToolRotateRun";
+            this.buttonToolRotateRun.UseVisualStyleBackColor = true;
+            this.buttonToolRotateRun.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
+            // 
+            // buttonToolRotateStop
+            // 
+            this.buttonToolRotateStop.Location = new System.Drawing.Point(557, 201);
+            this.buttonToolRotateStop.Name = "buttonToolRotateStop";
+            this.buttonToolRotateStop.Size = new System.Drawing.Size(128, 23);
+            this.buttonToolRotateStop.TabIndex = 10;
+            this.buttonToolRotateStop.Text = "ToolRotateStop";
+            this.buttonToolRotateStop.UseVisualStyleBackColor = true;
+            this.buttonToolRotateStop.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
+            // 
+            // buttonToolStop
+            // 
+            this.buttonToolStop.Location = new System.Drawing.Point(557, 230);
+            this.buttonToolStop.Name = "buttonToolStop";
+            this.buttonToolStop.Size = new System.Drawing.Size(128, 23);
+            this.buttonToolStop.TabIndex = 11;
+            this.buttonToolStop.Text = "ToolStop";
+            this.buttonToolStop.UseVisualStyleBackColor = true;
+            this.buttonToolStop.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
+            // 
             // MainForm1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(705, 545);
+            this.Controls.Add(this.buttonToolStop);
+            this.Controls.Add(this.buttonToolRotateStop);
+            this.Controls.Add(this.buttonToolRotateRun);
+            this.Controls.Add(this.buttonToolLiftStop);
+            this.Controls.Add(this.buttonToolLiftDown);
+            this.Controls.Add(this.buttonToolLiftUp);
             this.Controls.Add(this.buttonMachinePwrOff);
             this.Controls.Add(this.buttonMachinePwrOn);
             this.Controls.Add(this.button1);
@@ -209,6 +281,12 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button buttonMachinePwrOn;
         private System.Windows.Forms.Button buttonMachinePwrOff;
+        private System.Windows.Forms.Button buttonToolLiftUp;
+        private System.Windows.Forms.Button buttonToolLiftDown;
+        private System.Windows.Forms.Button buttonToolLiftStop;
+        private System.Windows.Forms.Button buttonToolRotateRun;
+        private System.Windows.Forms.Button buttonToolRotateStop;
+        private System.Windows.Forms.Button buttonToolStop;
     }
 }
 

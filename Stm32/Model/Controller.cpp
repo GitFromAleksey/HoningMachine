@@ -42,3 +42,46 @@ void cController::EventsHandler(MacineEvent event)
 		break;
 	}
 }
+// ----------------------------------------------------------------------------
+// реализация методов интерфейса iController
+void cController::MachinePowerOn()
+{
+	m_Machine->MachinePowerOn();
+}
+// ----------------------------------------------------------------------------
+void cController::MachinePowerOff()
+{
+	m_Machine->MachinePowerOff();
+}
+// ----------------------------------------------------------------------------
+void cController::ToolLiftUp()
+{
+	m_Machine->ToolLiftUp();
+}
+// ----------------------------------------------------------------------------
+void cController::ToolLiftDown()
+{
+	m_Machine->ToolLiftDown();
+}
+// ----------------------------------------------------------------------------
+void cController::ToolLiftStop()
+{
+	m_Machine->ToolLiftStop();
+}
+// ----------------------------------------------------------------------------
+void cController::ToolRotateRun()
+{
+	m_Machine->ToolRotateRun();
+}
+// ----------------------------------------------------------------------------
+void cController::ToolRotateStop()
+{
+	m_Machine->ToolRotateStop();
+}
+// ----------------------------------------------------------------------------
+void cController::ToolStop()
+{
+	m_Machine->ToolStop();
+}
+// конец реализации методов интерфейса iController
+// ----------------------------------------------------------------------------

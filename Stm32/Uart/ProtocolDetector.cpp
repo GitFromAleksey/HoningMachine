@@ -3,12 +3,37 @@
 #define PACKET_BEGIN_SIGN		(uint8_t)'<'
 #define PACKET_END_SIGN			(uint8_t)'>'
 
-cProtocolDetector::cProtocolDetector(cByteReceiver *byteReceiver) :
+#define PROTOCOL_CMD_READ_RO_REG			3
+#define PROTOCOL_CMD_WRITE_RW_REG			4
+#define PROTOCOL_CMD_READ_RW_REG			5
+
+#define PROTOCOL_CMD_MACHINE_PWR_ON		6
+#define PROTOCOL_CMD_MACHINE_PWR_OFF	7
+#define PROTOCOL_CMD_TOOL_LIFT_UP			8
+#define PROTOCOL_CMD_TOOL_LIFT_DOWN		9
+#define PROTOCOL_CMD_TOOL_LIFT_STOP		10
+#define PROTOCOL_CMD_TOOL_ROTATE_RUN	11
+#define PROTOCOL_CMD_TOOL_ROTATE_STOP	12
+#define PROTOCOL_CMD_TOOL_STOP				13
+
+//	virtual void MachinePowerOn();
+//	virtual void MachinePowerOff();
+//	virtual void ToolLiftUp();
+//	virtual void ToolLiftDown();
+//	virtual void ToolLiftStop();
+//	virtual void ToolRotateRun();
+//	virtual void ToolRotateStop();
+//	virtual void ToolStop();
+
+cProtocolDetector::cProtocolDetector(cByteReceiver *byteReceiver, 
+																		iController *machineController) :
 m_ByteReceiver(NULL),
 m_ArrayCnt(0),
-m_IsPacketBegin(false)
+m_IsPacketBegin(false),
+m_MachineController(NULL)
 {
 	this->m_ByteReceiver = byteReceiver;
+	this->m_MachineController = machineController;
 }
 // ----------------------------------------------------------------------------
 cProtocolDetector::~cProtocolDetector()
@@ -50,3 +75,50 @@ void cProtocolDetector::run()
 	
 }
 // ----------------------------------------------------------------------------
+void cProtocolDetector::PacketParse(uint8_t *pData)
+{
+	volatile t_protocol *prot = NULL;
+	prot = (t_protocol *)pData;
+
+	switch(prot->CMD)
+	{
+		case PROTOCOL_CMD_READ_RO_REG:
+			
+			break;
+		case PROTOCOL_CMD_WRITE_RW_REG:
+			
+			break;
+		case PROTOCOL_CMD_READ_RW_REG:
+			
+			break;
+		
+		case PROTOCOL_CMD_MACHINE_PWR_ON:
+			m_MachineController->MachinePowerOn();
+			break;
+		case PROTOCOL_CMD_MACHINE_PWR_OFF:
+			m_MachineController->MachinePowerOff();
+			break;
+		case PROTOCOL_CMD_TOOL_LIFT_UP:
+			m_MachineController->ToolLiftUp();
+			break;
+		case PROTOCOL_CMD_TOOL_LIFT_DOWN:
+			m_MachineController->ToolLiftDown();
+			break;
+		case PROTOCOL_CMD_TOOL_LIFT_STOP:
+			m_MachineController->ToolLiftStop();
+			break;
+		case PROTOCOL_CMD_TOOL_ROTATE_RUN:
+			m_MachineController->ToolRotateRun();
+			break;
+		case PROTOCOL_CMD_TOOL_ROTATE_STOP:
+			m_MachineController->ToolRotateStop();
+			break;
+		case PROTOCOL_CMD_TOOL_STOP:
+			m_MachineController->ToolStop();
+			break;
+		default:
+			break;
+	}
+}
+// ----------------------------------------------------------------------------
+		

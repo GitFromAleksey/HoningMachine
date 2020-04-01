@@ -4,6 +4,15 @@
 class iController
 {
 public:
+	
+	virtual void MachinePowerOn() = 0;
+	virtual void MachinePowerOff() = 0;
+	virtual void ToolLiftUp() = 0;
+	virtual void ToolLiftDown() = 0;
+	virtual void ToolLiftStop() = 0;
+	virtual void ToolRotateRun() = 0;
+	virtual void ToolRotateStop() = 0;
+	virtual void ToolStop() = 0;
 
 };
 

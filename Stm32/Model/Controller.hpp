@@ -21,6 +21,16 @@ public:
 
 	void EventsHandler(MacineEvent event);
 
+	// реализация методов интерфейса iController
+	virtual void MachinePowerOn();
+	virtual void MachinePowerOff();
+	virtual void ToolLiftUp();
+	virtual void ToolLiftDown();
+	virtual void ToolLiftStop();
+	virtual void ToolRotateRun();
+	virtual void ToolRotateStop();
+	virtual void ToolStop();
+
 private:
 	cMachine *m_Machine;
 };

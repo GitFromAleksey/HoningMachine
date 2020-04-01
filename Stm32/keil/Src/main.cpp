@@ -79,7 +79,7 @@ cMachine machine;
 cController controller;
 
 cByteReceiver ByteReceiver(50);
-cProtocolDetector ProtocolDetector(&ByteReceiver);
+cProtocolDetector ProtocolDetector(&ByteReceiver, &controller);
 uint8_t tmp; //TODO test
 /* USER CODE END PV */
 

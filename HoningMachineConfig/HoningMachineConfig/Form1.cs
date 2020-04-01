@@ -123,22 +123,32 @@ namespace HoningMachineConfig
         private void buttonsMachineDriving_Click(object sender, EventArgs e)
             //private void buttonMachinePwrOn_Click(object sender, EventArgs e)
         {
-            Byte[] request;
-            
-            if(sender == buttonMachinePwrOn)
-            {
-                request = m_Protocol.GetCommand(ProtocolCommands.PROTOCOL_CMD_MACHINE_PWR_ON);
-                serialPort1.Write(request, 0, request.Length);
-            }
-            if (sender == buttonMachinePwrOff)
-            {
-                request = m_Protocol.GetCommand(ProtocolCommands.PROTOCOL_CMD_MACHINE_PWR_OFF);
-                serialPort1.Write(request, 0, request.Length);
-            }
 
+            if(sender == buttonMachinePwrOn)
+            { SendData(m_Protocol.GetCommand(ProtocolCommands.PROTOCOL_CMD_MACHINE_PWR_ON)); }
+            if (sender == buttonMachinePwrOff)
+            { SendData(m_Protocol.GetCommand(ProtocolCommands.PROTOCOL_CMD_MACHINE_PWR_OFF)); }
+            if (sender == buttonToolLiftUp)
+            { SendData(m_Protocol.GetCommand(ProtocolCommands.PROTOCOL_CMD_TOOL_LIFT_UP));  }
+            if (sender == buttonToolLiftDown)
+            { SendData(m_Protocol.GetCommand(ProtocolCommands.PROTOCOL_CMD_TOOL_LIFT_DOWN));  }
+            if (sender == buttonToolLiftStop)
+            { SendData(m_Protocol.GetCommand(ProtocolCommands.PROTOCOL_CMD_TOOL_LIFT_STOP));  }
+            if (sender == buttonToolRotateRun)
+            { SendData(m_Protocol.GetCommand(ProtocolCommands.PROTOCOL_CMD_TOOL_ROTATE_RUN));  }
+            if (sender == buttonToolRotateStop)
+            { SendData(m_Protocol.GetCommand(ProtocolCommands.PROTOCOL_CMD_TOOL_ROTATE_STOP)); }
+            if (sender == buttonToolStop)
+            { SendData(m_Protocol.GetCommand(ProtocolCommands.PROTOCOL_CMD_TOOL_STOP)); }
         }
 
-        void Logging(string text)
+        private void SendData(Byte[] data)
+        {
+            if(serialPort1.IsOpen)
+                serialPort1.Write(data, 0, data.Length);
+        }
+
+        private void Logging(string text)
         {
             textBoxLog.Text += text + "\r\n";
         }

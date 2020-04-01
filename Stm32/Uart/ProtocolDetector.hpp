@@ -1,6 +1,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include "../Interfaces/iProcess.hpp"
+#include "../Interfaces/iController.hpp"
 #include "ByteReceiver.hpp"
 
 //typedef struct
@@ -26,7 +27,7 @@ typedef struct
 class cProtocolDetector : public iProcess
 {
 	public:
-		cProtocolDetector(cByteReceiver *byteReceiver);
+		cProtocolDetector(cByteReceiver *byteReceiver, iController *machineController);
 		~cProtocolDetector();
 	
 		virtual void run();
@@ -37,11 +38,7 @@ class cProtocolDetector : public iProcess
 		uint16_t m_ArrayCnt;
 		uint8_t m_Array[m_ArraySize];
 		bool m_IsPacketBegin;
+		iController *m_MachineController;
 	
-		void PacketParse(uint8_t *pData)
-		{
-			volatile t_protocol *prot = NULL;
-			prot = (t_protocol *)pData;
-			prot = NULL;
-		}
+		void PacketParse(uint8_t *pData);
 };
