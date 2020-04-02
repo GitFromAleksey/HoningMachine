@@ -2,7 +2,7 @@
 
 cController::cController() : 
 m_Ticks(0),
-m_TicksSendRepeat(100),
+m_TicksSendRepeat(1000),
 m_Machine(NULL),
 m_View(NULL)
 {
@@ -48,6 +48,8 @@ void cController::run()
 			m_Ticks = GetTicksCallback();
 			m_View->SendCurrentPosition( m_Machine->GetCurrentPosition());
 			m_View->SendCurrent( m_Machine->GetCurrent());
+			m_View->SendLowerToolTipState(m_Machine->GetLowerToolTipState());
+			m_View->SendUpperToolTipState(m_Machine->GetUpperToolTipState());
 		}
 	}
 }

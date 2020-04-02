@@ -20,14 +20,24 @@ void cProtocolFormer::run()
 }
 // ----------------------------------------------------------------------------
 // реализация методов  интерфейса iView
-void cProtocolFormer::SendCurrentPosition(uint32_t position)
+void cProtocolFormer::SendCurrentPosition(uint32_t data)
 {
-	PacketFormingAndSend(paramTypeCurrentToolPosition, position);
+	PacketFormingAndSend(paramTypeCurrentToolPosition, data);
 }
 // ----------------------------------------------------------------------------
-void cProtocolFormer::SendCurrent(uint32_t position)
+void cProtocolFormer::SendCurrent(uint32_t data)
 {
-	PacketFormingAndSend(paramTypeCurrentSensor, position);
+	PacketFormingAndSend(paramTypeCurrentSensor, data);
+}
+// ----------------------------------------------------------------------------
+void cProtocolFormer::SendUpperToolTipState(uint32_t data)
+{
+	PacketFormingAndSend(paramTypeUpperToolTipState, data);
+}	
+// ----------------------------------------------------------------------------
+void cProtocolFormer::SendLowerToolTipState(uint32_t data)
+{
+	PacketFormingAndSend(paramTypeLowerToolTipState, data);
 }
 // ----------------------------------------------------------------------------
 void cProtocolFormer::PacketFormingAndSend(eSendingParamType param, uint32_t data)

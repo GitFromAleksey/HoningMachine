@@ -73,6 +73,8 @@ public:
 
 	void MachinePowerOn();
 	void MachinePowerOff();
+	void VerticalFeedMotorOn(); // TODO сделать реализацию
+	void VerticalFeedMotorOff(); // TODO сделать реализацию
 	void ToolLiftUp();
 	void ToolLiftDown();
 	void ToolLiftStop();
@@ -87,6 +89,8 @@ public:
 
 	uint32_t GetCurrentPosition()const;
 	uint32_t GetCurrent()const;
+	uint32_t GetUpperToolTipState()const;
+	uint32_t GetLowerToolTipState()const;
 
 	void SetErrorCallback(void (*ControllerEventCallback)(MacineEvent event));
 

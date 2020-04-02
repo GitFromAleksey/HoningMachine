@@ -122,7 +122,7 @@ bool AddToProcessArray(iProcess* proc)
 		return false;
 	}
 }
-void RunProcesses()
+void RunProcesses() // TODO оформить в отдельный класс
 {
 	if(iProcessArrCnt >= I_PROCESS_ARRAY_SIZE)
 		iProcessArrCnt = 0;
@@ -135,6 +135,17 @@ void SetupDigitalOut()
 	DO.SetDoSwitchCallback(DO_SwitchCallback);
 	DO.SetCheckStateCallback(DO_CheckStateCallback);
 
+	MachinePowerSwitch.Init(GPIOA, GPIO_PIN_12, false);
+	MachinePowerSwitch.SetDoSwitchCallback(DO_SwitchCallback);
+	VerticalFeedMotorSwitch.Init(GPIOA, GPIO_PIN_11, false);
+	VerticalFeedMotorSwitch.SetDoSwitchCallback(DO_SwitchCallback);
+	RotatedMotorToolSwitch.Init(GPIOA, GPIO_PIN_14, false);
+	RotatedMotorToolSwitch.SetDoSwitchCallback(DO_SwitchCallback);
+	ToolLiftUpSwitch.Init(GPIOA, GPIO_PIN_13, false);
+	ToolLiftUpSwitch.SetDoSwitchCallback(DO_SwitchCallback);
+	ToolLiftDownSwich.Init(GPIOA, GPIO_PIN_15, false);
+	ToolLiftDownSwich.SetDoSwitchCallback(DO_SwitchCallback);
+	
 	AddToProcessArray(&DO);
 	AddToProcessArray(&MachinePowerSwitch);
 	AddToProcessArray(&VerticalFeedMotorSwitch);
@@ -446,6 +457,19 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_13, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : PB15 */
+  GPIO_InitStruct.Pin = GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 	
   /*Configure GPIO pin : PA8 */
   GPIO_InitStruct.Pin = GPIO_PIN_8;

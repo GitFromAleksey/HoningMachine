@@ -107,7 +107,7 @@ namespace HoningMachineConfig
             labelCurrentToolPosition.Text = "CurrentToolPosition: " + m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeCurrentToolPosition);
             labelCurrentSensor.Text = "CurrentSensor: " + m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeCurrentSensor);
             labelUpperToolTipState.Text = "UpperToolTipState: " + m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeUpperToolTipState);
-            labelLowerToolTipState.Text = "CurrentSensor: " + m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeLowerToolTipState);
+            labelLowerToolTipState.Text = "LowerToolTipState: " + m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeLowerToolTipState);
 
             progressBar1.Value = (int)m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeCurrentSensor);
             trackBar1.Value = (int)m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeCurrentToolPosition);

@@ -121,3 +121,13 @@ uint32_t cMachine::GetCurrent()const
 	return m_CurrentSensor->GetAverageData();
 }
 // ----------------------------------------------------------------------------
+uint32_t cMachine::GetUpperToolTipState()const
+{
+	return (m_UpperToolTip->IsOn()) ? (1) : (0);
+}
+// ----------------------------------------------------------------------------
+uint32_t cMachine::GetLowerToolTipState()const
+{
+	return (m_LowerToolTip->IsOn()) ? (1) : (0);
+}
+// ----------------------------------------------------------------------------

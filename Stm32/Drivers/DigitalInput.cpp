@@ -37,7 +37,6 @@ void cDigitalInput::SetCheckStateCallback(bool (*CheckStateCallback)(void *port,
 bool cDigitalInput::IsOn()
 {
 	if((this->CheckStateCallback == NULL) || (this->m_Port == NULL)) return false;
-	
 	return CheckStateCallback(this->m_Port, this->m_PinNumber);
 }
 // ----------------------------------------------------------------------------
