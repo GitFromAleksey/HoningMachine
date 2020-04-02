@@ -29,7 +29,9 @@ namespace HoningMachineConfig
         PROTOCOL_CMD_TOOL_LIFT_STOP = 10,
         PROTOCOL_CMD_TOOL_ROTATE_RUN = 11,
         PROTOCOL_CMD_TOOL_ROTATE_STOP = 12,
-        PROTOCOL_CMD_TOOL_STOP = 13
+        PROTOCOL_CMD_TOOL_STOP = 13,
+        PROTOCOL_CMD_VERTICAL_FEED_MOTOR_ON = 14,
+        PROTOCOL_CMD_VERTICAL_FEED_MOTOR_OFF = 15
     }
 
     class cProtocolSerializer

@@ -159,6 +159,10 @@ namespace HoningMachineConfig
             { SendData(m_ProtocolSerializer.GetCommand(ProtocolCommands.PROTOCOL_CMD_TOOL_ROTATE_STOP)); }
             if (sender == buttonToolStop)
             { SendData(m_ProtocolSerializer.GetCommand(ProtocolCommands.PROTOCOL_CMD_TOOL_STOP)); }
+            if (sender == buttonVerticalFeedMotorOn)
+            { SendData(m_ProtocolSerializer.GetCommand(ProtocolCommands.PROTOCOL_CMD_VERTICAL_FEED_MOTOR_ON)); }
+            if (sender == buttonVerticalFeedMotorOff)
+            { SendData(m_ProtocolSerializer.GetCommand(ProtocolCommands.PROTOCOL_CMD_VERTICAL_FEED_MOTOR_OFF)); }
         }
 
         private void SendData(Byte[] data)

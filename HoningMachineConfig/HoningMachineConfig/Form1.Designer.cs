@@ -57,6 +57,8 @@
             this.labelLowerToolTipState = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.buttonVerticalFeedMotorOn = new System.Windows.Forms.Button();
+            this.buttonVerticalFeedMotorOff = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
@@ -187,7 +189,7 @@
             // 
             // buttonToolLiftUp
             // 
-            this.buttonToolLiftUp.Location = new System.Drawing.Point(526, 85);
+            this.buttonToolLiftUp.Location = new System.Drawing.Point(526, 143);
             this.buttonToolLiftUp.Name = "buttonToolLiftUp";
             this.buttonToolLiftUp.Size = new System.Drawing.Size(128, 23);
             this.buttonToolLiftUp.TabIndex = 6;
@@ -197,7 +199,7 @@
             // 
             // buttonToolLiftDown
             // 
-            this.buttonToolLiftDown.Location = new System.Drawing.Point(526, 114);
+            this.buttonToolLiftDown.Location = new System.Drawing.Point(526, 172);
             this.buttonToolLiftDown.Name = "buttonToolLiftDown";
             this.buttonToolLiftDown.Size = new System.Drawing.Size(128, 23);
             this.buttonToolLiftDown.TabIndex = 7;
@@ -207,7 +209,7 @@
             // 
             // buttonToolLiftStop
             // 
-            this.buttonToolLiftStop.Location = new System.Drawing.Point(526, 143);
+            this.buttonToolLiftStop.Location = new System.Drawing.Point(526, 201);
             this.buttonToolLiftStop.Name = "buttonToolLiftStop";
             this.buttonToolLiftStop.Size = new System.Drawing.Size(128, 23);
             this.buttonToolLiftStop.TabIndex = 8;
@@ -217,7 +219,7 @@
             // 
             // buttonToolRotateRun
             // 
-            this.buttonToolRotateRun.Location = new System.Drawing.Point(526, 172);
+            this.buttonToolRotateRun.Location = new System.Drawing.Point(526, 230);
             this.buttonToolRotateRun.Name = "buttonToolRotateRun";
             this.buttonToolRotateRun.Size = new System.Drawing.Size(128, 23);
             this.buttonToolRotateRun.TabIndex = 9;
@@ -227,7 +229,7 @@
             // 
             // buttonToolRotateStop
             // 
-            this.buttonToolRotateStop.Location = new System.Drawing.Point(526, 201);
+            this.buttonToolRotateStop.Location = new System.Drawing.Point(526, 259);
             this.buttonToolRotateStop.Name = "buttonToolRotateStop";
             this.buttonToolRotateStop.Size = new System.Drawing.Size(128, 23);
             this.buttonToolRotateStop.TabIndex = 10;
@@ -237,7 +239,7 @@
             // 
             // buttonToolStop
             // 
-            this.buttonToolStop.Location = new System.Drawing.Point(526, 230);
+            this.buttonToolStop.Location = new System.Drawing.Point(526, 288);
             this.buttonToolStop.Name = "buttonToolStop";
             this.buttonToolStop.Size = new System.Drawing.Size(128, 23);
             this.buttonToolStop.TabIndex = 11;
@@ -304,11 +306,33 @@
             this.trackBar1.Size = new System.Drawing.Size(45, 434);
             this.trackBar1.TabIndex = 17;
             // 
+            // buttonVerticalFeedMotorOn
+            // 
+            this.buttonVerticalFeedMotorOn.Location = new System.Drawing.Point(526, 85);
+            this.buttonVerticalFeedMotorOn.Name = "buttonVerticalFeedMotorOn";
+            this.buttonVerticalFeedMotorOn.Size = new System.Drawing.Size(128, 23);
+            this.buttonVerticalFeedMotorOn.TabIndex = 18;
+            this.buttonVerticalFeedMotorOn.Text = "VerticalFeedMotorOn";
+            this.buttonVerticalFeedMotorOn.UseVisualStyleBackColor = true;
+            this.buttonVerticalFeedMotorOn.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
+            // 
+            // buttonVerticalFeedMotorOff
+            // 
+            this.buttonVerticalFeedMotorOff.Location = new System.Drawing.Point(526, 114);
+            this.buttonVerticalFeedMotorOff.Name = "buttonVerticalFeedMotorOff";
+            this.buttonVerticalFeedMotorOff.Size = new System.Drawing.Size(128, 23);
+            this.buttonVerticalFeedMotorOff.TabIndex = 19;
+            this.buttonVerticalFeedMotorOff.Text = "VerticalFeedMotorOff";
+            this.buttonVerticalFeedMotorOff.UseVisualStyleBackColor = true;
+            this.buttonVerticalFeedMotorOff.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
+            // 
             // MainForm1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(705, 545);
+            this.Controls.Add(this.buttonVerticalFeedMotorOff);
+            this.Controls.Add(this.buttonVerticalFeedMotorOn);
             this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.labelLowerToolTipState);
@@ -368,6 +392,8 @@
         private System.Windows.Forms.Label labelLowerToolTipState;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.Button buttonVerticalFeedMotorOn;
+        private System.Windows.Forms.Button buttonVerticalFeedMotorOff;
     }
 }
 

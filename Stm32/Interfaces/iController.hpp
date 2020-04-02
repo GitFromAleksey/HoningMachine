@@ -7,6 +7,8 @@ public:
 	
 	virtual void MachinePowerOn() = 0;
 	virtual void MachinePowerOff() = 0;
+	virtual void VerticalFeedMotorOn() = 0;
+	virtual void VerticalFeedMotorOff() = 0;
 	virtual void ToolLiftUp() = 0;
 	virtual void ToolLiftDown() = 0;
 	virtual void ToolLiftStop() = 0;

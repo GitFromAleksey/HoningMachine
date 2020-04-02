@@ -61,7 +61,7 @@ UART_HandleTypeDef huart1;
 #define I_PROCESS_ARRAY_SIZE	16
 uint8_t iProcessArrCnt = 0;
 iProcess* ProcessesArr[I_PROCESS_ARRAY_SIZE];
-cDigitalOut DO;
+//cDigitalOut DO;
 
 cDigitalOut MachinePowerSwitch;
 cDigitalOut VerticalFeedMotorSwitch;
@@ -127,26 +127,27 @@ void RunProcesses() // TODO оформить в отдельный класс
 	if(iProcessArrCnt >= I_PROCESS_ARRAY_SIZE)
 		iProcessArrCnt = 0;
 	if(ProcessesArr[iProcessArrCnt] != NULL)
-		ProcessesArr[iProcessArrCnt++]->run();
+		ProcessesArr[iProcessArrCnt]->run();
+	iProcessArrCnt++;
 }
 void SetupDigitalOut()
 {
-	DO.Init(GPIOB, GPIO_PIN_15, false);
-	DO.SetDoSwitchCallback(DO_SwitchCallback);
-	DO.SetCheckStateCallback(DO_CheckStateCallback);
+//	DO.Init(GPIOB, GPIO_PIN_15, false);
+//	DO.SetDoSwitchCallback(DO_SwitchCallback);
+//	DO.SetCheckStateCallback(DO_CheckStateCallback);
 
-	MachinePowerSwitch.Init(GPIOA, GPIO_PIN_12, false);
+	MachinePowerSwitch.Init(GPIOB, GPIO_PIN_15, false);
 	MachinePowerSwitch.SetDoSwitchCallback(DO_SwitchCallback);
-	VerticalFeedMotorSwitch.Init(GPIOA, GPIO_PIN_11, false);
+	VerticalFeedMotorSwitch.Init(GPIOB, GPIO_PIN_13, false);
 	VerticalFeedMotorSwitch.SetDoSwitchCallback(DO_SwitchCallback);
-	RotatedMotorToolSwitch.Init(GPIOA, GPIO_PIN_14, false);
+	RotatedMotorToolSwitch.Init(GPIOB, GPIO_PIN_11, false);
 	RotatedMotorToolSwitch.SetDoSwitchCallback(DO_SwitchCallback);
-	ToolLiftUpSwitch.Init(GPIOA, GPIO_PIN_13, false);
+	ToolLiftUpSwitch.Init(GPIOB, GPIO_PIN_10, false);
 	ToolLiftUpSwitch.SetDoSwitchCallback(DO_SwitchCallback);
-	ToolLiftDownSwich.Init(GPIOA, GPIO_PIN_15, false);
+	ToolLiftDownSwich.Init(GPIOB, GPIO_PIN_1, false);
 	ToolLiftDownSwich.SetDoSwitchCallback(DO_SwitchCallback);
 	
-	AddToProcessArray(&DO);
+//	AddToProcessArray(&DO);
 	AddToProcessArray(&MachinePowerSwitch);
 	AddToProcessArray(&VerticalFeedMotorSwitch);
 	AddToProcessArray(&RotatedMotorToolSwitch);
@@ -269,7 +270,7 @@ int main(void)
 		if((HAL_GetTick() - ticks) > 500)
 		{
 			ticks = HAL_GetTick();
-			DO.Toggle();
+//			DO.Toggle();
 		}
     /* USER CODE END WHILE */
 
@@ -458,18 +459,17 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_13, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : PB15 */
-  GPIO_InitStruct.Pin = GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15;
+  /*Configure GPIO pin : PB */
+  GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_13;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 	
   /*Configure GPIO pin : PA8 */
   GPIO_InitStruct.Pin = GPIO_PIN_8;

@@ -27,6 +27,8 @@ public:
 	// реализация методов интерфейса iController
 	virtual void MachinePowerOn();
 	virtual void MachinePowerOff();
+	virtual void VerticalFeedMotorOn();
+	virtual void VerticalFeedMotorOff();
 	virtual void ToolLiftUp();
 	virtual void ToolLiftDown();
 	virtual void ToolLiftStop();

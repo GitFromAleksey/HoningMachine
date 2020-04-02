@@ -55,6 +55,16 @@ void cMachine::MachinePowerOff()
 	m_MachinePowerSwitch->SetOff();
 }
 // ----------------------------------------------------------------------------
+void cMachine::VerticalFeedMotorOn() // TODO сделать реализацию
+{
+	m_VerticalFeedMotorSwitch->SetOn();
+}
+// ----------------------------------------------------------------------------
+void cMachine::VerticalFeedMotorOff() // TODO сделать реализацию
+{
+	m_VerticalFeedMotorSwitch->SetOff();
+}
+// ----------------------------------------------------------------------------
 void cMachine::ToolLiftUp()
 {
 	m_ToolLiftDownSwich->SetOff();

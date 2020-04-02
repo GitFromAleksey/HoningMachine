@@ -15,7 +15,8 @@
 #define PROTOCOL_CMD_TOOL_ROTATE_RUN	11
 #define PROTOCOL_CMD_TOOL_ROTATE_STOP	12
 #define PROTOCOL_CMD_TOOL_STOP				13
-
+#define PROTOCOL_CMD_VERTICAL_FEED_MOTOR_ON		14
+#define PROTOCOL_CMD_VERTICAL_FEED_MOTOR_OFF	15
 
 cProtocolDetector::cProtocolDetector(cByteReceiver *byteReceiver, 
 																		iController *machineController) :
@@ -107,6 +108,12 @@ void cProtocolDetector::PacketParse(uint8_t *pData)
 			break;
 		case PROTOCOL_CMD_TOOL_STOP:
 			m_MachineController->ToolStop();
+			break;
+		case PROTOCOL_CMD_VERTICAL_FEED_MOTOR_ON:
+			m_MachineController->VerticalFeedMotorOn();
+			break;
+		case PROTOCOL_CMD_VERTICAL_FEED_MOTOR_OFF:
+			m_MachineController->VerticalFeedMotorOff();
 			break;
 		default:
 			break;

@@ -2,7 +2,7 @@
 
 cController::cController() : 
 m_Ticks(0),
-m_TicksSendRepeat(1000),
+m_TicksSendRepeat(100),
 m_Machine(NULL),
 m_View(NULL)
 {
@@ -77,6 +77,16 @@ void cController::MachinePowerOn()
 void cController::MachinePowerOff()
 {
 	m_Machine->MachinePowerOff();
+}
+// ----------------------------------------------------------------------------
+void cController::VerticalFeedMotorOn()
+{
+	m_Machine->VerticalFeedMotorOn();
+}
+// ----------------------------------------------------------------------------
+void cController::VerticalFeedMotorOff()
+{
+	m_Machine->VerticalFeedMotorOff();
 }
 // ----------------------------------------------------------------------------
 void cController::ToolLiftUp()
