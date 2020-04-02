@@ -2,7 +2,7 @@
 
 cController::cController() : 
 m_Ticks(0),
-m_TicksSendRepeat(500),
+m_TicksSendRepeat(100),
 m_Machine(NULL),
 m_View(NULL)
 {
@@ -47,6 +47,7 @@ void cController::run()
 		{
 			m_Ticks = GetTicksCallback();
 			m_View->SendCurrentPosition( m_Machine->GetCurrentPosition());
+			m_View->SendCurrent( m_Machine->GetCurrent());
 		}
 	}
 }

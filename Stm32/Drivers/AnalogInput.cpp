@@ -4,7 +4,7 @@ cAnalogInput::cAnalogInput() :
 m_Scale(0),
 m_DataRaw(0),
 m_DataAcc(0),
-m_AvgDiv(3),
+m_AvgDiv(9),
 m_DataAvg(0),
 m_DataScaling(0),
 m_MaxValue(0)

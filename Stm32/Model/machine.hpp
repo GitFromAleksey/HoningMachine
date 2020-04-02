@@ -86,6 +86,7 @@ public:
 	bool ToolIsStoped();
 
 	uint32_t GetCurrentPosition()const;
+	uint32_t GetCurrent()const;
 
 	void SetErrorCallback(void (*ControllerEventCallback)(MacineEvent event));
 

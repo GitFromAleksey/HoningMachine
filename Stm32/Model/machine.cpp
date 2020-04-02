@@ -116,3 +116,8 @@ uint32_t cMachine::GetCurrentPosition()const
 	return m_CurrentPosition;
 }
 // ----------------------------------------------------------------------------
+uint32_t cMachine::GetCurrent()const
+{
+	return m_CurrentSensor->GetAverageData();
+}
+// ----------------------------------------------------------------------------

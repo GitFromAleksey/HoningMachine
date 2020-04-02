@@ -9,21 +9,17 @@
 
 typedef enum
 {
-	CurrentPosition = 1
-} teSendingParam;
+	paramTypeCurrentToolPosition = 1,
+	paramTypeCurrentSensor = 2,
+	paramTypeUpperToolTipState = 3,
+	paramTypeLowerToolTip = 4
+} eSendingParamType;
 
-//typedef struct
-//{
-//	unsigned DeviceNumber : 8;	// номер устройства
-//	unsigned RegisterNumber : 16;	// номер регистра
-//	unsigned Data : 32;	// если команда чтения, то поле игнорируется
-//	unsigned CRC8 : 8;	// контрольная сумма
-//} t_out_protocol;
 
 typedef struct
 {
 	uint8_t DeviceNumber;	// номер устройства
-	uint16_t RegisterNumber;	// номер регистра
+	uint16_t ParamType;	// номер регистра
 	uint32_t Data;	// если команда чтения, то поле игнорируется
 	uint8_t CRC8;	// контрольная сумма
 } t_out_protocol;
@@ -37,11 +33,12 @@ class cProtocolFormer : public iProcess, public iView
 		virtual void run();
 	
 		virtual void SendCurrentPosition(uint32_t position);
+		virtual void SendCurrent(uint32_t position);
 	
 	private:
 		cByteSender *m_pByteSender;
 	
-		void PacketFormingAndSend(teSendingParam param, uint32_t data);
+		void PacketFormingAndSend(eSendingParamType param, uint32_t data);
 };
 
 #endif /* PROTOCOL_FORMER_H */

@@ -8,6 +8,7 @@ class iView
 public:
 
 	virtual void SendCurrentPosition(uint32_t position) = 0;
+	virtual void SendCurrent(uint32_t position) = 0;
 
 };
 

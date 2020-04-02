@@ -50,7 +50,15 @@
             this.buttonToolRotateRun = new System.Windows.Forms.Button();
             this.buttonToolRotateStop = new System.Windows.Forms.Button();
             this.buttonToolStop = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.labelCurrentToolPosition = new System.Windows.Forms.Label();
+            this.labelCurrentSensor = new System.Windows.Forms.Label();
+            this.labelUpperToolTipState = new System.Windows.Forms.Label();
+            this.labelLowerToolTipState = new System.Windows.Forms.Label();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -135,7 +143,7 @@
             this.textBoxLog.Multiline = true;
             this.textBoxLog.Name = "textBoxLog";
             this.textBoxLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxLog.Size = new System.Drawing.Size(533, 392);
+            this.textBoxLog.Size = new System.Drawing.Size(333, 392);
             this.textBoxLog.TabIndex = 1;
             this.textBoxLog.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxLog_KeyDown);
             // 
@@ -159,7 +167,7 @@
             // 
             // buttonMachinePwrOn
             // 
-            this.buttonMachinePwrOn.Location = new System.Drawing.Point(557, 27);
+            this.buttonMachinePwrOn.Location = new System.Drawing.Point(526, 27);
             this.buttonMachinePwrOn.Name = "buttonMachinePwrOn";
             this.buttonMachinePwrOn.Size = new System.Drawing.Size(128, 23);
             this.buttonMachinePwrOn.TabIndex = 4;
@@ -169,7 +177,7 @@
             // 
             // buttonMachinePwrOff
             // 
-            this.buttonMachinePwrOff.Location = new System.Drawing.Point(557, 56);
+            this.buttonMachinePwrOff.Location = new System.Drawing.Point(526, 56);
             this.buttonMachinePwrOff.Name = "buttonMachinePwrOff";
             this.buttonMachinePwrOff.Size = new System.Drawing.Size(128, 23);
             this.buttonMachinePwrOff.TabIndex = 5;
@@ -179,7 +187,7 @@
             // 
             // buttonToolLiftUp
             // 
-            this.buttonToolLiftUp.Location = new System.Drawing.Point(557, 85);
+            this.buttonToolLiftUp.Location = new System.Drawing.Point(526, 85);
             this.buttonToolLiftUp.Name = "buttonToolLiftUp";
             this.buttonToolLiftUp.Size = new System.Drawing.Size(128, 23);
             this.buttonToolLiftUp.TabIndex = 6;
@@ -189,7 +197,7 @@
             // 
             // buttonToolLiftDown
             // 
-            this.buttonToolLiftDown.Location = new System.Drawing.Point(557, 114);
+            this.buttonToolLiftDown.Location = new System.Drawing.Point(526, 114);
             this.buttonToolLiftDown.Name = "buttonToolLiftDown";
             this.buttonToolLiftDown.Size = new System.Drawing.Size(128, 23);
             this.buttonToolLiftDown.TabIndex = 7;
@@ -199,7 +207,7 @@
             // 
             // buttonToolLiftStop
             // 
-            this.buttonToolLiftStop.Location = new System.Drawing.Point(557, 143);
+            this.buttonToolLiftStop.Location = new System.Drawing.Point(526, 143);
             this.buttonToolLiftStop.Name = "buttonToolLiftStop";
             this.buttonToolLiftStop.Size = new System.Drawing.Size(128, 23);
             this.buttonToolLiftStop.TabIndex = 8;
@@ -209,7 +217,7 @@
             // 
             // buttonToolRotateRun
             // 
-            this.buttonToolRotateRun.Location = new System.Drawing.Point(557, 172);
+            this.buttonToolRotateRun.Location = new System.Drawing.Point(526, 172);
             this.buttonToolRotateRun.Name = "buttonToolRotateRun";
             this.buttonToolRotateRun.Size = new System.Drawing.Size(128, 23);
             this.buttonToolRotateRun.TabIndex = 9;
@@ -219,7 +227,7 @@
             // 
             // buttonToolRotateStop
             // 
-            this.buttonToolRotateStop.Location = new System.Drawing.Point(557, 201);
+            this.buttonToolRotateStop.Location = new System.Drawing.Point(526, 201);
             this.buttonToolRotateStop.Name = "buttonToolRotateStop";
             this.buttonToolRotateStop.Size = new System.Drawing.Size(128, 23);
             this.buttonToolRotateStop.TabIndex = 10;
@@ -229,7 +237,7 @@
             // 
             // buttonToolStop
             // 
-            this.buttonToolStop.Location = new System.Drawing.Point(557, 230);
+            this.buttonToolStop.Location = new System.Drawing.Point(526, 230);
             this.buttonToolStop.Name = "buttonToolStop";
             this.buttonToolStop.Size = new System.Drawing.Size(128, 23);
             this.buttonToolStop.TabIndex = 11;
@@ -237,11 +245,76 @@
             this.buttonToolStop.UseVisualStyleBackColor = true;
             this.buttonToolStop.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // labelCurrentToolPosition
+            // 
+            this.labelCurrentToolPosition.AutoSize = true;
+            this.labelCurrentToolPosition.Location = new System.Drawing.Point(351, 61);
+            this.labelCurrentToolPosition.Name = "labelCurrentToolPosition";
+            this.labelCurrentToolPosition.Size = new System.Drawing.Size(102, 13);
+            this.labelCurrentToolPosition.TabIndex = 12;
+            this.labelCurrentToolPosition.Text = "CurrentToolPosition:";
+            // 
+            // labelCurrentSensor
+            // 
+            this.labelCurrentSensor.AutoSize = true;
+            this.labelCurrentSensor.Location = new System.Drawing.Point(351, 90);
+            this.labelCurrentSensor.Name = "labelCurrentSensor";
+            this.labelCurrentSensor.Size = new System.Drawing.Size(77, 13);
+            this.labelCurrentSensor.TabIndex = 13;
+            this.labelCurrentSensor.Text = "CurrentSensor:";
+            // 
+            // labelUpperToolTipState
+            // 
+            this.labelUpperToolTipState.AutoSize = true;
+            this.labelUpperToolTipState.Location = new System.Drawing.Point(349, 114);
+            this.labelUpperToolTipState.Name = "labelUpperToolTipState";
+            this.labelUpperToolTipState.Size = new System.Drawing.Size(100, 13);
+            this.labelUpperToolTipState.TabIndex = 14;
+            this.labelUpperToolTipState.Text = "UpperToolTipState:";
+            // 
+            // labelLowerToolTipState
+            // 
+            this.labelLowerToolTipState.AutoSize = true;
+            this.labelLowerToolTipState.Location = new System.Drawing.Point(349, 143);
+            this.labelLowerToolTipState.Name = "labelLowerToolTipState";
+            this.labelLowerToolTipState.Size = new System.Drawing.Size(100, 13);
+            this.labelLowerToolTipState.TabIndex = 15;
+            this.labelLowerToolTipState.Text = "LowerToolTipState:";
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(354, 435);
+            this.progressBar1.Maximum = 4096;
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(300, 23);
+            this.progressBar1.Step = 1;
+            this.progressBar1.TabIndex = 16;
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.Enabled = false;
+            this.trackBar1.Location = new System.Drawing.Point(660, 24);
+            this.trackBar1.Maximum = 4096;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar1.Size = new System.Drawing.Size(45, 434);
+            this.trackBar1.TabIndex = 17;
+            // 
             // MainForm1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(705, 545);
+            this.Controls.Add(this.trackBar1);
+            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.labelLowerToolTipState);
+            this.Controls.Add(this.labelUpperToolTipState);
+            this.Controls.Add(this.labelCurrentSensor);
+            this.Controls.Add(this.labelCurrentToolPosition);
             this.Controls.Add(this.buttonToolStop);
             this.Controls.Add(this.buttonToolRotateStop);
             this.Controls.Add(this.buttonToolRotateRun);
@@ -259,6 +332,7 @@
             this.Text = "HoningMachineConfig";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -287,6 +361,13 @@
         private System.Windows.Forms.Button buttonToolRotateRun;
         private System.Windows.Forms.Button buttonToolRotateStop;
         private System.Windows.Forms.Button buttonToolStop;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label labelCurrentToolPosition;
+        private System.Windows.Forms.Label labelCurrentSensor;
+        private System.Windows.Forms.Label labelUpperToolTipState;
+        private System.Windows.Forms.Label labelLowerToolTipState;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.TrackBar trackBar1;
     }
 }
 

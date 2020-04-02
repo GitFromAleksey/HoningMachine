@@ -22,17 +22,22 @@ void cProtocolFormer::run()
 // реализация методов  интерфейса iView
 void cProtocolFormer::SendCurrentPosition(uint32_t position)
 {
-	PacketFormingAndSend(CurrentPosition, position);
+	PacketFormingAndSend(paramTypeCurrentToolPosition, position);
 }
 // ----------------------------------------------------------------------------
-void cProtocolFormer::PacketFormingAndSend(teSendingParam param, uint32_t data)
+void cProtocolFormer::SendCurrent(uint32_t position)
+{
+	PacketFormingAndSend(paramTypeCurrentSensor, position);
+}
+// ----------------------------------------------------------------------------
+void cProtocolFormer::PacketFormingAndSend(eSendingParamType param, uint32_t data)
 {
 	uint8_t cnt = 0;
 	uint8_t *pProtocol = NULL;
 	t_out_protocol protocol;
 	
 	protocol.DeviceNumber = 1;
-	protocol.RegisterNumber = param;
+	protocol.ParamType = param;
 	protocol.Data = data;
 	protocol.CRC8 = 0xAA;
 	
@@ -42,8 +47,8 @@ void cProtocolFormer::PacketFormingAndSend(teSendingParam param, uint32_t data)
 	pProtocol = (uint8_t*)&protocol.DeviceNumber;
 	while(cnt--){m_pByteSender->AddItem(*pProtocol++);}
 	
-	cnt = sizeof(protocol.RegisterNumber);
-	pProtocol = (uint8_t*)&protocol.RegisterNumber;
+	cnt = sizeof(protocol.ParamType);
+	pProtocol = (uint8_t*)&protocol.ParamType;
 	while(cnt--){m_pByteSender->AddItem(*pProtocol++);}
 
 	cnt = sizeof(protocol.Data);

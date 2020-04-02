@@ -26,9 +26,8 @@ namespace HoningMachineConfig
             m_ProtocolSerializer = new cProtocolSerializer(DEVICE_NUMBER);
             m_ProtocolDeSerializer = new cProtocolDeSerializer(DEVICE_NUMBER);
             //m_ProtocolDeSerializer.SetFunc(Logging);
+            timer1.Enabled = true;
         }
-
-
 
         // вывод списка com портов
         private void portToolStripMenuItem_Click(object sender, EventArgs e)
@@ -99,8 +98,19 @@ namespace HoningMachineConfig
             }
 
             str += "\r\n";
-            this.textBoxLog.BeginInvoke((MethodInvoker)(() => this.textBoxLog.Text += str));
+            //str = m_ProtocolDeSerializer.ToString();
+            //this.textBoxLog.BeginInvoke((MethodInvoker)(() => this.textBoxLog.Text = str));
+        }
 
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            labelCurrentToolPosition.Text = "CurrentToolPosition: " + m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeCurrentToolPosition);
+            labelCurrentSensor.Text = "CurrentSensor: " + m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeCurrentSensor);
+            labelUpperToolTipState.Text = "UpperToolTipState: " + m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeUpperToolTipState);
+            labelLowerToolTipState.Text = "CurrentSensor: " + m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeLowerToolTipState);
+
+            progressBar1.Value = (int)m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeCurrentSensor);
+            trackBar1.Value = (int)m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeCurrentToolPosition);
         }
 
         private void textBoxLog_KeyDown(object sender, KeyEventArgs e)
@@ -161,10 +171,6 @@ namespace HoningMachineConfig
         {
             textBoxLog.Text += text + "\r\n";
         }
-
-
-
-
 
     }
 }
