@@ -69,7 +69,7 @@ cDigitalOut RotatedMotorToolSwitch;
 cDigitalOut ToolLiftUpSwitch;
 cDigitalOut ToolLiftDownSwich;
 
-cDigitalInput DI;
+cDigitalInput KeyMacinePwrOnOff(GPIOA, GPIO_PIN_8, false);
 
 cDigitalInput UpperToolTip;
 cDigitalInput LowerToolTip;
@@ -96,7 +96,7 @@ static void MX_NVIC_Init(void);
 static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
 void DO_SwitchCallback(void *port, uint16_t pinNumber, bool hi_lo);
-bool DO_CheckStateCallback(void *port, uint16_t pinNumber);
+bool DIO_CheckStateCallback(void *port, uint16_t pinNumber);
 bool GetByteCallback(uint8_t *data);
 bool SetByteCallback(uint8_t *data);
 /* USER CODE END PFP */
@@ -134,7 +134,7 @@ void SetupDigitalOut()
 {
 //	DO.Init(GPIOB, GPIO_PIN_15, false);
 //	DO.SetDoSwitchCallback(DO_SwitchCallback);
-//	DO.SetCheckStateCallback(DO_CheckStateCallback);
+//	DO.SetCheckStateCallback(DIO_CheckStateCallback);
 
 	MachinePowerSwitch.Init(GPIOB, GPIO_PIN_15, false);
 	MachinePowerSwitch.SetDoSwitchCallback(DO_SwitchCallback);
@@ -156,9 +156,10 @@ void SetupDigitalOut()
 }
 void SetupDigitalInput()
 {
-	DI.Init(GPIOA, GPIO_PIN_8, false);
-	DI.SetCheckStateCallback(DO_CheckStateCallback);
+	KeyMacinePwrOnOff.SetCheckStateCallback(DIO_CheckStateCallback);
+	KeyMacinePwrOnOff.SetDebounceCntValue(0xFF);
 
+	AddToProcessArray(&KeyMacinePwrOnOff);
 	AddToProcessArray(&UpperToolTip);
 	AddToProcessArray(&LowerToolTip);
 //UpperToolTip;
@@ -484,7 +485,7 @@ void DO_SwitchCallback(void *port, uint16_t pinNumber, bool hi_lo)
 {
 	HAL_GPIO_WritePin((GPIO_TypeDef*)port, pinNumber, (GPIO_PinState) (hi_lo)?(GPIO_PIN_SET):(GPIO_PIN_RESET));
 }
-bool DO_CheckStateCallback(void *port, uint16_t pinNumber)
+bool DIO_CheckStateCallback(void *port, uint16_t pinNumber)
 {
 	return (HAL_GPIO_ReadPin((GPIO_TypeDef *)port, pinNumber) == GPIO_PIN_SET) ? (true) : (false);
 }
