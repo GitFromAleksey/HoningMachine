@@ -55,13 +55,13 @@ volatile uint16_t adcDmaData[2];
 ADC_HandleTypeDef hadc1;
 DMA_HandleTypeDef hdma_adc1;
 
+uint8_t huart1Data;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 #define I_PROCESS_ARRAY_SIZE	16
 uint8_t iProcessArrCnt = 0;
 iProcess* ProcessesArr[I_PROCESS_ARRAY_SIZE];
-//cDigitalOut DO;
 
 cDigitalOut MachinePowerSwitch;
 cDigitalOut VerticalFeedMotorSwitch;
@@ -201,7 +201,7 @@ void SetupController()
 }
 void SetupUart()
 {
-	ByteReceiver.SetByteCalback(GetByteCallback);
+	//ByteReceiver.SetByteCallback(GetByteCallback);
 	ByteSender.SetSendByteCallback(SetByteCallback);
 	
 	AddToProcessArray(&ByteReceiver);
@@ -262,6 +262,8 @@ int main(void)
 	
 	uint32_t ticks = HAL_GetTick();
 	
+	HAL_UART_Receive_IT(&huart1, &huart1Data, 1);
+	
   while (1)
   {
 
@@ -270,7 +272,6 @@ int main(void)
 		if((HAL_GetTick() - ticks) > 500)
 		{
 			ticks = HAL_GetTick();
-//			DO.Toggle();
 		}
     /* USER CODE END WHILE */
 
@@ -309,14 +310,14 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV4;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
   {
     Error_Handler();
   }
   PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_ADC;
-  PeriphClkInit.AdcClockSelection = RCC_ADCPCLK2_DIV6;
+  PeriphClkInit.AdcClockSelection = RCC_ADCPCLK2_DIV8;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     Error_Handler();
@@ -491,12 +492,22 @@ bool GetByteCallback(uint8_t *data)
 {
 	return (HAL_UART_Receive(&huart1, data, 1, 0x1) == HAL_OK);
 }
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+	// при отправке байта HAL_UART_Transmit вызывается __HAL_LOCK и надо бы подождать
+	// отправки байта.
+	uint8_t _hal_locked_timeout = 0xFF;
+	while((huart1.Lock == HAL_LOCKED) && (_hal_locked_timeout-- > 0));
+	if(huart1.Lock == HAL_LOCKED) // но если что-то подзависло, то после таймаута
+		__HAL_UNLOCK(&huart1);			// принудительно разблокируем __HAL_UNLOCK
+	ByteReceiver.QueueAddData(huart1Data);
+	HAL_UART_Receive_IT(&huart1, &huart1Data, 1);
+}
 bool SetByteCallback(uint8_t *data)
 {
 	// это проверка передатчика на занятость
-	// if(huart1.Instance->SR & USART_SR_TC)
-	// пока решил ее не использовать. Скорости вроде хватает
-
+	if(huart1.Instance->SR & USART_SR_RXNE_Msk)
+		return false;
 	// шлем по одному байту
 	return (HAL_UART_Transmit(&huart1, data, 1, 0x1) == HAL_OK);	
 }

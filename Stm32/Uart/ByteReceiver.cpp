@@ -26,7 +26,7 @@ void cByteReceiver::run()
 			QueueAddData(receiveData);
 }
 // ----------------------------------------------------------------------------
-void cByteReceiver::SetByteCalback(bool (*GetByteCallback)(uint8_t *data))
+void cByteReceiver::SetByteCallback(bool (*GetByteCallback)(uint8_t *data))
 {
 	if(GetByteCallback != NULL)
 	{

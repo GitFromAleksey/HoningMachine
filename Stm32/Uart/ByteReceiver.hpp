@@ -15,15 +15,16 @@ public:
 	~cByteReceiver();
 
 	virtual void run();
-	void SetByteCalback(bool (*GetByteCallback)(uint8_t *data));
+	void SetByteCallback(bool (*GetByteCallback)(uint8_t *data));
 	uint8_t QueueGetData();
+	void QueueAddData(uint8_t data);
 
 private:
 	cQueue *m_Queue;
 	bool (*GetByteCallback)(uint8_t *data);
 
 	void CreateReceiveArray(uint16_t size);
-	void QueueAddData(uint8_t data);	
+	
 };
 
 #endif /* BYTE_RECEIVER_HPP_ */
