@@ -31,8 +31,9 @@
 #include "ProtocolDetector.hpp"
 #include "ByteSender.hpp"
 #include "ProtocolFormer.hpp"
+#include "ProtocolFormer.hpp"
 #include "../Interfaces/iProcess.hpp"
-
+#include "KeyBoard.hpp"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -79,11 +80,13 @@ cAnalogInput CurrentSensor;
 
 cMachine machine;
 cController controller;
+cKeyBoard KeyBoard;
 
 cByteReceiver ByteReceiver(50);
 cProtocolDetector ProtocolDetector(&ByteReceiver, &controller);
 cByteSender ByteSender(50);
 cProtocolFormer ProtocolFormer(&ByteSender);
+
 uint8_t tmp; //TODO test
 /* USER CODE END PV */
 

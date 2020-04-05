@@ -366,7 +366,7 @@
               <MiscControls>--exceptions</MiscControls>
               <Define>USE_HAL_DRIVER,STM32F103xB</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc;  ../Drivers/STM32F1xx_HAL_Driver/Inc;  ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;  ../Drivers/CMSIS/Device/ST/STM32F1xx/Include;  ../Drivers/CMSIS/Include;  ..\..\Interfaces;  ..\..\Drivers;  ..\..\Model;  ..\..\Uart;  ..\..\Common</IncludePath>
+              <IncludePath>../Inc;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include;..\..\Interfaces;..\..\Drivers;..\..\Model;..\..\Views\Uart;..\..\Common</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -429,6 +429,11 @@
               <FileType>8</FileType>
               <FilePath>..\..\Model\machine.cpp</FilePath>
             </File>
+            <File>
+              <FileName>KeyBoard.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Model\KeyBoard.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -457,22 +462,22 @@
             <File>
               <FileName>ByteReceiver.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\..\Uart\ByteReceiver.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>ProtocolDetector.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\..\Uart\ProtocolDetector.cpp</FilePath>
+              <FilePath>..\..\Views\Uart\ByteReceiver.cpp</FilePath>
             </File>
             <File>
               <FileName>ByteSender.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\..\Uart\ByteSender.cpp</FilePath>
+              <FilePath>..\..\Views\Uart\ByteSender.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ProtocolDetector.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Views\Uart\ProtocolDetector.cpp</FilePath>
             </File>
             <File>
               <FileName>ProtocolFormer.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\..\Uart\ProtocolFormer.cpp</FilePath>
+              <FilePath>..\..\Views\Uart\ProtocolFormer.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -499,12 +504,12 @@
             </File>
             <File>
               <FileName>stm32f1xx_it.c</FileName>
-              <FileType>1</FileType>
+              <FileType>8</FileType>
               <FilePath>../Src/stm32f1xx_it.c</FilePath>
             </File>
             <File>
               <FileName>stm32f1xx_hal_msp.c</FileName>
-              <FileType>1</FileType>
+              <FileType>8</FileType>
               <FilePath>../Src/stm32f1xx_hal_msp.c</FilePath>
             </File>
           </Files>
