@@ -39,9 +39,15 @@ void cMachine::Init(t_MachineInitStruct initStruct)
 void cMachine::run()
 {
 	if( m_UpperToolTip->IsOn() )
-	{ ToolLiftStop(); }
+	{ 
+		if(ToolIsLiftUp())
+		{ ToolLiftStop(); }
+	}
 	if( m_LowerToolTip->IsOn() )
-	{ ToolLiftStop(); }
+	{ 
+		if(ToolIsLiftDown())
+			ToolLiftStop(); 
+	}
 	m_CurrentPosition = m_ToolPositionSensor->GetAverageData();
 }
 // ----------------------------------------------------------------------------
@@ -55,12 +61,12 @@ void cMachine::MachinePowerOff()
 	m_MachinePowerSwitch->SetOff();
 }
 // ----------------------------------------------------------------------------
-void cMachine::VerticalFeedMotorOn() // TODO сделать реализацию
+void cMachine::VerticalFeedMotorOn()
 {
 	m_VerticalFeedMotorSwitch->SetOn();
 }
 // ----------------------------------------------------------------------------
-void cMachine::VerticalFeedMotorOff() // TODO сделать реализацию
+void cMachine::VerticalFeedMotorOff()
 {
 	m_VerticalFeedMotorSwitch->SetOff();
 }

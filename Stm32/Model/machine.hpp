@@ -73,8 +73,8 @@ public:
 
 	void MachinePowerOn();
 	void MachinePowerOff();
-	void VerticalFeedMotorOn(); // TODO сделать реализацию
-	void VerticalFeedMotorOff(); // TODO сделать реализацию
+	void VerticalFeedMotorOn();
+	void VerticalFeedMotorOff();
 	void ToolLiftUp();
 	void ToolLiftDown();
 	void ToolLiftStop();

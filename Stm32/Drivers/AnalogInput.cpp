@@ -42,5 +42,5 @@ void cAnalogInput::CalcAverage(uint32_t data)
 {
 	m_DataAcc -= m_DataAvg;
 	m_DataAcc += data;
-	m_DataAvg = m_DataAcc>>m_AvgDiv;	// TODO тут нужно сделать рассчет скользящего среднего
+	m_DataAvg = m_DataAcc>>m_AvgDiv;
 }

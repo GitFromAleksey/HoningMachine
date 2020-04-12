@@ -61,10 +61,10 @@
 
 // digital inputs
 #define DI_PORT_UPPER_TOOL_TIP					GPIOB
-#define DI_PIN_UPPER_TOOL_TIP						GPIO_PIN_12
+#define DI_PIN_UPPER_TOOL_TIP						GPIO_PIN_0
 
 #define DI_PORT_LOWER_TOOL_TIP					GPIOB
-#define DI_PIN_LOWER_TOOL_TIP						GPIO_PIN_0
+#define DI_PIN_LOWER_TOOL_TIP						GPIO_PIN_12
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -109,7 +109,6 @@ cProtocolDetector ProtocolDetector(&ByteReceiver, &controller);
 cByteSender ByteSender(50);
 cProtocolFormer ProtocolFormer(&ByteSender);
 
-uint8_t tmp; //TODO test
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -160,18 +159,23 @@ void SetupDigitalOut()
 	
 	MachinePowerSwitch.Init(DO_PORT_MACHINE_PWR_SWITCH, DO_PIN_MACHINE_PWR_SWITCH, false);
 	MachinePowerSwitch.SetDoSwitchCallback(DO_SwitchCallback);
+	MachinePowerSwitch.SetCheckStateCallback(&DIO_CheckStateCallback);
 	
 	VerticalFeedMotorSwitch.Init(DO_PORT_VERTICAL_FEED_MOTOR_SW, DO_PIN_VERTICAL_FEED_MOTOR_SW, false);
 	VerticalFeedMotorSwitch.SetDoSwitchCallback(DO_SwitchCallback);
+	VerticalFeedMotorSwitch.SetCheckStateCallback(&DIO_CheckStateCallback);
 
 	RotatedMotorToolSwitch.Init(DO_PORT_ROTATE_MOTOR_TOOL_SW, DO_PIN_ROTATE_MOTOR_TOOL_SW, false);
 	RotatedMotorToolSwitch.SetDoSwitchCallback(DO_SwitchCallback);
+	RotatedMotorToolSwitch.SetCheckStateCallback(&DIO_CheckStateCallback);
 	
 	ToolLiftUpSwitch.Init(DO_PORT_TOOL_LIFT_UP_SW, DO_PIN_TOOL_LIFT_UP_SW, false);
 	ToolLiftUpSwitch.SetDoSwitchCallback(DO_SwitchCallback);
+	ToolLiftUpSwitch.SetCheckStateCallback(&DIO_CheckStateCallback);
 
 	ToolLiftDownSwich.Init(DO_PORT_TOOL_LIFT_DOWN_SW, DO_PIN_TOOL_LIFT_DOWN_SW, false);
 	ToolLiftDownSwich.SetDoSwitchCallback(DO_SwitchCallback);
+	ToolLiftDownSwich.SetCheckStateCallback(&DIO_CheckStateCallback);
 	
 //	AddToProcessArray(&DO);
 	AddToProcessArray(&MachinePowerSwitch);
