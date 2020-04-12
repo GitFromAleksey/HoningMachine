@@ -12,7 +12,7 @@ C:\Users\HP-G7000\eclipse-workspace\HoningMachine\HoningMachineConfig\HoningMach
 C:\Users\HP-G7000\eclipse-workspace\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.pdb
 C:\Users\HP-G7000\eclipse-workspace\HoningMachine\HoningMachineConfig\HoningMachineConfig\bin\Debug\HoningMachineConfig.exe
 C:\Users\HP-G7000\eclipse-workspace\HoningMachine\HoningMachineConfig\HoningMachineConfig\bin\Debug\HoningMachineConfig.pdb
-C:\Users\HP-G7000\eclipse-workspace\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.csprojResolveAssemblyReference.cache
 C:\Users\HP-G7000\eclipse-workspace\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.MainForm1.resources
 C:\Users\HP-G7000\eclipse-workspace\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.Properties.Resources.resources
 C:\Users\HP-G7000\eclipse-workspace\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.csproj.GenerateResource.Cache
+C:\Users\HP-G7000\eclipse-workspace\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.csprojResolveAssemblyReference.cache

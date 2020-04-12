@@ -43,6 +43,28 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+// digital outputs
+#define DO_PORT_MACHINE_PWR_SWITCH					GPIOB
+#define DO_PIN_MACHINE_PWR_SWITCH						GPIO_PIN_15
+
+#define DO_PORT_VERTICAL_FEED_MOTOR_SW	GPIOB
+#define DO_PIN_VERTICAL_FEED_MOTOR_SW		GPIO_PIN_13
+
+#define DO_PORT_ROTATE_MOTOR_TOOL_SW		GPIOB
+#define DO_PIN_ROTATE_MOTOR_TOOL_SW			GPIO_PIN_11
+
+#define DO_PORT_TOOL_LIFT_UP_SW					GPIOB
+#define DO_PIN_TOOL_LIFT_UP_SW					GPIO_PIN_10
+
+#define DO_PORT_TOOL_LIFT_DOWN_SW				GPIOB
+#define DO_PIN_TOOL_LIFT_DOWN_SW				GPIO_PIN_1
+
+// digital inputs
+#define DI_PORT_UPPER_TOOL_TIP					GPIOB
+#define DI_PIN_UPPER_TOOL_TIP						GPIO_PIN_12
+
+#define DI_PORT_LOWER_TOOL_TIP					GPIOB
+#define DI_PIN_LOWER_TOOL_TIP						GPIO_PIN_0
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -72,8 +94,8 @@ cDigitalOut ToolLiftDownSwich;
 
 cDigitalInput KeyMacinePwrOnOff(GPIOA, GPIO_PIN_8, false);
 
-cDigitalInput UpperToolTip;
-cDigitalInput LowerToolTip;
+cDigitalInput UpperToolTip(DI_PORT_UPPER_TOOL_TIP, DI_PIN_UPPER_TOOL_TIP, true);
+cDigitalInput LowerToolTip(DI_PORT_LOWER_TOOL_TIP, DI_PIN_LOWER_TOOL_TIP, true);
 
 cAnalogInput ToolPositionSensor;
 cAnalogInput CurrentSensor;
@@ -135,19 +157,20 @@ void RunProcesses() // TODO оформить в отдельный класс
 }
 void SetupDigitalOut()
 {
-//	DO.Init(GPIOB, GPIO_PIN_15, false);
-//	DO.SetDoSwitchCallback(DO_SwitchCallback);
-//	DO.SetCheckStateCallback(DIO_CheckStateCallback);
-
-	MachinePowerSwitch.Init(GPIOB, GPIO_PIN_15, false);
+	
+	MachinePowerSwitch.Init(DO_PORT_MACHINE_PWR_SWITCH, DO_PIN_MACHINE_PWR_SWITCH, false);
 	MachinePowerSwitch.SetDoSwitchCallback(DO_SwitchCallback);
-	VerticalFeedMotorSwitch.Init(GPIOB, GPIO_PIN_13, false);
+	
+	VerticalFeedMotorSwitch.Init(DO_PORT_VERTICAL_FEED_MOTOR_SW, DO_PIN_VERTICAL_FEED_MOTOR_SW, false);
 	VerticalFeedMotorSwitch.SetDoSwitchCallback(DO_SwitchCallback);
-	RotatedMotorToolSwitch.Init(GPIOB, GPIO_PIN_11, false);
+
+	RotatedMotorToolSwitch.Init(DO_PORT_ROTATE_MOTOR_TOOL_SW, DO_PIN_ROTATE_MOTOR_TOOL_SW, false);
 	RotatedMotorToolSwitch.SetDoSwitchCallback(DO_SwitchCallback);
-	ToolLiftUpSwitch.Init(GPIOB, GPIO_PIN_10, false);
+	
+	ToolLiftUpSwitch.Init(DO_PORT_TOOL_LIFT_UP_SW, DO_PIN_TOOL_LIFT_UP_SW, false);
 	ToolLiftUpSwitch.SetDoSwitchCallback(DO_SwitchCallback);
-	ToolLiftDownSwich.Init(GPIOB, GPIO_PIN_1, false);
+
+	ToolLiftDownSwich.Init(DO_PORT_TOOL_LIFT_DOWN_SW, DO_PIN_TOOL_LIFT_DOWN_SW, false);
 	ToolLiftDownSwich.SetDoSwitchCallback(DO_SwitchCallback);
 	
 //	AddToProcessArray(&DO);
@@ -162,11 +185,15 @@ void SetupDigitalInput()
 	KeyMacinePwrOnOff.SetCheckStateCallback(DIO_CheckStateCallback);
 	KeyMacinePwrOnOff.SetDebounceCntValue(0xFF);
 
+	UpperToolTip.SetCheckStateCallback(DIO_CheckStateCallback);
+	UpperToolTip.SetDebounceCntValue(0xFF);
+	
+	LowerToolTip.SetCheckStateCallback(DIO_CheckStateCallback);
+	LowerToolTip.SetDebounceCntValue(0xFF);
+	
 	AddToProcessArray(&KeyMacinePwrOnOff);
 	AddToProcessArray(&UpperToolTip);
 	AddToProcessArray(&LowerToolTip);
-//UpperToolTip;
-//LowerToolTip;
 }
 void SetupAnalogInput()
 {
@@ -454,32 +481,46 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 	
+	// TODO сделать отдельную функцию для конфигурации дискретных входов и выходов
+	// digital outputs config
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(DO_PORT_MACHINE_PWR_SWITCH, DO_PIN_MACHINE_PWR_SWITCH, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : PB15 */
-  GPIO_InitStruct.Pin = GPIO_PIN_15;
+  GPIO_InitStruct.Pin = DO_PIN_MACHINE_PWR_SWITCH;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(DO_PORT_TOOL_LIFT_DOWN_SW, DO_PIN_TOOL_LIFT_DOWN_SW, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(DO_PORT_TOOL_LIFT_UP_SW, DO_PIN_TOOL_LIFT_UP_SW, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(DO_PORT_ROTATE_MOTOR_TOOL_SW, DO_PIN_ROTATE_MOTOR_TOOL_SW, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(DO_PORT_VERTICAL_FEED_MOTOR_SW, DO_PIN_VERTICAL_FEED_MOTOR_SW, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : PB */
-  GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_13;
+  //GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_13;
+	GPIO_InitStruct.Pin = DO_PIN_TOOL_LIFT_DOWN_SW | DO_PIN_TOOL_LIFT_UP_SW |
+	DO_PIN_ROTATE_MOTOR_TOOL_SW | DO_PIN_VERTICAL_FEED_MOTOR_SW;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 	
-  /*Configure GPIO pin : PA8 */
+  // digital inputs config
+  GPIO_InitStruct.Pin = DI_PIN_UPPER_TOOL_TIP;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  GPIO_InitStruct.Pin = DI_PIN_LOWER_TOOL_TIP;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
   GPIO_InitStruct.Pin = GPIO_PIN_8;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 }
 

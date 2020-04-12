@@ -113,14 +113,6 @@ namespace HoningMachineConfig
             trackBar1.Value = (int)m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeCurrentToolPosition);
         }
 
-        private void textBoxLog_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyData == Keys.Delete)
-            {
-                textBoxLog.Clear();
-            }
-        }
-
         private void textBoxToSend_KeyDown(object sender, KeyEventArgs e)
         {
             if (!serialPort1.IsOpen)
@@ -175,6 +167,30 @@ namespace HoningMachineConfig
         {
             textBoxLog.Text += text + "\r\n";
         }
+
+        private void MainForm1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Delete)
+            {
+                textBoxLog.Clear();
+            }
+            if (e.KeyValue == 85) // U
+            {
+                if (e.Control)
+                    buttonToolLiftUp.PerformClick();
+            }
+            if (e.KeyValue == 68) // D
+            {
+                if(e.Control)
+                    buttonToolLiftDown.PerformClick();
+            }
+            if (e.KeyValue == 83) // S
+            {
+                if (e.Control)
+                    buttonToolLiftStop.PerformClick();
+            }
+        }
+
 
     }
 }

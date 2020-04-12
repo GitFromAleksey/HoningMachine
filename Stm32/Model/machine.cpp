@@ -41,7 +41,7 @@ void cMachine::run()
 	if( m_UpperToolTip->IsOn() )
 	{ ToolLiftStop(); }
 	if( m_LowerToolTip->IsOn() )
-	{}
+	{ ToolLiftStop(); }
 	m_CurrentPosition = m_ToolPositionSensor->GetAverageData();
 }
 // ----------------------------------------------------------------------------

@@ -147,7 +147,7 @@
             this.textBoxLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBoxLog.Size = new System.Drawing.Size(333, 392);
             this.textBoxLog.TabIndex = 1;
-            this.textBoxLog.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxLog_KeyDown);
+            this.textBoxLog.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm1_KeyDown);
             // 
             // textBoxToSend
             // 
@@ -196,6 +196,7 @@
             this.buttonToolLiftUp.Text = "ToolLiftUp";
             this.buttonToolLiftUp.UseVisualStyleBackColor = true;
             this.buttonToolLiftUp.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
+            this.buttonToolLiftUp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm1_KeyDown);
             // 
             // buttonToolLiftDown
             // 
@@ -354,6 +355,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm1";
             this.Text = "HoningMachineConfig";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm1_KeyDown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
