@@ -45,33 +45,35 @@
 /* USER CODE BEGIN PD */
 // digital outputs
 #define DO_PORT_MACHINE_PWR_SWITCH					GPIOB
-#define DO_PIN_MACHINE_PWR_SWITCH						GPIO_PIN_15
+#define DO_PIN_MACHINE_PWR_SWITCH						GPIO_PIN_15 // TODO этот вывод управления не нужен
 
 #define DO_PORT_VERTICAL_FEED_MOTOR_SW	GPIOB
-#define DO_PIN_VERTICAL_FEED_MOTOR_SW		GPIO_PIN_13
+#define DO_PIN_VERTICAL_FEED_MOTOR_SW		GPIO_PIN_13 // контактор К1 - двигатель подачи 
 
 #define DO_PORT_ROTATE_MOTOR_TOOL_SW		GPIOB
-#define DO_PIN_ROTATE_MOTOR_TOOL_SW			GPIO_PIN_11
+#define DO_PIN_ROTATE_MOTOR_TOOL_SW			GPIO_PIN_11 // контактор К2 - двигатель вращения
 
 #define DO_PORT_TOOL_LIFT_UP_SW					GPIOB
-#define DO_PIN_TOOL_LIFT_UP_SW					GPIO_PIN_10
+#define DO_PIN_TOOL_LIFT_UP_SW					GPIO_PIN_10 // ЭММ1 - электромагнит подачи вверх
 
 #define DO_PORT_TOOL_LIFT_DOWN_SW				GPIOB
-#define DO_PIN_TOOL_LIFT_DOWN_SW				GPIO_PIN_1
+#define DO_PIN_TOOL_LIFT_DOWN_SW				GPIO_PIN_1 // ЭММ2 - электромагнит подачи вниз
+
+																										// TODO ЭММ3(Ручное управление) нужно добавить для ручного управления
 
 // digital inputs
 #define DI_PORT_UPPER_TOOL_TIP					GPIOB
-#define DI_PIN_UPPER_TOOL_TIP						GPIO_PIN_0
+#define DI_PIN_UPPER_TOOL_TIP						GPIO_PIN_0 // верхний концевик
 
 #define DI_PORT_LOWER_TOOL_TIP					GPIOB
-#define DI_PIN_LOWER_TOOL_TIP						GPIO_PIN_12
+#define DI_PIN_LOWER_TOOL_TIP						GPIO_PIN_12 // нижний концевик
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-volatile uint16_t adcDmaData[2];
-#define POSITION_SENSOR		adcDmaData[0]
-#define CURRENT_SENSOR		adcDmaData[1]
+volatile uint16_t adcDmaData[2];  // указатель на этот массив передается в DMA
+#define POSITION_SENSOR		adcDmaData[0]  // ADC_IN0(PA0) - датчик положения
+#define CURRENT_SENSOR		adcDmaData[1]  // ADC_IN1(PA1) - датчик тока
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
