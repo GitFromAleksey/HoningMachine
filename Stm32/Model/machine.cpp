@@ -34,6 +34,12 @@ void cMachine::Init(t_MachineInitStruct initStruct)
 
 	m_ToolPositionSensor = initStruct.ToolPositionSensor;
 	m_CurrentSensor = initStruct.CurrentSensor;
+	
+	m_MachinePowerSwitch->SetOff();
+	m_VerticalFeedMotorSwitch->SetOff();
+	m_RotatedMotorToolSwitch->SetOff();
+	m_ToolLiftUpSwitch->SetOff();
+	m_ToolLiftDownSwich->SetOff();
 }
 // ----------------------------------------------------------------------------
 void cMachine::run()

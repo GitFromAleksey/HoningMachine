@@ -43,14 +43,14 @@ void cDigitalOut::SetOn()
 {
 	if((this->SwitchCallback == NULL) || (this->m_Port == NULL)) return;
 	
-	this->SwitchCallback(this->m_Port, this->m_PinNumber, true);
+	this->SwitchCallback(this->m_Port, this->m_PinNumber, !m_Inversion);
 }
 // ----------------------------------------------------------------------------
 void cDigitalOut::SetOff()
 {
 	if((this->SwitchCallback == NULL) || (this->m_Port == NULL)) return;
 
-	this->SwitchCallback(this->m_Port, this->m_PinNumber, false);
+	this->SwitchCallback(this->m_Port, this->m_PinNumber, m_Inversion);
 }
 // ----------------------------------------------------------------------------
 void cDigitalOut::Toggle()

@@ -158,24 +158,23 @@ void RunProcesses() // TODO оформить в отдельный класс
 }
 void SetupDigitalOut()
 {
-	
-	MachinePowerSwitch.Init(DO_PORT_MACHINE_PWR_SWITCH, DO_PIN_MACHINE_PWR_SWITCH, false);
+	MachinePowerSwitch.Init(DO_PORT_MACHINE_PWR_SWITCH, DO_PIN_MACHINE_PWR_SWITCH, true);
 	MachinePowerSwitch.SetDoSwitchCallback(DO_SwitchCallback);
 	MachinePowerSwitch.SetCheckStateCallback(&DIO_CheckStateCallback);
 	
-	VerticalFeedMotorSwitch.Init(DO_PORT_VERTICAL_FEED_MOTOR_SW, DO_PIN_VERTICAL_FEED_MOTOR_SW, false);
+	VerticalFeedMotorSwitch.Init(DO_PORT_VERTICAL_FEED_MOTOR_SW, DO_PIN_VERTICAL_FEED_MOTOR_SW, true);
 	VerticalFeedMotorSwitch.SetDoSwitchCallback(DO_SwitchCallback);
 	VerticalFeedMotorSwitch.SetCheckStateCallback(&DIO_CheckStateCallback);
 
-	RotatedMotorToolSwitch.Init(DO_PORT_ROTATE_MOTOR_TOOL_SW, DO_PIN_ROTATE_MOTOR_TOOL_SW, false);
+	RotatedMotorToolSwitch.Init(DO_PORT_ROTATE_MOTOR_TOOL_SW, DO_PIN_ROTATE_MOTOR_TOOL_SW, true);
 	RotatedMotorToolSwitch.SetDoSwitchCallback(DO_SwitchCallback);
 	RotatedMotorToolSwitch.SetCheckStateCallback(&DIO_CheckStateCallback);
 	
-	ToolLiftUpSwitch.Init(DO_PORT_TOOL_LIFT_UP_SW, DO_PIN_TOOL_LIFT_UP_SW, false);
+	ToolLiftUpSwitch.Init(DO_PORT_TOOL_LIFT_UP_SW, DO_PIN_TOOL_LIFT_UP_SW, true);
 	ToolLiftUpSwitch.SetDoSwitchCallback(DO_SwitchCallback);
 	ToolLiftUpSwitch.SetCheckStateCallback(&DIO_CheckStateCallback);
 
-	ToolLiftDownSwich.Init(DO_PORT_TOOL_LIFT_DOWN_SW, DO_PIN_TOOL_LIFT_DOWN_SW, false);
+	ToolLiftDownSwich.Init(DO_PORT_TOOL_LIFT_DOWN_SW, DO_PIN_TOOL_LIFT_DOWN_SW, true);
 	ToolLiftDownSwich.SetDoSwitchCallback(DO_SwitchCallback);
 	ToolLiftDownSwich.SetCheckStateCallback(&DIO_CheckStateCallback);
 	
