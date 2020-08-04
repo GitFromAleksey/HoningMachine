@@ -24,7 +24,7 @@ public:
 
 	void EventsHandler(MacineEvent event);
 
-	// реализация методов интерфейса iController
+	// СЂРµР°Р»РёР·Р°С†РёСЏ РјРµС‚РѕРґРѕРІ РёРЅС‚РµСЂС„РµР№СЃР° iController
 	virtual void MachinePowerOn();
 	virtual void MachinePowerOff();
 	virtual void VerticalFeedMotorOn();

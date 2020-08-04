@@ -19,7 +19,7 @@ void cProtocolFormer::run()
 
 }
 // ----------------------------------------------------------------------------
-// реализация методов  интерфейса iView
+// СЂРµР°Р»РёР·Р°С†РёСЏ РјРµС‚РѕРґРѕРІ  РёРЅС‚РµСЂС„РµР№СЃР° iView
 void cProtocolFormer::SendCurrentPosition(uint32_t data)
 {
 	PacketFormingAndSend(paramTypeCurrentToolPosition, data);

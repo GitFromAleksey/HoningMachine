@@ -1,7 +1,7 @@
 /*
  * machine.cpp
  *
- *  Created on: 19 мар. 2020 г.
+ *  Created on: 19 РјР°СЂ. 2020 Рі.
  *      Author: borzenkov
  */
 #include "../Model/machine.hpp"

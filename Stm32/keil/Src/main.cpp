@@ -45,35 +45,35 @@
 /* USER CODE BEGIN PD */
 // digital outputs
 #define DO_PORT_MACHINE_PWR_SWITCH					GPIOB
-#define DO_PIN_MACHINE_PWR_SWITCH						GPIO_PIN_15 // TODO этот вывод управления не нужен
+#define DO_PIN_MACHINE_PWR_SWITCH						GPIO_PIN_15 // TODO СЌС‚РѕС‚ РІС‹РІРѕРґ СѓРїСЂР°РІР»РµРЅРёСЏ РЅРµ РЅСѓР¶РµРЅ
 
 #define DO_PORT_VERTICAL_FEED_MOTOR_SW	GPIOB
-#define DO_PIN_VERTICAL_FEED_MOTOR_SW		GPIO_PIN_13 // контактор К1 - двигатель подачи 
+#define DO_PIN_VERTICAL_FEED_MOTOR_SW		GPIO_PIN_13 // РєРѕРЅС‚Р°РєС‚РѕСЂ Рљ1 - РґРІРёРіР°С‚РµР»СЊ РїРѕРґР°С‡Рё 
 
 #define DO_PORT_ROTATE_MOTOR_TOOL_SW		GPIOB
-#define DO_PIN_ROTATE_MOTOR_TOOL_SW			GPIO_PIN_11 // контактор К2 - двигатель вращения
+#define DO_PIN_ROTATE_MOTOR_TOOL_SW			GPIO_PIN_11 // РєРѕРЅС‚Р°РєС‚РѕСЂ Рљ2 - РґРІРёРіР°С‚РµР»СЊ РІСЂР°С‰РµРЅРёСЏ
 
 #define DO_PORT_TOOL_LIFT_UP_SW					GPIOB
-#define DO_PIN_TOOL_LIFT_UP_SW					GPIO_PIN_10 // ЭММ1 - электромагнит подачи вверх
+#define DO_PIN_TOOL_LIFT_UP_SW					GPIO_PIN_10 // Р­РњРњ1 - СЌР»РµРєС‚СЂРѕРјР°РіРЅРёС‚ РїРѕРґР°С‡Рё РІРІРµСЂС…
 
 #define DO_PORT_TOOL_LIFT_DOWN_SW				GPIOB
-#define DO_PIN_TOOL_LIFT_DOWN_SW				GPIO_PIN_1 // ЭММ2 - электромагнит подачи вниз
+#define DO_PIN_TOOL_LIFT_DOWN_SW				GPIO_PIN_1 // Р­РњРњ2 - СЌР»РµРєС‚СЂРѕРјР°РіРЅРёС‚ РїРѕРґР°С‡Рё РІРЅРёР·
 
-																										// TODO ЭММ3(Ручное управление) нужно добавить для ручного управления
+																										// TODO Р­РњРњ3(Р СѓС‡РЅРѕРµ СѓРїСЂР°РІР»РµРЅРёРµ) РЅСѓР¶РЅРѕ РґРѕР±Р°РІРёС‚СЊ РґР»СЏ СЂСѓС‡РЅРѕРіРѕ СѓРїСЂР°РІР»РµРЅРёСЏ
 
 // digital inputs
 #define DI_PORT_UPPER_TOOL_TIP					GPIOB
-#define DI_PIN_UPPER_TOOL_TIP						GPIO_PIN_0 // верхний концевик
+#define DI_PIN_UPPER_TOOL_TIP						GPIO_PIN_0 // РІРµСЂС…РЅРёР№ РєРѕРЅС†РµРІРёРє
 
 #define DI_PORT_LOWER_TOOL_TIP					GPIOB
-#define DI_PIN_LOWER_TOOL_TIP						GPIO_PIN_12 // нижний концевик
+#define DI_PIN_LOWER_TOOL_TIP						GPIO_PIN_12 // РЅРёР¶РЅРёР№ РєРѕРЅС†РµРІРёРє
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-volatile uint16_t adcDmaData[2];  // указатель на этот массив передается в DMA
-#define POSITION_SENSOR		adcDmaData[0]  // ADC_IN0(PA0) - датчик положения
-#define CURRENT_SENSOR		adcDmaData[1]  // ADC_IN1(PA1) - датчик тока
+volatile uint16_t adcDmaData[2];  // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЌС‚РѕС‚ РјР°СЃСЃРёРІ РїРµСЂРµРґР°РµС‚СЃСЏ РІ DMA
+#define POSITION_SENSOR		adcDmaData[0]  // ADC_IN0(PA0) - РґР°С‚С‡РёРє РїРѕР»РѕР¶РµРЅРёСЏ
+#define CURRENT_SENSOR		adcDmaData[1]  // ADC_IN1(PA1) - РґР°С‚С‡РёРє С‚РѕРєР°
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -148,7 +148,7 @@ bool AddToProcessArray(iProcess* proc)
 		return false;
 	}
 }
-void RunProcesses() // TODO оформить в отдельный класс
+void RunProcesses() // TODO РѕС„РѕСЂРјРёС‚СЊ РІ РѕС‚РґРµР»СЊРЅС‹Р№ РєР»Р°СЃСЃ
 {
 	if(iProcessArrCnt >= I_PROCESS_ARRAY_SIZE)
 		iProcessArrCnt = 0;
@@ -302,7 +302,6 @@ int main(void)
 	
   while (1)
   {
-
 		RunProcesses();
 		
 		if((HAL_GetTick() - ticks) > 500)
@@ -486,7 +485,7 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 	
-	// TODO сделать отдельную функцию для конфигурации дискретных входов и выходов
+	// TODO СЃРґРµР»Р°С‚СЊ РѕС‚РґРµР»СЊРЅСѓСЋ С„СѓРЅРєС†РёСЋ РґР»СЏ РєРѕРЅС„РёРіСѓСЂР°С†РёРё РґРёСЃРєСЂРµС‚РЅС‹С… РІС…РѕРґРѕРІ Рё РІС‹С…РѕРґРѕРІ
 	// digital outputs config
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(DO_PORT_MACHINE_PWR_SWITCH, DO_PIN_MACHINE_PWR_SWITCH, GPIO_PIN_RESET);
@@ -544,21 +543,21 @@ bool GetByteCallback(uint8_t *data)
 }
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-	// при отправке байта HAL_UART_Transmit вызывается __HAL_LOCK и надо бы подождать
-	// отправки байта.
+	// РїСЂРё РѕС‚РїСЂР°РІРєРµ Р±Р°Р№С‚Р° HAL_UART_Transmit РІС‹Р·С‹РІР°РµС‚СЃСЏ __HAL_LOCK Рё РЅР°РґРѕ Р±С‹ РїРѕРґРѕР¶РґР°С‚СЊ
+	// РѕС‚РїСЂР°РІРєРё Р±Р°Р№С‚Р°.
 	uint8_t _hal_locked_timeout = 0xFF;
 	while((huart1.Lock == HAL_LOCKED) && (_hal_locked_timeout-- > 0));
-	if(huart1.Lock == HAL_LOCKED) // но если что-то подзависло, то после таймаута
-		__HAL_UNLOCK(&huart1);			// принудительно разблокируем __HAL_UNLOCK
+	if(huart1.Lock == HAL_LOCKED) // РЅРѕ РµСЃР»Рё С‡С‚Рѕ-С‚Рѕ РїРѕРґР·Р°РІРёСЃР»Рѕ, С‚Рѕ РїРѕСЃР»Рµ С‚Р°Р№РјР°СѓС‚Р°
+		__HAL_UNLOCK(&huart1);			// РїСЂРёРЅСѓРґРёС‚РµР»СЊРЅРѕ СЂР°Р·Р±Р»РѕРєРёСЂСѓРµРј __HAL_UNLOCK
 	ByteReceiver.QueueAddData(huart1Data);
 	HAL_UART_Receive_IT(&huart1, &huart1Data, 1);
 }
 bool SetByteCallback(uint8_t *data)
 {
-	// это проверка передатчика на занятость
+	// СЌС‚Рѕ РїСЂРѕРІРµСЂРєР° РїРµСЂРµРґР°С‚С‡РёРєР° РЅР° Р·Р°РЅСЏС‚РѕСЃС‚СЊ
 	if(huart1.Instance->SR & USART_SR_RXNE_Msk)
 		return false;
-	// шлем по одному байту
+	// С€Р»РµРј РїРѕ РѕРґРЅРѕРјСѓ Р±Р°Р№С‚Сѓ
 	return (HAL_UART_Transmit(&huart1, data, 1, 0x1) == HAL_OK);	
 }
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
