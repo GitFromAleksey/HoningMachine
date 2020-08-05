@@ -55,7 +55,7 @@ void cProtocolDetector::run()
 
 		if(tmp == PACKET_END_SIGN)
 		{
-			// TODO обработка полученных данных
+			// TODO РѕР±СЂР°Р±РѕС‚РєР° РїРѕР»СѓС‡РµРЅРЅС‹С… РґР°РЅРЅС‹С…
 			m_IsPacketBegin = false;
 			PacketParse(&m_Array[1]);
 		}

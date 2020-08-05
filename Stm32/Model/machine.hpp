@@ -19,44 +19,45 @@
 
 //namespace Machine
 //{
-enum MacineEvent
+enum MachineEvent
 {
-	evUpperTipReached,
-	evLowerTipReached,
-	evAnyError
+  evUpperTipReached,
+  evLowerTipReached,
+  evAnyError
 };
 
 enum MachineStates
 {
-	machineError,
-	machineOk,
-	machineStateNone
+  machineError,
+  machineOk,
+  machineStateNone
 };
 
 enum ToolStates
 {
-	toolNotInitialazed,
-	toolInitialazed,
-	toolErrorInitialized,
-	toolErrorUpperTip,
-	toolErrorLowerTip,
-	toolErrorPositionSensor,
-	toolStateNone
+  toolNotInitialazed,
+  toolInitialazed,
+  toolErrorInitialized,
+  toolErrorUpperTip,
+  toolErrorLowerTip,
+  toolErrorPositionSensor,
+  toolStateNone
 };
 
 typedef struct
 {
-	cDigitalOut *MachinePowerSwitch;
-	cDigitalOut *VerticalFeedMotorSwitch;
-	cDigitalOut *RotatedMotorToolSwitch;
-	cDigitalOut *ToolLiftUpSwitch;
-	cDigitalOut *ToolLiftDownSwich;
+  cDigitalOut *MachinePowerSwitch;
+  cDigitalOut *VerticalFeedMotorSwitch;
+  cDigitalOut *RotatedMotorToolSwitch;
+  cDigitalOut *ToolLiftUpSwitch;
+  cDigitalOut *ToolLiftDownSwich;
 
-	cDigitalInput *UpperToolTip;
-	cDigitalInput *LowerToolTip;
+  cDigitalInput *UpperToolTip;
+  cDigitalInput *MiddleToolTip;
+  cDigitalInput *LowerToolTip;
 
-	cAnalogInput *ToolPositionSensor;
-	cAnalogInput *CurrentSensor;
+  cAnalogInput *ToolPositionSensor;
+  cAnalogInput *CurrentSensor;
 } t_MachineInitStruct;
 
 //}
@@ -65,59 +66,60 @@ class cMachine : public iProcess
 {
 public:
 
-	cMachine();
-	~cMachine();
+  cMachine();
+  ~cMachine();
 
-	void Init(t_MachineInitStruct initStruct);
-	virtual void run();
+  void Init(t_MachineInitStruct initStruct);
+  virtual void run();
 
-	void MachinePowerOn();
-	void MachinePowerOff();
-	void VerticalFeedMotorOn();
-	void VerticalFeedMotorOff();
-	void ToolLiftUp();
-	void ToolLiftDown();
-	void ToolLiftStop();
-	void ToolRotateRun();
-	void ToolRotateStop();
-	void ToolStop();
+  void MachinePowerOn();
+  void MachinePowerOff();
+  void VerticalFeedMotorOn();
+  void VerticalFeedMotorOff();
+  void ToolLiftUp();
+  void ToolLiftDown();
+  void ToolLiftStop();
+  void ToolRotateRun();
+  void ToolRotateStop();
+  void ToolStop();
 
-	bool ToolIsRotate();
-	bool ToolIsLiftUp();
-	bool ToolIsLiftDown();
-	bool ToolIsStoped();
+  bool ToolIsRotate();
+  bool ToolIsLiftUp();
+  bool ToolIsLiftDown();
+  bool ToolIsStoped();
 
-	uint32_t GetCurrentPosition()const;
-	uint32_t GetCurrent()const;
-	uint32_t GetUpperToolTipState()const;
-	uint32_t GetLowerToolTipState()const;
+  uint32_t GetCurrentPosition()const;
+  uint32_t GetCurrent()const;
+  uint32_t GetUpperToolTipState()const;
+  uint32_t GetLowerToolTipState()const;
 
-	void SetErrorCallback(void (*ControllerEventCallback)(MacineEvent event));
+  void SetErrorCallback(void (*ControllerEventCallback)(MachineEvent event));
 
-//	void SetPositionSensor(cAnalogInput *posSens);
-//	void SetCurrentSensor(cAnalogInput *curSens);
+//  void SetPositionSensor(cAnalogInput *posSens);
+//  void SetCurrentSensor(cAnalogInput *curSens);
 
 private:
-	MachineStates m_MachineState;
-	ToolStates m_ToolState;
-	uint32_t m_CurrentPosition;
-	uint32_t m_UpperTipPosition;
-	uint32_t m_LowerTipPosition;
-	uint32_t m_PositionScale;
+  MachineStates m_MachineState;
+  ToolStates m_ToolState;
+  uint32_t m_CurrentPosition;
+  uint32_t m_UpperTipPosition;
+  uint32_t m_LowerTipPosition;
+  uint32_t m_PositionScale;
 
-	cDigitalOut *m_MachinePowerSwitch;
-	cDigitalOut *m_VerticalFeedMotorSwitch;
-	cDigitalOut *m_RotatedMotorToolSwitch;
-	cDigitalOut *m_ToolLiftUpSwitch;
-	cDigitalOut *m_ToolLiftDownSwich;
+  cDigitalOut *m_MachinePowerSwitch;
+  cDigitalOut *m_VerticalFeedMotorSwitch;
+  cDigitalOut *m_RotatedMotorToolSwitch;
+  cDigitalOut *m_ToolLiftUpSwitch;
+  cDigitalOut *m_ToolLiftDownSwich;
 
-	cDigitalInput *m_UpperToolTip;
-	cDigitalInput *m_LowerToolTip;
+  cDigitalInput *m_UpperToolTip;
+  cDigitalInput *m_MiddlerToolTip;
+  cDigitalInput *m_LowerToolTip;
 
-	cAnalogInput *m_ToolPositionSensor;
-	cAnalogInput *m_CurrentSensor;
+  cAnalogInput *m_ToolPositionSensor;
+  cAnalogInput *m_CurrentSensor;
 
-	void (*ControllerEventCallback)(MacineEvent event);
+  void (*ControllerEventCallback)(MachineEvent event);
 };
 
 #endif /* MODEL_MACHINE_HPP_ */

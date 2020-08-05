@@ -10,7 +10,7 @@ cDigitalInput::cDigitalInput() :
 {
 
 }
-cDigitalInput::cDigitalInput(void *port, uint16_t pinNumber, bool inversion) :
+cDigitalInput::cDigitalInput(void *port, uint16_t pinNumber, bool inversion):
 	m_Port(port),
 	m_PinNumber(pinNumber),
 	m_Iversion(inversion),

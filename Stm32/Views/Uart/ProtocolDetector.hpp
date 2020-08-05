@@ -6,22 +6,22 @@
 
 //typedef struct
 //{
-//	unsigned DeviceNumber			: 8;	// номер устройства
-//	unsigned CMD							: 8;	// команда
-//	unsigned RegisterNumber		: 16;	// номер регистра
-//	unsigned RegistersToRead	: 16;	// кол-во регистров для чтения
-//	unsigned DataToWrite			: 32;	// если команда чтения, то поле игнорируется
-//	unsigned CRC8							: 8;	// контрольная сумма
+//	unsigned DeviceNumber			: 8;	// РЅРѕРјРµСЂ СѓСЃС‚СЂРѕР№СЃС‚РІР°
+//	unsigned CMD							: 8;	// РєРѕРјР°РЅРґР°
+//	unsigned RegisterNumber		: 16;	// РЅРѕРјРµСЂ СЂРµРіРёСЃС‚СЂР°
+//	unsigned RegistersToRead	: 16;	// РєРѕР»-РІРѕ СЂРµРіРёСЃС‚СЂРѕРІ РґР»СЏ С‡С‚РµРЅРёСЏ
+//	unsigned DataToWrite			: 32;	// РµСЃР»Рё РєРѕРјР°РЅРґР° С‡С‚РµРЅРёСЏ, С‚Рѕ РїРѕР»Рµ РёРіРЅРѕСЂРёСЂСѓРµС‚СЃСЏ
+//	unsigned CRC8							: 8;	// РєРѕРЅС‚СЂРѕР»СЊРЅР°СЏ СЃСѓРјРјР°
 //} t_protocol;
 
 typedef struct
 {
-	uint8_t DeviceNumber;	// номер устройства
-	uint8_t CMD;	// команда
-	uint16_t RegisterNumber;	// номер регистра
-	uint32_t DataToWrite;	// если команда чтения, то поле игнорируется
-	uint16_t RegistersToRead;	// кол-во регистров для чтения
-	uint8_t CRC8;	// контрольная сумма
+	uint8_t DeviceNumber;	// РЅРѕРјРµСЂ СѓСЃС‚СЂРѕР№СЃС‚РІР°
+	uint8_t CMD;	// РєРѕРјР°РЅРґР°
+	uint16_t RegisterNumber;	// РЅРѕРјРµСЂ СЂРµРіРёСЃС‚СЂР°
+	uint32_t DataToWrite;	// РµСЃР»Рё РєРѕРјР°РЅРґР° С‡С‚РµРЅРёСЏ, С‚Рѕ РїРѕР»Рµ РёРіРЅРѕСЂРёСЂСѓРµС‚СЃСЏ
+	uint16_t RegistersToRead;	// РєРѕР»-РІРѕ СЂРµРіРёСЃС‚СЂРѕРІ РґР»СЏ С‡С‚РµРЅРёСЏ
+	uint8_t CRC8;	// РєРѕРЅС‚СЂРѕР»СЊРЅР°СЏ СЃСѓРјРјР°
 } t_protocol;
 
 class cProtocolDetector : public iProcess

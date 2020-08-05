@@ -1,15 +1,13 @@
 #include "ByteSender.hpp"
 
-cByteSender::cByteSender(uint16_t bufSize) :
+cByteSender::cByteSender(uint16_t bufSize):
 cQueue(bufSize),
 SendByteCallback(NULL)
 {
-	
 }
 // ----------------------------------------------------------------------------
 cByteSender::~cByteSender()
 {
-	
 }
 // ----------------------------------------------------------------------------
 void cByteSender::run()

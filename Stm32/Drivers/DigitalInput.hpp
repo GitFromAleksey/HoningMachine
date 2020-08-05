@@ -30,7 +30,7 @@ private:
 	uint16_t m_DebounceCntVal;
 
 	bool (*CheckStateCallback)(void *port, uint16_t pinNumber);
-	void (*CallbackChangeState)(); // это планируется для вызова подписчиков на событие
+	void (*CallbackChangeState)(); // СЌС‚Рѕ РїР»Р°РЅРёСЂСѓРµС‚СЃСЏ РґР»СЏ РІС‹Р·РѕРІР° РїРѕРґРїРёСЃС‡РёРєРѕРІ РЅР° СЃРѕР±С‹С‚РёРµ
 };
 
 #endif /* DRIVERS_DIGITALINPUT_HPP_ */

@@ -6,13 +6,13 @@ m_TicksSendRepeat(100),
 m_Machine(NULL),
 m_View(NULL)
 {
-	//std::cout << "cController()" << std::endl;
+  //std::cout << "cController()" << std::endl;
 }
 // ----------------------------------------------------------------------------
 cController::cController(cMachine *machine)
 {
-	AddMachine(machine);
-//	std::cout << "cController(cMachine *machine)" << std::endl;
+  AddMachine(machine);
+//  std::cout << "cController(cMachine *machine)" << std::endl;
 }
 // ----------------------------------------------------------------------------
 cController::~cController()
@@ -22,101 +22,101 @@ cController::~cController()
 // ----------------------------------------------------------------------------
 void cController::AddMachine(cMachine *machine)
 {
-	if(machine != NULL)
-		m_Machine = machine;
+  if(machine != NULL)
+    m_Machine = machine;
 }
 // ----------------------------------------------------------------------------
 void cController::AddView(iView *view)
 {
-	m_View = view;
+  m_View = view;
 }
 // ----------------------------------------------------------------------------
 void  cController::SetGetTicksCallback(uint32_t (*GetTicksCallback)())
 {
-	this->GetTicksCallback = GetTicksCallback;
+  this->GetTicksCallback = GetTicksCallback;
 }
 // ----------------------------------------------------------------------------
 void cController::run()
 {
-	if(m_Machine == NULL)
-		return;
+  if(m_Machine == NULL)
+    return;
 
-	if(GetTicksCallback != NULL)
-	{
-		if((GetTicksCallback() - m_Ticks) > m_TicksSendRepeat)
-		{
-			m_Ticks = GetTicksCallback();
-			m_View->SendCurrentPosition( m_Machine->GetCurrentPosition());
-			m_View->SendCurrent( m_Machine->GetCurrent());
-			m_View->SendLowerToolTipState(m_Machine->GetLowerToolTipState());
-			m_View->SendUpperToolTipState(m_Machine->GetUpperToolTipState());
-		}
-	}
+  if(GetTicksCallback != NULL)
+  {
+    if((GetTicksCallback() - m_Ticks) > m_TicksSendRepeat)
+    {
+      m_Ticks = GetTicksCallback();
+      m_View->SendCurrentPosition( m_Machine->GetCurrentPosition());
+      m_View->SendCurrent( m_Machine->GetCurrent());
+      m_View->SendLowerToolTipState(m_Machine->GetLowerToolTipState());
+      m_View->SendUpperToolTipState(m_Machine->GetUpperToolTipState());
+    }
+  }
 }
 // ----------------------------------------------------------------------------
-void cController::EventsHandler(MacineEvent event)
+void cController::EventsHandler(MachineEvent event)
 {
-	switch(event)
-	{
-	case evUpperTipReached:
-		break;
-	case evLowerTipReached:
-		break;
+  switch(event)
+  {
+    case evUpperTipReached:
+      break;
+    case evLowerTipReached:
+      break;
 
-	default:
-		break;
-	}
+    default:
+      break;
+  }
 }
 // ----------------------------------------------------------------------------
-// реализация методов интерфейса iController
+// СЂРµР°Р»РёР·Р°С†РёСЏ РјРµС‚РѕРґРѕРІ РёРЅС‚РµСЂС„РµР№СЃР° iController
 void cController::MachinePowerOn()
 {
-	m_Machine->MachinePowerOn();
+  m_Machine->MachinePowerOn();
 }
 // ----------------------------------------------------------------------------
 void cController::MachinePowerOff()
 {
-	m_Machine->MachinePowerOff();
+  m_Machine->MachinePowerOff();
 }
 // ----------------------------------------------------------------------------
 void cController::VerticalFeedMotorOn()
 {
-	m_Machine->VerticalFeedMotorOn();
+  m_Machine->VerticalFeedMotorOn();
 }
 // ----------------------------------------------------------------------------
 void cController::VerticalFeedMotorOff()
 {
-	m_Machine->VerticalFeedMotorOff();
+  m_Machine->VerticalFeedMotorOff();
 }
 // ----------------------------------------------------------------------------
 void cController::ToolLiftUp()
 {
-	m_Machine->ToolLiftUp();
+  m_Machine->ToolLiftUp();
 }
 // ----------------------------------------------------------------------------
 void cController::ToolLiftDown()
 {
-	m_Machine->ToolLiftDown();
+  m_Machine->ToolLiftDown();
 }
 // ----------------------------------------------------------------------------
 void cController::ToolLiftStop()
 {
-	m_Machine->ToolLiftStop();
+  m_Machine->ToolLiftStop();
 }
 // ----------------------------------------------------------------------------
 void cController::ToolRotateRun()
 {
-	m_Machine->ToolRotateRun();
+  m_Machine->ToolRotateRun();
 }
 // ----------------------------------------------------------------------------
 void cController::ToolRotateStop()
 {
-	m_Machine->ToolRotateStop();
+  m_Machine->ToolRotateStop();
 }
 // ----------------------------------------------------------------------------
 void cController::ToolStop()
 {
-	m_Machine->ToolStop();
+  m_Machine->ToolStop();
 }
-// конец реализации методов интерфейса iController
+// РєРѕРЅРµС† СЂРµР°Р»РёР·Р°С†РёРё РјРµС‚РѕРґРѕРІ РёРЅС‚РµСЂС„РµР№СЃР° iController
 // ----------------------------------------------------------------------------

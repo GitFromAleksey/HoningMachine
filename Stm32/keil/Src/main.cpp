@@ -43,37 +43,40 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-// digital outputs
-#define DO_PORT_MACHINE_PWR_SWITCH					GPIOB
-#define DO_PIN_MACHINE_PWR_SWITCH						GPIO_PIN_15 // TODO этот вывод управления не нужен
+// digital outputs. Для добавления выхода нужно его добавить в MX_GPIO_Init()
+#define DO_PORT_MACHINE_PWR_SWITCH        GPIOB
+#define DO_PIN_MACHINE_PWR_SWITCH         GPIO_PIN_15 // TODO этот вывод управления не нужен
 
-#define DO_PORT_VERTICAL_FEED_MOTOR_SW	GPIOB
-#define DO_PIN_VERTICAL_FEED_MOTOR_SW		GPIO_PIN_13 // контактор К1 - двигатель подачи 
+#define DO_PORT_VERTICAL_FEED_MOTOR_SW    GPIOB
+#define DO_PIN_VERTICAL_FEED_MOTOR_SW     GPIO_PIN_13 // контактор К1 - двигатель подачи 
 
-#define DO_PORT_ROTATE_MOTOR_TOOL_SW		GPIOB
-#define DO_PIN_ROTATE_MOTOR_TOOL_SW			GPIO_PIN_11 // контактор К2 - двигатель вращения
+#define DO_PORT_ROTATE_MOTOR_TOOL_SW      GPIOB
+#define DO_PIN_ROTATE_MOTOR_TOOL_SW       GPIO_PIN_11 // контактор К2 - двигатель вращения
 
-#define DO_PORT_TOOL_LIFT_UP_SW					GPIOB
-#define DO_PIN_TOOL_LIFT_UP_SW					GPIO_PIN_10 // ЭММ1 - электромагнит подачи вверх
+#define DO_PORT_TOOL_LIFT_UP_SW           GPIOB
+#define DO_PIN_TOOL_LIFT_UP_SW            GPIO_PIN_10 // ЭММ1 - электромагнит подачи вверх
 
-#define DO_PORT_TOOL_LIFT_DOWN_SW				GPIOB
-#define DO_PIN_TOOL_LIFT_DOWN_SW				GPIO_PIN_1 // ЭММ2 - электромагнит подачи вниз
+#define DO_PORT_TOOL_LIFT_DOWN_SW         GPIOB
+#define DO_PIN_TOOL_LIFT_DOWN_SW          GPIO_PIN_1 // ЭММ2 - электромагнит подачи вниз
 
-																										// TODO ЭММ3(Ручное управление) нужно добавить для ручного управления
+// TODO ЭММ3(Ручное управление) нужно добавить для ручного управления
 
-// digital inputs
-#define DI_PORT_UPPER_TOOL_TIP					GPIOB
-#define DI_PIN_UPPER_TOOL_TIP						GPIO_PIN_0 // верхний концевик
+// digital inputs. Для добавления входа нужно его добавить в MX_GPIO_Init()
+#define DI_PORT_UPPER_TOOL_TIP            GPIOB
+#define DI_PIN_UPPER_TOOL_TIP             GPIO_PIN_0 // верхний концевик
 
-#define DI_PORT_LOWER_TOOL_TIP					GPIOB
-#define DI_PIN_LOWER_TOOL_TIP						GPIO_PIN_12 // нижний концевик
+#define DI_PORT_MIDDLE_TOOL_TIP           GPIOB
+#define DI_PIN_MIDDLE_TOOL_TIP            GPIO_PIN_2 // средний концевик
+
+#define DI_PORT_LOWER_TOOL_TIP            GPIOB
+#define DI_PIN_LOWER_TOOL_TIP             GPIO_PIN_12 // нижний концевик
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-volatile uint16_t adcDmaData[2];  // указатель на этот массив передается в DMA
-#define POSITION_SENSOR		adcDmaData[0]  // ADC_IN0(PA0) - датчик положения
-#define CURRENT_SENSOR		adcDmaData[1]  // ADC_IN1(PA1) - датчик тока
+volatile uint16_t          adcDmaData[2];  // указатель на этот массив передается в DMA
+#define POSITION_SENSOR    adcDmaData[0]  // ADC_IN0(PA0) - датчик положения
+#define CURRENT_SENSOR     adcDmaData[1]  // ADC_IN1(PA1) - датчик тока
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -84,7 +87,7 @@ uint8_t huart1Data;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-#define I_PROCESS_ARRAY_SIZE	16
+#define I_PROCESS_ARRAY_SIZE  17
 uint8_t iProcessArrCnt = 0;
 iProcess* ProcessesArr[I_PROCESS_ARRAY_SIZE];
 
@@ -98,6 +101,7 @@ cDigitalInput KeyMacinePwrOnOff(GPIOA, GPIO_PIN_8, false);
 
 cDigitalInput UpperToolTip(DI_PORT_UPPER_TOOL_TIP, DI_PIN_UPPER_TOOL_TIP, true);
 cDigitalInput LowerToolTip(DI_PORT_LOWER_TOOL_TIP, DI_PIN_LOWER_TOOL_TIP, true);
+cDigitalInput MiddleToolTip(DI_PORT_MIDDLE_TOOL_TIP, DI_PIN_MIDDLE_TOOL_TIP, true);
 
 cAnalogInput ToolPositionSensor;
 cAnalogInput CurrentSensor;
@@ -131,120 +135,132 @@ bool SetByteCallback(uint8_t *data);
 /* USER CODE BEGIN 0 */
 bool AddToProcessArray(iProcess* proc)
 {
-	if(iProcessArrCnt < I_PROCESS_ARRAY_SIZE)
-	{
-		if(proc != NULL)
-		{
-			ProcessesArr[iProcessArrCnt++] = proc;
-			return true;
-		}
-		else
-		{ 
-			return false; 
-		}
-	}
-	else
-	{ 
-		return false;
-	}
+  if(iProcessArrCnt < I_PROCESS_ARRAY_SIZE)
+  {
+    if(proc != NULL)
+    {
+      ProcessesArr[iProcessArrCnt++] = proc;
+      return true;
+    }
+    else
+    { 
+      return false; 
+    }
+  }
+  else
+  { 
+    return false;
+  }
 }
+
 void RunProcesses() // TODO оформить в отдельный класс
 {
-	if(iProcessArrCnt >= I_PROCESS_ARRAY_SIZE)
-		iProcessArrCnt = 0;
-	if(ProcessesArr[iProcessArrCnt] != NULL)
-		ProcessesArr[iProcessArrCnt]->run();
-	iProcessArrCnt++;
+  if(iProcessArrCnt >= I_PROCESS_ARRAY_SIZE)
+    iProcessArrCnt = 0;
+  if(ProcessesArr[iProcessArrCnt] != NULL)
+    ProcessesArr[iProcessArrCnt]->run();
+  iProcessArrCnt++;
 }
+
 void SetupDigitalOut()
 {
-	MachinePowerSwitch.Init(DO_PORT_MACHINE_PWR_SWITCH, DO_PIN_MACHINE_PWR_SWITCH, true);
-	MachinePowerSwitch.SetDoSwitchCallback(DO_SwitchCallback);
-	MachinePowerSwitch.SetCheckStateCallback(&DIO_CheckStateCallback);
-	
-	VerticalFeedMotorSwitch.Init(DO_PORT_VERTICAL_FEED_MOTOR_SW, DO_PIN_VERTICAL_FEED_MOTOR_SW, true);
-	VerticalFeedMotorSwitch.SetDoSwitchCallback(DO_SwitchCallback);
-	VerticalFeedMotorSwitch.SetCheckStateCallback(&DIO_CheckStateCallback);
+  MachinePowerSwitch.Init(DO_PORT_MACHINE_PWR_SWITCH, DO_PIN_MACHINE_PWR_SWITCH, true);
+  MachinePowerSwitch.SetDoSwitchCallback(DO_SwitchCallback);
+  MachinePowerSwitch.SetCheckStateCallback(&DIO_CheckStateCallback);
+  
+  VerticalFeedMotorSwitch.Init(DO_PORT_VERTICAL_FEED_MOTOR_SW, DO_PIN_VERTICAL_FEED_MOTOR_SW, true);
+  VerticalFeedMotorSwitch.SetDoSwitchCallback(DO_SwitchCallback);
+  VerticalFeedMotorSwitch.SetCheckStateCallback(&DIO_CheckStateCallback);
 
-	RotatedMotorToolSwitch.Init(DO_PORT_ROTATE_MOTOR_TOOL_SW, DO_PIN_ROTATE_MOTOR_TOOL_SW, true);
-	RotatedMotorToolSwitch.SetDoSwitchCallback(DO_SwitchCallback);
-	RotatedMotorToolSwitch.SetCheckStateCallback(&DIO_CheckStateCallback);
-	
-	ToolLiftUpSwitch.Init(DO_PORT_TOOL_LIFT_UP_SW, DO_PIN_TOOL_LIFT_UP_SW, true);
-	ToolLiftUpSwitch.SetDoSwitchCallback(DO_SwitchCallback);
-	ToolLiftUpSwitch.SetCheckStateCallback(&DIO_CheckStateCallback);
+  RotatedMotorToolSwitch.Init(DO_PORT_ROTATE_MOTOR_TOOL_SW, DO_PIN_ROTATE_MOTOR_TOOL_SW, true);
+  RotatedMotorToolSwitch.SetDoSwitchCallback(DO_SwitchCallback);
+  RotatedMotorToolSwitch.SetCheckStateCallback(&DIO_CheckStateCallback);
+  
+  ToolLiftUpSwitch.Init(DO_PORT_TOOL_LIFT_UP_SW, DO_PIN_TOOL_LIFT_UP_SW, true);
+  ToolLiftUpSwitch.SetDoSwitchCallback(DO_SwitchCallback);
+  ToolLiftUpSwitch.SetCheckStateCallback(&DIO_CheckStateCallback);
 
-	ToolLiftDownSwich.Init(DO_PORT_TOOL_LIFT_DOWN_SW, DO_PIN_TOOL_LIFT_DOWN_SW, true);
-	ToolLiftDownSwich.SetDoSwitchCallback(DO_SwitchCallback);
-	ToolLiftDownSwich.SetCheckStateCallback(&DIO_CheckStateCallback);
-	
-//	AddToProcessArray(&DO);
-	AddToProcessArray(&MachinePowerSwitch);
-	AddToProcessArray(&VerticalFeedMotorSwitch);
-	AddToProcessArray(&RotatedMotorToolSwitch);
-	AddToProcessArray(&ToolLiftUpSwitch);
-	AddToProcessArray(&ToolLiftDownSwich);
+  ToolLiftDownSwich.Init(DO_PORT_TOOL_LIFT_DOWN_SW, DO_PIN_TOOL_LIFT_DOWN_SW, true);
+  ToolLiftDownSwich.SetDoSwitchCallback(DO_SwitchCallback);
+  ToolLiftDownSwich.SetCheckStateCallback(&DIO_CheckStateCallback);
+  
+//  AddToProcessArray(&DO);
+  AddToProcessArray(&MachinePowerSwitch);
+  AddToProcessArray(&VerticalFeedMotorSwitch);
+  AddToProcessArray(&RotatedMotorToolSwitch);
+  AddToProcessArray(&ToolLiftUpSwitch);
+  AddToProcessArray(&ToolLiftDownSwich);
 }
+
 void SetupDigitalInput()
 {
-	KeyMacinePwrOnOff.SetCheckStateCallback(DIO_CheckStateCallback);
-	KeyMacinePwrOnOff.SetDebounceCntValue(0xFF);
+  KeyMacinePwrOnOff.SetCheckStateCallback(DIO_CheckStateCallback);
+  KeyMacinePwrOnOff.SetDebounceCntValue(0xFF);
 
-	UpperToolTip.SetCheckStateCallback(DIO_CheckStateCallback);
-	UpperToolTip.SetDebounceCntValue(0xFF);
-	
-	LowerToolTip.SetCheckStateCallback(DIO_CheckStateCallback);
-	LowerToolTip.SetDebounceCntValue(0xFF);
-	
-	AddToProcessArray(&KeyMacinePwrOnOff);
-	AddToProcessArray(&UpperToolTip);
-	AddToProcessArray(&LowerToolTip);
+  UpperToolTip.SetCheckStateCallback(DIO_CheckStateCallback);
+  UpperToolTip.SetDebounceCntValue(0xFF);
+  
+  MiddleToolTip.SetCheckStateCallback(DIO_CheckStateCallback);
+  MiddleToolTip.SetDebounceCntValue(0xFF);
+  
+  LowerToolTip.SetCheckStateCallback(DIO_CheckStateCallback);
+  LowerToolTip.SetDebounceCntValue(0xFF);
+  
+  AddToProcessArray(&KeyMacinePwrOnOff);
+  AddToProcessArray(&UpperToolTip);
+  AddToProcessArray(&LowerToolTip);
+  AddToProcessArray(&MiddleToolTip);
 }
+
 void SetupAnalogInput()
 {
-	AddToProcessArray(&ToolPositionSensor);
-	AddToProcessArray(&CurrentSensor);
+  AddToProcessArray(&ToolPositionSensor);
+  AddToProcessArray(&CurrentSensor);
 //ToolPositionSensor;
 //CurrentSensor;
 }
+
 void SetupMachine()
 {
-	t_MachineInitStruct setupMachine;
+  t_MachineInitStruct setupMachine;
 
-	setupMachine.MachinePowerSwitch = &MachinePowerSwitch;
-	setupMachine.VerticalFeedMotorSwitch = &VerticalFeedMotorSwitch;
-	setupMachine.RotatedMotorToolSwitch = &RotatedMotorToolSwitch;
-	setupMachine.ToolLiftUpSwitch = &ToolLiftUpSwitch;
-	setupMachine.ToolLiftDownSwich = &ToolLiftDownSwich;
+  setupMachine.MachinePowerSwitch = &MachinePowerSwitch;
+  setupMachine.VerticalFeedMotorSwitch = &VerticalFeedMotorSwitch;
+  setupMachine.RotatedMotorToolSwitch = &RotatedMotorToolSwitch;
+  setupMachine.ToolLiftUpSwitch = &ToolLiftUpSwitch;
+  setupMachine.ToolLiftDownSwich = &ToolLiftDownSwich;
 
-	setupMachine.UpperToolTip = &UpperToolTip;
-	setupMachine.LowerToolTip = &LowerToolTip;
+  setupMachine.UpperToolTip = &UpperToolTip;
+  setupMachine.MiddleToolTip = &MiddleToolTip;
+  setupMachine.LowerToolTip = &LowerToolTip;
 
-	setupMachine.ToolPositionSensor = &ToolPositionSensor;
-	setupMachine.CurrentSensor = &CurrentSensor;
-	
-	machine.Init(setupMachine);
-	
-	AddToProcessArray(&machine);
+  setupMachine.ToolPositionSensor = &ToolPositionSensor;
+  setupMachine.CurrentSensor = &CurrentSensor;
+  
+  machine.Init(setupMachine);
+  
+  AddToProcessArray(&machine);
 }
+
 void SetupController()
 {
-	controller.AddMachine(&machine);
-	controller.AddView(&ProtocolFormer);
-	controller.SetGetTicksCallback(HAL_GetTick);
-	
-	AddToProcessArray(&controller);
+  controller.AddMachine(&machine);
+  controller.AddView(&ProtocolFormer);
+  controller.SetGetTicksCallback(HAL_GetTick);
+  
+  AddToProcessArray(&controller);
 }
+
 void SetupUart()
 {
-	//ByteReceiver.SetByteCallback(GetByteCallback);
-	ByteSender.SetSendByteCallback(SetByteCallback);
-	
-	AddToProcessArray(&ByteReceiver);
-	AddToProcessArray(&ProtocolDetector);
-	
-	AddToProcessArray(&ByteSender);
-	AddToProcessArray(&ProtocolFormer);
+  //ByteReceiver.SetByteCallback(GetByteCallback);
+  ByteSender.SetSendByteCallback(SetByteCallback);
+  
+  AddToProcessArray(&ByteReceiver);
+  AddToProcessArray(&ProtocolDetector);
+  
+  AddToProcessArray(&ByteSender);
+  AddToProcessArray(&ProtocolFormer);
 }
 /* USER CODE END 0 */
 
@@ -276,38 +292,38 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-	MX_DMA_Init();
-	MX_ADC1_Init();
+  MX_DMA_Init();
+  MX_ADC1_Init();
   MX_USART1_UART_Init();
   /* Initialize interrupts */
 //  MX_NVIC_Init();
-	
+  
   /* USER CODE BEGIN 2 */
-	SetupDigitalOut();
-	SetupDigitalInput();
-	SetupAnalogInput();
-	SetupMachine();
-	SetupController();
-	SetupUart();
+  SetupDigitalOut();
+  SetupDigitalInput();
+  SetupAnalogInput();
+  SetupMachine();
+  SetupController();
+  SetupUart();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-	HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&adcDmaData, 2);
-	
-	uint32_t ticks = HAL_GetTick();
-	
-	HAL_UART_Receive_IT(&huart1, &huart1Data, 1);
-	
+  HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&adcDmaData, 2);
+  
+  uint32_t ticks = HAL_GetTick();
+  
+  HAL_UART_Receive_IT(&huart1, &huart1Data, 1);
+  
   while (1)
   {
-		RunProcesses();
-		
-		if((HAL_GetTick() - ticks) > 500)
-		{
-			ticks = HAL_GetTick();
-		}
+    RunProcesses();
+    
+    if((HAL_GetTick() - ticks) > 500)
+    {
+      ticks = HAL_GetTick();
+    }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -413,7 +429,7 @@ static void MX_ADC1_Init(void)
   */
   sConfig.Channel = ADC_CHANNEL_1;
   sConfig.Rank = ADC_REGULAR_RANK_2;
-	sConfig.SamplingTime = ADC_SAMPLETIME_28CYCLES_5;
+  sConfig.SamplingTime = ADC_SAMPLETIME_28CYCLES_5;
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
   {
     Error_Handler();
@@ -479,14 +495,14 @@ static void MX_DMA_Init(void)
 static void MX_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
-	
+  
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
-	
-	// TODO сделать отдельную функцию для конфигурации дискретных входов и выходов
-	// digital outputs config
+  
+  // TODO сделать отдельную функцию для конфигурации дискретных входов и выходов
+  // digital outputs config
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(DO_PORT_MACHINE_PWR_SWITCH, DO_PIN_MACHINE_PWR_SWITCH, GPIO_PIN_RESET);
 
@@ -497,22 +513,27 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-	HAL_GPIO_WritePin(DO_PORT_TOOL_LIFT_DOWN_SW, DO_PIN_TOOL_LIFT_DOWN_SW, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(DO_PORT_TOOL_LIFT_DOWN_SW, DO_PIN_TOOL_LIFT_DOWN_SW, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(DO_PORT_TOOL_LIFT_UP_SW, DO_PIN_TOOL_LIFT_UP_SW, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(DO_PORT_ROTATE_MOTOR_TOOL_SW, DO_PIN_ROTATE_MOTOR_TOOL_SW, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(DO_PORT_VERTICAL_FEED_MOTOR_SW, DO_PIN_VERTICAL_FEED_MOTOR_SW, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(DO_PORT_ROTATE_MOTOR_TOOL_SW, DO_PIN_ROTATE_MOTOR_TOOL_SW, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(DO_PORT_VERTICAL_FEED_MOTOR_SW, DO_PIN_VERTICAL_FEED_MOTOR_SW, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : PB */
   //GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_13;
-	GPIO_InitStruct.Pin = DO_PIN_TOOL_LIFT_DOWN_SW | DO_PIN_TOOL_LIFT_UP_SW |
-	DO_PIN_ROTATE_MOTOR_TOOL_SW | DO_PIN_VERTICAL_FEED_MOTOR_SW;
+  GPIO_InitStruct.Pin = DO_PIN_TOOL_LIFT_DOWN_SW | DO_PIN_TOOL_LIFT_UP_SW |
+  DO_PIN_ROTATE_MOTOR_TOOL_SW | DO_PIN_VERTICAL_FEED_MOTOR_SW;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-	
+
   // digital inputs config
   GPIO_InitStruct.Pin = DI_PIN_UPPER_TOOL_TIP;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  GPIO_InitStruct.Pin = DI_PIN_MIDDLE_TOOL_TIP;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
@@ -522,57 +543,60 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
+  // кнопка вкл/выкл станка
   GPIO_InitStruct.Pin = GPIO_PIN_8;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  
+//  HAL_GPIO_WritePin(DI_PORT_MIDDLE_TOOL_TIP, DI_PIN_MIDDLE_TOOL_TIP, GPIO_PIN_SET);
 }
 
 /* USER CODE BEGIN 4 */
 void DO_SwitchCallback(void *port, uint16_t pinNumber, bool hi_lo)
 {
-	HAL_GPIO_WritePin((GPIO_TypeDef*)port, pinNumber, (GPIO_PinState) (hi_lo)?(GPIO_PIN_SET):(GPIO_PIN_RESET));
+  HAL_GPIO_WritePin((GPIO_TypeDef*)port, pinNumber, (GPIO_PinState) (hi_lo)?(GPIO_PIN_SET):(GPIO_PIN_RESET));
 }
 bool DIO_CheckStateCallback(void *port, uint16_t pinNumber)
 {
-	return (HAL_GPIO_ReadPin((GPIO_TypeDef *)port, pinNumber) == GPIO_PIN_SET) ? (true) : (false);
+  return (HAL_GPIO_ReadPin((GPIO_TypeDef *)port, pinNumber) == GPIO_PIN_SET) ? (true) : (false);
 }
 bool GetByteCallback(uint8_t *data)
 {
-	return (HAL_UART_Receive(&huart1, data, 1, 0x1) == HAL_OK);
+  return (HAL_UART_Receive(&huart1, data, 1, 0x1) == HAL_OK);
 }
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-	// при отправке байта HAL_UART_Transmit вызывается __HAL_LOCK и надо бы подождать
-	// отправки байта.
-	uint8_t _hal_locked_timeout = 0xFF;
-	while((huart1.Lock == HAL_LOCKED) && (_hal_locked_timeout-- > 0));
-	if(huart1.Lock == HAL_LOCKED) // но если что-то подзависло, то после таймаута
-		__HAL_UNLOCK(&huart1);			// принудительно разблокируем __HAL_UNLOCK
-	ByteReceiver.QueueAddData(huart1Data);
-	HAL_UART_Receive_IT(&huart1, &huart1Data, 1);
+  // при отправке байта HAL_UART_Transmit вызывается __HAL_LOCK и надо бы подождать
+  // отправки байта.
+  uint8_t _hal_locked_timeout = 0xFF;
+  while((huart1.Lock == HAL_LOCKED) && (_hal_locked_timeout-- > 0));
+  if(huart1.Lock == HAL_LOCKED) // но если что-то подзависло, то после таймаута
+    __HAL_UNLOCK(&huart1);      // принудительно разблокируем __HAL_UNLOCK
+  ByteReceiver.QueueAddData(huart1Data);
+  HAL_UART_Receive_IT(&huart1, &huart1Data, 1);
 }
 bool SetByteCallback(uint8_t *data)
 {
-	// это проверка передатчика на занятость
-	if(huart1.Instance->SR & USART_SR_RXNE_Msk)
-		return false;
-	// шлем по одному байту
-	return (HAL_UART_Transmit(&huart1, data, 1, 0x1) == HAL_OK);	
+  // это проверка передатчика на занятость
+  if(huart1.Instance->SR & USART_SR_RXNE_Msk)
+    return false;
+  // шлем по одному байту
+  return (HAL_UART_Transmit(&huart1, data, 1, 0x1) == HAL_OK);  
 }
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 {
 
-	if(&hadc1 == hadc)
-	{
-		//HAL_ADC_Stop_DMA(&hadc1);
+  if(&hadc1 == hadc)
+  {
+    //HAL_ADC_Stop_DMA(&hadc1);
 
-		ToolPositionSensor.SetDataFromADC(POSITION_SENSOR);
-		CurrentSensor.SetDataFromADC(CURRENT_SENSOR);
-		
-		HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&adcDmaData, 2);
-	}
-//	DO.Toggle();
+    ToolPositionSensor.SetDataFromADC(POSITION_SENSOR);
+    CurrentSensor.SetDataFromADC(CURRENT_SENSOR);
+    
+    HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&adcDmaData, 2);
+  }
+//  DO.Toggle();
 }
 /* USER CODE END 4 */
 
