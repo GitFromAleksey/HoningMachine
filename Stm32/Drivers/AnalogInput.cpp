@@ -1,7 +1,7 @@
 #include "AnalogInput.hpp"
 
 cAnalogInput::cAnalogInput() :
-m_Scale(0),
+m_Scale(1),//(0.2442),
 m_DataRaw(0),
 m_DataAcc(0),
 m_AvgDiv(9),
@@ -19,28 +19,28 @@ cAnalogInput::~cAnalogInput()
 // ----------------------------------------------------------------------------
 void cAnalogInput::run()
 {
-	// TODO доделать реализацию
+  // TODO доделать реализацию
 }
 // ----------------------------------------------------------------------------
 void cAnalogInput::Init()
 {
-	//std::cout << "cAnalogInput::Init()" << std::endl;
+  //std::cout << "cAnalogInput::Init()" << std::endl;
 }
 // ----------------------------------------------------------------------------
 void cAnalogInput::SetDataFromADC(uint32_t data)
 {
-	m_DataRaw = data;
-	CalcAverage(data);
+  m_DataRaw = data * m_Scale;
+  CalcAverage(m_DataRaw);
 }
 // ----------------------------------------------------------------------------
 uint32_t cAnalogInput::GetAverageData()const
 {
-	return m_DataAvg;
+  return m_DataAvg;
 }
 // ----------------------------------------------------------------------------
 void cAnalogInput::CalcAverage(uint32_t data)
 {
-	m_DataAcc -= m_DataAvg;
-	m_DataAcc += data;
-	m_DataAvg = m_DataAcc>>m_AvgDiv;
+  m_DataAcc -= m_DataAvg;
+  m_DataAcc += data;
+  m_DataAvg = m_DataAcc>>m_AvgDiv;
 }

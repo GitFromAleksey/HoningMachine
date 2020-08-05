@@ -316,7 +316,7 @@ int main(void)
   
   HAL_UART_Receive_IT(&huart1, &huart1Data, 1);
   
-  while (1)
+  while(1)
   {
     RunProcesses();
     
