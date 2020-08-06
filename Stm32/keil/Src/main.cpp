@@ -475,7 +475,7 @@ static void MX_USART1_UART_Init(void)
 /** 
   * Enable DMA controller clock
   */
-static void MX_DMA_Init(void) 
+static void MX_DMA_Init(void)
 {
 
   /* DMA controller clock enable */
@@ -553,18 +553,22 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+// callback для вкл/выкл дискретных выходов
 void DO_SwitchCallback(void *port, uint16_t pinNumber, bool hi_lo)
 {
   HAL_GPIO_WritePin((GPIO_TypeDef*)port, pinNumber, (GPIO_PinState) (hi_lo)?(GPIO_PIN_SET):(GPIO_PIN_RESET));
 }
+// callback для запроса состояния на выводах
 bool DIO_CheckStateCallback(void *port, uint16_t pinNumber)
 {
   return (HAL_GPIO_ReadPin((GPIO_TypeDef *)port, pinNumber) == GPIO_PIN_SET) ? (true) : (false);
 }
+// callback для запроса принятых байтов по UART
 bool GetByteCallback(uint8_t *data)
 {
   return (HAL_UART_Receive(&huart1, data, 1, 0x1) == HAL_OK);
 }
+// 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
   // при отправке байта HAL_UART_Transmit вызывается __HAL_LOCK и надо бы подождать
@@ -584,9 +588,9 @@ bool SetByteCallback(uint8_t *data)
   // шлем по одному байту
   return (HAL_UART_Transmit(&huart1, data, 1, 0x1) == HAL_OK);  
 }
+// callback окончания преобразования АЦП
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 {
-
   if(&hadc1 == hadc)
   {
     //HAL_ADC_Stop_DMA(&hadc1);
@@ -596,7 +600,6 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
     
     HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&adcDmaData, 2);
   }
-//  DO.Toggle();
 }
 /* USER CODE END 4 */
 
