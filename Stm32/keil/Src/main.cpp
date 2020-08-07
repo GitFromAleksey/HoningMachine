@@ -74,9 +74,12 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-volatile uint16_t          adcDmaData[2];  // указатель на этот массив передается в DMA
-#define POSITION_SENSOR    adcDmaData[0]  // ADC_IN0(PA0) - датчик положения
-#define CURRENT_SENSOR     adcDmaData[1]  // ADC_IN1(PA1) - датчик тока
+#define ADC_CHANNEL_SUMM        2u
+volatile uint16_t               adcDmaData[ADC_CHANNEL_SUMM];  // указатель на этот массив передается в DMA
+#define ADC_POSITION_SENSOR     adcDmaData[0]  // ADC_IN0(PA0) - датчик положения
+#define ADC_CURRENT_SENSOR      adcDmaData[1]  // ADC_IN1(PA1) - датчик тока
+#define ADC_STOP_DMA            HAL_ADC_Stop_DMA(&hadc1);
+#define ADC_START_DMA           HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&adcDmaData[0], ADC_CHANNEL_SUMM);
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -571,14 +574,21 @@ bool GetByteCallback(uint8_t *data)
 // 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
+  // FIXME это костыль пришлось сделать, потому что при выполнении этой функции
+  // по какой-то причине каналы АЦП менются местами.
+  ADC_STOP_DMA;
+  
   // при отправке байта HAL_UART_Transmit вызывается __HAL_LOCK и надо бы подождать
   // отправки байта.
   uint8_t _hal_locked_timeout = 0xFF;
-  while((huart1.Lock == HAL_LOCKED) && (_hal_locked_timeout-- > 0));
+  while((huart1.Lock == HAL_LOCKED) && (_hal_locked_timeout > 0))
+    --_hal_locked_timeout;
   if(huart1.Lock == HAL_LOCKED) // но если что-то подзависло, то после таймаута
     __HAL_UNLOCK(&huart1);      // принудительно разблокируем __HAL_UNLOCK
   ByteReceiver.QueueAddData(huart1Data);
   HAL_UART_Receive_IT(&huart1, &huart1Data, 1);
+  
+  ADC_START_DMA; // FIXME это продолжение костыля в начале функции
 }
 bool SetByteCallback(uint8_t *data)
 {
@@ -595,10 +605,10 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
   {
     //HAL_ADC_Stop_DMA(&hadc1);
 
-    ToolPositionSensor.SetDataFromADC(POSITION_SENSOR);
-    CurrentSensor.SetDataFromADC(CURRENT_SENSOR);
+    ToolPositionSensor.SetDataFromADC(ADC_POSITION_SENSOR);
+    CurrentSensor.SetDataFromADC(ADC_CURRENT_SENSOR);
     
-    HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&adcDmaData, 2);
+    ADC_START_DMA;
   }
 }
 /* USER CODE END 4 */
