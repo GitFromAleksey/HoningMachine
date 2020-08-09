@@ -39,29 +39,29 @@
 //  }
 //}
 // ----------------------------------------------------------------------------
-template <typename T>
-T *cArray<T>::GetNextItem()
-{
-  T *tmp = 0;
+//template <typename T>
+//T *cArray<T>::GetNextItem()
+//{
+//  T *tmp = 0;
 
-  if(m_ArraySize == 0)
-    return tmp;
-  
-  tmp = m_ArrayPtr[m_CurrentItemIndex];
+//  if(m_ArraySize == 0)
+//    return tmp;
+//  
+//  tmp = m_ArrayPtr[m_CurrentItemIndex];
 
-  ++m_CurrentItemIndex;
-  if(m_CurrentItemIndex == m_ArraySize)
-    m_CurrentItemIndex = 0;
-  
-  return tmp;
-}
+//  ++m_CurrentItemIndex;
+//  if(m_CurrentItemIndex == m_ArraySize)
+//    m_CurrentItemIndex = 0;
+//  
+//  return tmp;
+//}
 // ----------------------------------------------------------------------------
-template <typename T>
-void cArray<T>::ClearArray()
-{
-  m_CurrentItemIndex = 0;
-  m_ArraySize = 0;
-  delete[] m_ArrayPtr;
-  m_ArrayPtr = 0;
-}
+//template <typename T>
+//void cArray<T>::ClearArray()
+//{
+//  m_CurrentItemIndex = 0;
+//  m_ArraySize = 0;
+//  delete[] m_ArrayPtr;
+//  m_ArrayPtr = 0;
+//}
 // ----------------------------------------------------------------------------
