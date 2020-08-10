@@ -34,6 +34,7 @@
 #include "ProtocolFormer.hpp"
 #include "../Interfaces/iProcess.hpp"
 #include "KeyBoard.hpp"
+#include "array.hpp"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -70,6 +71,9 @@
 
 #define DI_PORT_LOWER_TOOL_TIP            GPIOB
 #define DI_PIN_LOWER_TOOL_TIP             GPIO_PIN_12 // нижний концевик
+
+// кнопки
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -90,9 +94,15 @@ uint8_t huart1Data;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
+#define NEW_POC_ARR // TODO тестирование нового механизма планировщика
+
+#ifndef NEW_POC_ARR
 #define I_PROCESS_ARRAY_SIZE  17
 uint8_t iProcessArrCnt = 0;
 iProcess* ProcessesArr[I_PROCESS_ARRAY_SIZE];
+#else
+cArray<iProcess> _ProcessesArr; // TODO для замены ProcessesArr. Пока тестируется
+#endif
 
 cDigitalOut MachinePowerSwitch;
 cDigitalOut VerticalFeedMotorSwitch;
@@ -100,7 +110,7 @@ cDigitalOut RotatedMotorToolSwitch;
 cDigitalOut ToolLiftUpSwitch;
 cDigitalOut ToolLiftDownSwich;
 
-cDigitalInput KeyMacinePwrOnOff(GPIOA, GPIO_PIN_8, false);
+//cDigitalInput KeyMacinePwrOnOff(GPIOA, GPIO_PIN_8, false);
 
 cDigitalInput UpperToolTip(DI_PORT_UPPER_TOOL_TIP, DI_PIN_UPPER_TOOL_TIP, true);
 cDigitalInput LowerToolTip(DI_PORT_LOWER_TOOL_TIP, DI_PIN_LOWER_TOOL_TIP, true);
@@ -138,6 +148,9 @@ bool SetByteCallback(uint8_t *data);
 /* USER CODE BEGIN 0 */
 bool AddToProcessArray(iProcess* proc)
 {
+#ifdef NEW_POC_ARR
+  _ProcessesArr.AddItem(proc);
+#else
   if(iProcessArrCnt < I_PROCESS_ARRAY_SIZE)
   {
     if(proc != NULL)
@@ -154,15 +167,22 @@ bool AddToProcessArray(iProcess* proc)
   { 
     return false;
   }
+#endif
 }
 
 void RunProcesses() // TODO оформить в отдельный класс
 {
+#ifdef NEW_POC_ARR
+  iProcess *proc = _ProcessesArr.GetNextItem();
+  if(proc != 0)
+    proc->run();
+#else
   if(iProcessArrCnt >= I_PROCESS_ARRAY_SIZE)
     iProcessArrCnt = 0;
   if(ProcessesArr[iProcessArrCnt] != NULL)
     ProcessesArr[iProcessArrCnt]->run();
   iProcessArrCnt++;
+#endif
 }
 
 void SetupDigitalOut()
@@ -186,8 +206,7 @@ void SetupDigitalOut()
   ToolLiftDownSwich.Init(DO_PORT_TOOL_LIFT_DOWN_SW, DO_PIN_TOOL_LIFT_DOWN_SW, true);
   ToolLiftDownSwich.SetDoSwitchCallback(DO_SwitchCallback);
   ToolLiftDownSwich.SetCheckStateCallback(&DIO_CheckStateCallback);
-  
-//  AddToProcessArray(&DO);
+
   AddToProcessArray(&MachinePowerSwitch);
   AddToProcessArray(&VerticalFeedMotorSwitch);
   AddToProcessArray(&RotatedMotorToolSwitch);
@@ -197,8 +216,8 @@ void SetupDigitalOut()
 
 void SetupDigitalInput()
 {
-  KeyMacinePwrOnOff.SetCheckStateCallback(DIO_CheckStateCallback);
-  KeyMacinePwrOnOff.SetDebounceCntValue(0xFF);
+//  KeyMacinePwrOnOff.SetCheckStateCallback(DIO_CheckStateCallback);
+//  KeyMacinePwrOnOff.SetDebounceCntValue(0xFF);
 
   UpperToolTip.SetCheckStateCallback(DIO_CheckStateCallback);
   UpperToolTip.SetDebounceCntValue(0xFF);
@@ -209,7 +228,6 @@ void SetupDigitalInput()
   LowerToolTip.SetCheckStateCallback(DIO_CheckStateCallback);
   LowerToolTip.SetDebounceCntValue(0xFF);
   
-  AddToProcessArray(&KeyMacinePwrOnOff);
   AddToProcessArray(&UpperToolTip);
   AddToProcessArray(&LowerToolTip);
   AddToProcessArray(&MiddleToolTip);
@@ -219,8 +237,6 @@ void SetupAnalogInput()
 {
   AddToProcessArray(&ToolPositionSensor);
   AddToProcessArray(&CurrentSensor);
-//ToolPositionSensor;
-//CurrentSensor;
 }
 
 void SetupMachine()
