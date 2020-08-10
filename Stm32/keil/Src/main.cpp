@@ -150,6 +150,7 @@ bool AddToProcessArray(iProcess* proc)
 {
 #ifdef NEW_POC_ARR
   _ProcessesArr.AddItem(proc);
+  return true;
 #else
   if(iProcessArrCnt < I_PROCESS_ARRAY_SIZE)
   {

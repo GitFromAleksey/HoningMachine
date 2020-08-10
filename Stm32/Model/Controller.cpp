@@ -1,18 +1,18 @@
 #include "Controller.hpp"
 
-cController::cController() : 
+cController::cController():
 m_Ticks(0),
 m_TicksSendRepeat(100),
 m_Machine(NULL),
-m_View(NULL)
+m_View(NULL),
+m_KeysRegister(0)
 {
-  //std::cout << "cController()" << std::endl;
+  SetCurrentState(new cStateStart());
 }
 // ----------------------------------------------------------------------------
 cController::cController(cMachine *machine)
 {
   AddMachine(machine);
-//  std::cout << "cController(cMachine *machine)" << std::endl;
 }
 // ----------------------------------------------------------------------------
 cController::~cController()
@@ -31,9 +31,14 @@ void cController::AddView(iView *view)
   m_View = view;
 }
 // ----------------------------------------------------------------------------
-void  cController::SetGetTicksCallback(uint32_t (*GetTicksCallback)())
+void cController::SetGetTicksCallback(uint32_t (*GetTicksCallback)())
 {
   this->GetTicksCallback = GetTicksCallback;
+}
+// ----------------------------------------------------------------------------
+void cController::SetCurrentState(iState *state)
+{
+  m_CurrentState = state;
 }
 // ----------------------------------------------------------------------------
 void cController::run()
@@ -41,6 +46,11 @@ void cController::run()
   if(m_Machine == NULL)
     return;
 
+  if(m_CurrentState != NULL)
+  {
+    m_CurrentState->run(this);
+  }
+  
   if(GetTicksCallback != NULL)
   {
     if((GetTicksCallback() - m_Ticks) > m_TicksSendRepeat)

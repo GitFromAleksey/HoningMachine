@@ -464,6 +464,11 @@
               <FileType>8</FileType>
               <FilePath>..\..\Common\queue.cpp</FilePath>
             </File>
+            <File>
+              <FileName>array.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Common\array.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -578,6 +583,21 @@
               <FileName>system_stm32f1xx.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Src/system_stm32f1xx.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>States</GroupName>
+          <Files>
+            <File>
+              <FileName>StateStart.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Model\States\StateStart.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>StateGeneralStop.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Model\States\StateGeneralStop.cpp</FilePath>
             </File>
           </Files>
         </Group>
