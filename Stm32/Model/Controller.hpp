@@ -8,7 +8,10 @@
 #include "../Interfaces/iView.hpp"
 #include "../Model/machine.hpp"
 #include "../Interfaces/iState.hpp"
+
 #include "../Model/States/StateStart.hpp"
+#include "../Model/States/StateGeneralStop.hpp"
+
 
 #define KEY_1   (uint32_t)(1<<0)
 #define KEY_2   (uint32_t)(1<<1)
@@ -37,16 +40,16 @@ public:
 
   void EventsHandler(MachineEvent event);
 
-  void PressKey1(){ m_KeysRegister |= KEY_1; }
-  void PressKey2(){ m_KeysRegister |= KEY_2; }
-  void PressKey3(){ m_KeysRegister |= KEY_3; }
-  void PressKey4(){ m_KeysRegister |= KEY_4; }
-  void PressKey5(){ m_KeysRegister |= KEY_5; }
-  void PressKey6(){ m_KeysRegister |= KEY_6; }
-  void PressKey7(){ m_KeysRegister |= KEY_7; }
-  void PressKey8(){ m_KeysRegister |= KEY_8; }
-  void PressKey9(){ m_KeysRegister |= KEY_9; }
-  void SwitchToggle() // переключатель с фиксацией
+  virtual void PressKey1(){ m_KeysRegister |= KEY_1; }
+  virtual void PressKey2(){ m_KeysRegister |= KEY_2; }
+  virtual void PressKey3(){ m_KeysRegister |= KEY_3; }
+  virtual void PressKey4(){ m_KeysRegister |= KEY_4; }
+  virtual void PressKey5(){ m_KeysRegister |= KEY_5; }
+  virtual void PressKey6(){ m_KeysRegister |= KEY_6; }
+  virtual void PressKey7(){ m_KeysRegister |= KEY_7; }
+  virtual void PressKey8(){ m_KeysRegister |= KEY_8; }
+  virtual void PressKey9(){ m_KeysRegister |= KEY_9; }
+  virtual void SwitchToggle() // переключатель с фиксацией
   {
     m_KeysRegister ^= SWITCH;
 //    if( (m_KeysRegister & SWITCH) == SWITCH )

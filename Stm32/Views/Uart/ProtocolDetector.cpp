@@ -18,6 +18,28 @@
 #define PROTOCOL_CMD_VERTICAL_FEED_MOTOR_ON   14
 #define PROTOCOL_CMD_VERTICAL_FEED_MOTOR_OFF  15
 
+#define PROTOCOL_CMD_PRESS_KEY_1              16
+#define PROTOCOL_CMD_PRESS_KEY_2              17
+#define PROTOCOL_CMD_PRESS_KEY_3              18
+#define PROTOCOL_CMD_PRESS_KEY_4              19
+#define PROTOCOL_CMD_PRESS_KEY_5              20
+#define PROTOCOL_CMD_PRESS_KEY_6              21
+#define PROTOCOL_CMD_PRESS_KEY_7              22
+#define PROTOCOL_CMD_PRESS_KEY_8              23
+#define PROTOCOL_CMD_PRESS_KEY_9              24
+#define PROTOCOL_CMD_SWITCH_TOGGLE            25
+
+//  virtual void PressKey1(){ m_KeysRegister |= KEY_1; }
+//  virtual void PressKey2(){ m_KeysRegister |= KEY_2; }
+//  virtual void PressKey3(){ m_KeysRegister |= KEY_3; }
+//  virtual void PressKey4(){ m_KeysRegister |= KEY_4; }
+//  virtual void PressKey5(){ m_KeysRegister |= KEY_5; }
+//  virtual void PressKey6(){ m_KeysRegister |= KEY_6; }
+//  virtual void PressKey7(){ m_KeysRegister |= KEY_7; }
+//  virtual void PressKey8(){ m_KeysRegister |= KEY_8; }
+//  virtual void PressKey9(){ m_KeysRegister |= KEY_9; }
+//  virtual void SwitchToggle() // переключатель с фиксацией
+
 cProtocolDetector::cProtocolDetector(cByteReceiver *byteReceiver, 
                                      iController *machineController):
 m_ByteReceiver(NULL),
@@ -114,6 +136,38 @@ void cProtocolDetector::PacketParse(uint8_t *pData)
     case PROTOCOL_CMD_VERTICAL_FEED_MOTOR_OFF:
       m_MachineController->VerticalFeedMotorOff();
       break;
+
+    case PROTOCOL_CMD_PRESS_KEY_1:
+      m_MachineController->PressKey1();
+      break;
+    case PROTOCOL_CMD_PRESS_KEY_2:
+      m_MachineController->PressKey2();
+      break;
+    case PROTOCOL_CMD_PRESS_KEY_3:
+      m_MachineController->PressKey3();
+      break;
+    case PROTOCOL_CMD_PRESS_KEY_4:
+      m_MachineController->PressKey4();
+      break;
+    case PROTOCOL_CMD_PRESS_KEY_5:
+      m_MachineController->PressKey5();
+      break;
+    case PROTOCOL_CMD_PRESS_KEY_6:
+      m_MachineController->PressKey6();
+      break;
+    case PROTOCOL_CMD_PRESS_KEY_7:
+      m_MachineController->PressKey7();
+      break;
+    case PROTOCOL_CMD_PRESS_KEY_8:
+      m_MachineController->PressKey8();
+      break;
+    case PROTOCOL_CMD_PRESS_KEY_9:
+      m_MachineController->PressKey9();
+      break;
+    case PROTOCOL_CMD_SWITCH_TOGGLE:
+      m_MachineController->SwitchToggle();
+      break;
+
     default:
       break;
   }

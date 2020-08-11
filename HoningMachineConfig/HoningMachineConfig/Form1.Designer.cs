@@ -59,6 +59,16 @@
         	this.trackBar1 = new System.Windows.Forms.TrackBar();
         	this.buttonVerticalFeedMotorOn = new System.Windows.Forms.Button();
         	this.buttonVerticalFeedMotorOff = new System.Windows.Forms.Button();
+        	this.buttonKey_1 = new System.Windows.Forms.Button();
+        	this.buttonKey_2 = new System.Windows.Forms.Button();
+        	this.buttonKey_3 = new System.Windows.Forms.Button();
+        	this.buttonKey_4 = new System.Windows.Forms.Button();
+        	this.buttonKey_5 = new System.Windows.Forms.Button();
+        	this.buttonKey_6 = new System.Windows.Forms.Button();
+        	this.buttonKey_7 = new System.Windows.Forms.Button();
+        	this.buttonKey_8 = new System.Windows.Forms.Button();
+        	this.buttonKey_9 = new System.Windows.Forms.Button();
+        	this.buttonSWITCH = new System.Windows.Forms.Button();
         	this.menuStrip1.SuspendLayout();
         	((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
         	this.SuspendLayout();
@@ -327,11 +337,121 @@
         	this.buttonVerticalFeedMotorOff.UseVisualStyleBackColor = true;
         	this.buttonVerticalFeedMotorOff.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
         	// 
+        	// buttonKey_1
+        	// 
+        	this.buttonKey_1.Location = new System.Drawing.Point(745, 61);
+        	this.buttonKey_1.Name = "buttonKey_1";
+        	this.buttonKey_1.Size = new System.Drawing.Size(128, 23);
+        	this.buttonKey_1.TabIndex = 20;
+        	this.buttonKey_1.Text = "Key_1";
+        	this.buttonKey_1.UseVisualStyleBackColor = true;
+        	this.buttonKey_1.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
+        	// 
+        	// buttonKey_2
+        	// 
+        	this.buttonKey_2.Location = new System.Drawing.Point(745, 90);
+        	this.buttonKey_2.Name = "buttonKey_2";
+        	this.buttonKey_2.Size = new System.Drawing.Size(128, 23);
+        	this.buttonKey_2.TabIndex = 21;
+        	this.buttonKey_2.Text = "Key_2";
+        	this.buttonKey_2.UseVisualStyleBackColor = true;
+        	this.buttonKey_2.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
+        	// 
+        	// buttonKey_3
+        	// 
+        	this.buttonKey_3.Location = new System.Drawing.Point(745, 119);
+        	this.buttonKey_3.Name = "buttonKey_3";
+        	this.buttonKey_3.Size = new System.Drawing.Size(128, 23);
+        	this.buttonKey_3.TabIndex = 22;
+        	this.buttonKey_3.Text = "Key_3";
+        	this.buttonKey_3.UseVisualStyleBackColor = true;
+        	this.buttonKey_3.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
+        	// 
+        	// buttonKey_4
+        	// 
+        	this.buttonKey_4.Location = new System.Drawing.Point(745, 148);
+        	this.buttonKey_4.Name = "buttonKey_4";
+        	this.buttonKey_4.Size = new System.Drawing.Size(128, 23);
+        	this.buttonKey_4.TabIndex = 23;
+        	this.buttonKey_4.Text = "Key_4";
+        	this.buttonKey_4.UseVisualStyleBackColor = true;
+        	this.buttonKey_4.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
+        	// 
+        	// buttonKey_5
+        	// 
+        	this.buttonKey_5.Location = new System.Drawing.Point(745, 177);
+        	this.buttonKey_5.Name = "buttonKey_5";
+        	this.buttonKey_5.Size = new System.Drawing.Size(128, 23);
+        	this.buttonKey_5.TabIndex = 24;
+        	this.buttonKey_5.Text = "Key_5";
+        	this.buttonKey_5.UseVisualStyleBackColor = true;
+        	this.buttonKey_5.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
+        	// 
+        	// buttonKey_6
+        	// 
+        	this.buttonKey_6.Location = new System.Drawing.Point(745, 206);
+        	this.buttonKey_6.Name = "buttonKey_6";
+        	this.buttonKey_6.Size = new System.Drawing.Size(128, 23);
+        	this.buttonKey_6.TabIndex = 25;
+        	this.buttonKey_6.Text = "Key_6";
+        	this.buttonKey_6.UseVisualStyleBackColor = true;
+        	this.buttonKey_6.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
+        	// 
+        	// buttonKey_7
+        	// 
+        	this.buttonKey_7.Location = new System.Drawing.Point(745, 235);
+        	this.buttonKey_7.Name = "buttonKey_7";
+        	this.buttonKey_7.Size = new System.Drawing.Size(128, 23);
+        	this.buttonKey_7.TabIndex = 26;
+        	this.buttonKey_7.Text = "Key_7";
+        	this.buttonKey_7.UseVisualStyleBackColor = true;
+        	this.buttonKey_7.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
+        	// 
+        	// buttonKey_8
+        	// 
+        	this.buttonKey_8.Location = new System.Drawing.Point(745, 264);
+        	this.buttonKey_8.Name = "buttonKey_8";
+        	this.buttonKey_8.Size = new System.Drawing.Size(128, 23);
+        	this.buttonKey_8.TabIndex = 27;
+        	this.buttonKey_8.Text = "Key_8";
+        	this.buttonKey_8.UseVisualStyleBackColor = true;
+        	this.buttonKey_8.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
+        	// 
+        	// buttonKey_9
+        	// 
+        	this.buttonKey_9.Location = new System.Drawing.Point(745, 293);
+        	this.buttonKey_9.Name = "buttonKey_9";
+        	this.buttonKey_9.Size = new System.Drawing.Size(128, 23);
+        	this.buttonKey_9.TabIndex = 28;
+        	this.buttonKey_9.Text = "Key_9";
+        	this.buttonKey_9.UseVisualStyleBackColor = true;
+        	this.buttonKey_9.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
+        	// 
+        	// buttonSWITCH
+        	// 
+        	this.buttonSWITCH.Location = new System.Drawing.Point(611, 61);
+        	this.buttonSWITCH.Name = "buttonSWITCH";
+        	this.buttonSWITCH.Size = new System.Drawing.Size(128, 23);
+        	this.buttonSWITCH.TabIndex = 29;
+        	this.buttonSWITCH.Text = "SWITCH";
+        	this.buttonSWITCH.UseVisualStyleBackColor = true;
+        	this.buttonSWITCH.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
+        	// 
         	// MainForm1
         	// 
         	this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
         	this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         	this.ClientSize = new System.Drawing.Size(955, 473);
+        	this.Controls.Add(this.buttonSWITCH);
+        	this.Controls.Add(this.buttonKey_9);
+        	this.Controls.Add(this.buttonKey_8);
+        	this.Controls.Add(this.buttonKey_7);
+        	this.Controls.Add(this.buttonKey_6);
+        	this.Controls.Add(this.buttonKey_5);
+        	this.Controls.Add(this.buttonKey_4);
+        	this.Controls.Add(this.buttonKey_3);
+        	this.Controls.Add(this.buttonKey_2);
+        	this.Controls.Add(this.buttonKey_1);
         	this.Controls.Add(this.buttonVerticalFeedMotorOff);
         	this.Controls.Add(this.buttonVerticalFeedMotorOn);
         	this.Controls.Add(this.trackBar1);
@@ -362,6 +482,16 @@
         	this.ResumeLayout(false);
         	this.PerformLayout();
         }
+        private System.Windows.Forms.Button buttonSWITCH;
+        private System.Windows.Forms.Button buttonKey_9;
+        private System.Windows.Forms.Button buttonKey_8;
+        private System.Windows.Forms.Button buttonKey_7;
+        private System.Windows.Forms.Button buttonKey_6;
+        private System.Windows.Forms.Button buttonKey_5;
+        private System.Windows.Forms.Button buttonKey_4;
+        private System.Windows.Forms.Button buttonKey_3;
+        private System.Windows.Forms.Button buttonKey_2;
+        private System.Windows.Forms.Button buttonKey_1;
 
         #endregion
 

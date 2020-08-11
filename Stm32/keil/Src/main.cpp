@@ -94,7 +94,7 @@ uint8_t huart1Data;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-#define NEW_POC_ARR // TODO тестирование нового механизма планировщика
+//#define NEW_POC_ARR // TODO тестирование нового механизма планировщика(тестирование провалил)
 
 #ifndef NEW_POC_ARR
 #define I_PROCESS_ARRAY_SIZE  17

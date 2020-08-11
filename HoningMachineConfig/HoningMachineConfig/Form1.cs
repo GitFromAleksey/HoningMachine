@@ -155,6 +155,28 @@ namespace HoningMachineConfig
             { SendData(m_ProtocolSerializer.GetCommand(ProtocolCommands.PROTOCOL_CMD_VERTICAL_FEED_MOTOR_ON)); }
             if (sender == buttonVerticalFeedMotorOff)
             { SendData(m_ProtocolSerializer.GetCommand(ProtocolCommands.PROTOCOL_CMD_VERTICAL_FEED_MOTOR_OFF)); }
+            
+			if (sender == buttonSWITCH)
+			{ SendData(m_ProtocolSerializer.GetCommand(ProtocolCommands.PROTOCOL_CMD_SWITCH_TOGGLE)); }
+			if (sender == buttonKey_1)
+			{ SendData(m_ProtocolSerializer.GetCommand(ProtocolCommands.PROTOCOL_CMD_PRESS_KEY_1)); }
+			if (sender == buttonKey_2)
+			{ SendData(m_ProtocolSerializer.GetCommand(ProtocolCommands.PROTOCOL_CMD_PRESS_KEY_2)); }
+			if (sender == buttonKey_3)
+			{ SendData(m_ProtocolSerializer.GetCommand(ProtocolCommands.PROTOCOL_CMD_PRESS_KEY_3)); }
+			if (sender == buttonKey_4)
+			{ SendData(m_ProtocolSerializer.GetCommand(ProtocolCommands.PROTOCOL_CMD_PRESS_KEY_4)); }
+			if (sender == buttonKey_5)
+			{ SendData(m_ProtocolSerializer.GetCommand(ProtocolCommands.PROTOCOL_CMD_PRESS_KEY_5)); }
+			if (sender == buttonKey_6)
+			{ SendData(m_ProtocolSerializer.GetCommand(ProtocolCommands.PROTOCOL_CMD_PRESS_KEY_6)); }
+			if (sender == buttonKey_7)
+			{ SendData(m_ProtocolSerializer.GetCommand(ProtocolCommands.PROTOCOL_CMD_PRESS_KEY_7)); }
+			if (sender == buttonKey_8)
+			{ SendData(m_ProtocolSerializer.GetCommand(ProtocolCommands.PROTOCOL_CMD_PRESS_KEY_8)); }
+			if (sender == buttonKey_9)
+			{ SendData(m_ProtocolSerializer.GetCommand(ProtocolCommands.PROTOCOL_CMD_PRESS_KEY_9)); }
+            
         }
 
         private void SendData(Byte[] data)

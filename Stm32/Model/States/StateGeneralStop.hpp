@@ -2,7 +2,9 @@
 #define _STATE_START_HPP_
 
 #include <stdint.h>
+#include <stddef.h>
 #include "../Interfaces/iState.hpp"
+#include "Controller.hpp"
 
 
 class cStateGeneralStop : public iState
