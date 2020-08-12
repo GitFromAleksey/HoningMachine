@@ -1,24 +1,23 @@
-#include "StateStart.hpp"
+#include "StateWorking.hpp"
 
 
-cStateStart::cStateStart()
+cStateWorking::cStateWorking()
 {
 
 }
 // ----------------------------------------------------------------------------
-cStateStart::~cStateStart()
+cStateWorking::~cStateWorking()
 {
 
 }
 // ----------------------------------------------------------------------------
-void cStateStart::run(void *params)
+void cStateWorking::run(void *params)
 {
   cController *controller = (cController*)params;
-  
-  if(controller->GetKeysRegister() & KEY_7)
+
+  if(controller->GetKeysRegister() & KEY_6)
   {
-    controller->MachinePowerOn();
-    controller->SetCurrentState(NULL);
+    controller->SetCurrentState(new cStateSemenMovement());
     delete this;
   }
 }

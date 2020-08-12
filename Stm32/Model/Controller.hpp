@@ -7,10 +7,10 @@
 #include "../Interfaces/iProcess.hpp"
 #include "../Interfaces/iView.hpp"
 #include "../Model/machine.hpp"
-#include "../Interfaces/iState.hpp"
 
-#include "../Model/States/StateStart.hpp"
+#include "../Interfaces/iState.hpp"
 #include "../Model/States/StateGeneralStop.hpp"
+#include "../Model/States/StatePositionZero.hpp"
 
 
 #define KEY_1   (uint32_t)(1<<0)

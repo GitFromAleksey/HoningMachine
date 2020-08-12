@@ -590,14 +590,54 @@
           <GroupName>States</GroupName>
           <Files>
             <File>
-              <FileName>StateStart.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\..\Model\States\StateStart.cpp</FilePath>
-            </File>
-            <File>
               <FileName>StateGeneralStop.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\..\Model\States\StateGeneralStop.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>StatePositionZero.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Model\States\StatePositionZero.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>StateHandHeld.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Model\States\StateHandHeld.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>StateSlowSpeed.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Model\States\StateSlowSpeed.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>StateFastReturnToOperation.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Model\States\StateFastReturnToOperation.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>StateRangeSetting.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Model\States\StateRangeSetting.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>StateFeedEnabled.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Model\States\StateFeedEnabled.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>StateFeedIsDisabled.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Model\States\StateFeedIsDisabled.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>StateWorking.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Model\States\StateWorking.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>StateSemenMovement.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Model\States\StateSemenMovement.cpp</FilePath>
             </File>
           </Files>
         </Group>

@@ -1,3 +1,4 @@
+// позиция 0
 #ifndef _STATE_START_HPP_
 #define _STATE_START_HPP_
 
@@ -5,13 +6,14 @@
 #include <stddef.h>
 #include "../Interfaces/iState.hpp"
 #include "Controller.hpp"
+#include "AllStates.hpp"
 
 
-class cStateStart : public iState
+class cStatePositionZero : public iState
 {
 public:
-  cStateStart();
-  ~cStateStart();
+  cStatePositionZero();
+  ~cStatePositionZero();
   
   virtual void run(void *params);
 

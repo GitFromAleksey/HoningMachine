@@ -7,7 +7,7 @@ m_Machine(NULL),
 m_View(NULL),
 m_KeysRegister(0)
 {
-  SetCurrentState(new cStateStart());
+  SetCurrentState(new cStateGeneralStop());
 }
 // ----------------------------------------------------------------------------
 cController::cController(cMachine *machine)

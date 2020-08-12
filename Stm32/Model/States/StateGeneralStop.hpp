@@ -1,5 +1,6 @@
-#ifndef _STATE_START_HPP_
-#define _STATE_START_HPP_
+// Общий СТОП
+#ifndef _STATE_GENERAL_STOP_HPP_
+#define _STATE_GENERAL_STOP_HPP_
 
 #include <stdint.h>
 #include <stddef.h>
@@ -17,4 +18,4 @@ public:
 
 };
 
-#endif /* _STATE_START_HPP_ */
+#endif /* _STATE_GENERAL_STOP_HPP_ */
