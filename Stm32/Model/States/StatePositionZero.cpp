@@ -14,18 +14,19 @@ cStatePositionZero::~cStatePositionZero()
 void cStatePositionZero::run(void *params)
 {
   cController *controller = (cController*)params;
+  uint32_t keys_reg = controller->GetKeysRegister();
   
-  if(controller->GetKeysRegister() & SWITCH)
+  if(keys_reg & SWITCH)
   {
     controller->SetCurrentState(new cStateHandleHeld());
     delete this;
   }
-  else if(controller->GetKeysRegister() & KEY_2)
+  else if(keys_reg & KEY_2)
   {
     controller->SetCurrentState(new cStateSlowSpeed());
     delete this;
   }
-  else if(controller->GetKeysRegister() & KEY_4)
+  else if(keys_reg & KEY_4)
   {
     controller->SetCurrentState(new cStateFastReturnToOperation());
     delete this;

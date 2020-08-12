@@ -35,6 +35,7 @@
 #include "../Interfaces/iProcess.hpp"
 #include "KeyBoard.hpp"
 #include "array.hpp"
+#include "States/AllStates.hpp"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/

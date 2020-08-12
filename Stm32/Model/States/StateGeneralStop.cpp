@@ -14,7 +14,9 @@ cStateGeneralStop::~cStateGeneralStop()
 void cStateGeneralStop::run(void *params)
 {
   cController *controller = (cController*)params;
-  if( (controller->GetKeysRegister() & KEY_7) == KEY_7 )
+  uint32_t keys_reg = controller->GetKeysRegister();
+  
+  if( keys_reg & KEY_7 )
   {
     // создать класс "Позиция 0"
     controller->SetCurrentState(new cStatePositionZero());
