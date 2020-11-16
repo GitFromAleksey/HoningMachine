@@ -13,8 +13,10 @@
 #include "DigitalOut.hpp"
 #include "DigitalInput.hpp"
 
-//#define DEBUG_MESSAGES
+#define DEBUG_MESSAGES
 
+// чтение входов происходит в 2 такта.
+// первый такт включается ряд, второй - происходит чтение
 
 class cKeysReader : public iProcess
 {
@@ -31,15 +33,14 @@ class cKeysReader : public iProcess
 
 	private:
 		bool m_IsNextRowSwitched;
-		uint32_t m_Rows;
-		uint32_t m_Cols;
 		uint8_t m_RowsCounter;
 		const static uint8_t m_RowsCounterMax = 4;// TODO сюда лучше подставлять значение руками
 		const static uint8_t m_ColsCounterMax = 4;// TODO сюда лучше подставлять значение руками
 		cDigitalOut *m_pRowsArr[m_RowsCounterMax];
 		cDigitalInput *m_pColsArr[m_ColsCounterMax];
+		uint32_t m_KeyCodeArr[m_RowsCounterMax];
 
-		void NextRowSwitsh();
+		void NextRowSwitch();
 		void NextColRead();
 		void KeysPolling();
 };

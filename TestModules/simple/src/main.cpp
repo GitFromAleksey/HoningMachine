@@ -29,6 +29,7 @@ class MDR_PORT
 		void SetValue(uint32_t value)
 		{
 			this->value = value;
+//			cout << name << ": " << value << endl;
 		}
 };
 
@@ -60,7 +61,7 @@ bool CheckStateCallback(void *port, uint16_t pinNumber)
 {
 	bool res = (PORT_IN.value & (uint32_t)(1<<pinNumber)) == (uint32_t)(1<<pinNumber);
 	string str = PORT_IN.name;
-	cout << "CheckStateCallback.port:" << str << "; pinNumber:" << pinNumber << "res:" << res << endl;
+	cout << "CheckStateCallback.port:" << str << "; pinNumber:" << pinNumber << "; res:" << res << endl;
 	return res;
 }
 
@@ -105,11 +106,13 @@ int main()
 
 	SetupKeys();
 
-	for(int i = 0; i < 10; ++i)
+	PORT_IN.SetValue(1<<0);
+	for(int i = 0; i < 4; ++i)
 	{
-		PORT_IN.value = (1<<0);
 		keysReader.run();
-		cout << "ColState:" << keysReader.GetColState() << endl;
+		keysReader.run();
+		keysReader.GetColState();
+		PORT_IN.SetValue(1<<i);
 	}
 
 	return 0;
