@@ -29,13 +29,13 @@ class cKeysReader : public iProcess
 		bool SetRowOutput(cDigitalOut *row, uint8_t index);
 		bool SetColInput(cDigitalInput *col, uint8_t index);
 
-		uint32_t GetColState();
+		uint32_t PrintKeyMatrix();
 
 	private:
 		bool m_IsNextRowSwitched;
 		uint8_t m_RowsCounter;
-		const static uint8_t m_RowsCounterMax = 4;// TODO сюда лучше подставлять значение руками
-		const static uint8_t m_ColsCounterMax = 4;// TODO сюда лучше подставлять значение руками
+		const static uint8_t m_RowsCounterMax = 4;
+		const static uint8_t m_ColsCounterMax = 4;
 		cDigitalOut *m_pRowsArr[m_RowsCounterMax];
 		cDigitalInput *m_pColsArr[m_ColsCounterMax];
 		uint32_t m_KeyCodeArr[m_RowsCounterMax];

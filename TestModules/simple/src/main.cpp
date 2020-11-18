@@ -53,15 +53,15 @@ cKeysReader keysReader;
 
 void SwitchCallback(void *port, uint16_t pinNumber, bool hi_lo)
 {
-	string str = PORT_OUT.name;
-	cout << "SwitchCallback.port:" << str << "; pinNumber:" << pinNumber << "; hi_lo:" << hi_lo << endl;
+//	string str = PORT_OUT.name;
+//	cout << "SwitchCallback.port:" << str << "; pinNumber:" << pinNumber << "; hi_lo:" << hi_lo << endl;
 }
 
 bool CheckStateCallback(void *port, uint16_t pinNumber)
 {
 	bool res = (PORT_IN.value & (uint32_t)(1<<pinNumber)) == (uint32_t)(1<<pinNumber);
-	string str = PORT_IN.name;
-	cout << "CheckStateCallback.port:" << str << "; pinNumber:" << pinNumber << "; res:" << res << endl;
+//	string str = PORT_IN.name;
+//	cout << "CheckStateCallback.port:" << str << "; pinNumber:" << pinNumber << "; res:" << res << endl;
 	return res;
 }
 
@@ -96,24 +96,38 @@ void SetupKeys()
 	keysReader.SetColInput(&col_3, 3);
 }
 
+void ReadAllRows(uint32_t keyRow, uint32_t keyCol)
+{
+	for(int i = 0; i < 4; ++i)
+	{
+		if(keyRow == (uint32_t)i)
+			PORT_IN.SetValue((1<<keyCol));
+		else
+			PORT_IN.SetValue(0);
+		keysReader.run();
+	}
+}
 
 int main()
 {
 	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
 
-	cout << "PORT_OUT = " << hex << PORT_OUT.value << endl;
-	cout << "PORT_IN = " << hex << PORT_IN.value << endl;
+	cout << "PORT_OUT.value = " << hex << PORT_OUT.value << endl;
+	cout << "PORT_IN.value = " << hex << PORT_IN.value << endl;
 
 	SetupKeys();
 
-	PORT_IN.SetValue(1<<0);
-	for(int i = 0; i < 4; ++i)
-	{
-		keysReader.run();
-		keysReader.run();
-		keysReader.GetColState();
-		PORT_IN.SetValue(1<<i);
-	}
+	ReadAllRows(3,3);
+	keysReader.PrintKeyMatrix();
+
+	ReadAllRows(3,2);
+	keysReader.PrintKeyMatrix();
+
+	ReadAllRows(3,1);
+	keysReader.PrintKeyMatrix();
+
+	ReadAllRows(3,0);
+	keysReader.PrintKeyMatrix();
 
 	return 0;
 }

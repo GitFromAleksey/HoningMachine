@@ -32,6 +32,7 @@ cKeysReader::~cKeysReader() {}
 void cKeysReader::run()
 {
 	KeysPolling();
+	KeysPolling();
 }
 // ----------------------------------------------------------------------------
 bool cKeysReader::SetRowOutput(cDigitalOut *row, uint8_t index)
@@ -58,15 +59,16 @@ bool cKeysReader::SetColInput(cDigitalInput *col, uint8_t index)
 	return true;
 }
 // ----------------------------------------------------------------------------
-uint32_t cKeysReader::GetColState()
+uint32_t cKeysReader::PrintKeyMatrix()
 {
 #ifdef DEBUG_MESSAGES
+	cout << "Key Matrix:" << endl;
 	for(int i = 0; i < m_RowsCounterMax; ++i)
 	{
-		std::cout << i << ":" << hex << m_KeyCodeArr[i] << std::endl;
+		std::cout << i << ": 0x" << std::hex << m_KeyCodeArr[i] << std::endl;
 	}
 #endif
-	return 0;// todo реализовать или удалить
+	return 0;// todo функция для теста
 }
 // ----------------------------------------------------------------------------
 // private:
@@ -80,15 +82,14 @@ void cKeysReader::KeysPolling()
 	else
 	{
 		NextColRead();
+		if(++m_RowsCounter >= m_RowsCounterMax)
+			m_RowsCounter = 0;
 		m_IsNextRowSwitched = false;
 	}
 }
 // ----------------------------------------------------------------------------
 void cKeysReader::NextRowSwitch()
 {
-	if(++m_RowsCounter >= m_RowsCounterMax)
-		m_RowsCounter = 0;
-
 	for(int i = 0; i < m_RowsCounterMax; ++i)
 	{
 		if(m_RowsCounter == i)
