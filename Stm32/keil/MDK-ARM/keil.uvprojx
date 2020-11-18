@@ -409,6 +409,11 @@
               <FileType>8</FileType>
               <FilePath>..\..\Model\KeyBoard.cpp</FilePath>
             </File>
+            <File>
+              <FileName>cKeysReader.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Model\cKeysReader.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

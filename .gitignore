@@ -7,4 +7,7 @@
 *.lst
 *.map
 *.uvguix.*
+*.uvoptx
+*.axf
+*.hex
 /Debug/

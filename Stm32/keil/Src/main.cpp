@@ -33,9 +33,10 @@
 #include "ProtocolFormer.hpp"
 #include "ProtocolFormer.hpp"
 #include "../Interfaces/iProcess.hpp"
-#include "KeyBoard.hpp"
+//#include "KeyBoard.hpp"
 #include "array.hpp"
 #include "States/AllStates.hpp"
+#include "cKeysReader.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -73,7 +74,6 @@
 #define DI_PORT_LOWER_TOOL_TIP            GPIOB
 #define DI_PIN_LOWER_TOOL_TIP             GPIO_PIN_12 // нижний концевик
 
-// кнопки
 
 /* USER CODE END PD */
 
@@ -122,13 +122,25 @@ cAnalogInput CurrentSensor;
 
 cMachine machine;
 cController controller;
-cKeyBoard KeyBoard;
+//cKeyBoard KeyBoard;
 
 cByteReceiver ByteReceiver(50);
 cProtocolDetector ProtocolDetector(&ByteReceiver, &controller);
 cByteSender ByteSender(50);
 cProtocolFormer ProtocolFormer(&ByteSender);
 
+// кнопки
+cDigitalOut KeyRow_0;
+cDigitalOut KeyRow_1;
+cDigitalOut KeyRow_2;
+cDigitalOut KeyRow_3;
+
+cDigitalInput KeyCol_0;
+cDigitalInput KeyCol_1;
+cDigitalInput KeyCol_2;
+cDigitalInput KeyCol_3;
+
+cKeysReader Keyboard;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -283,6 +295,37 @@ void SetupUart()
   AddToProcessArray(&ByteSender);
   AddToProcessArray(&ProtocolFormer);
 }
+
+void SetupKeyboard(void)
+{
+  KeyRow_0.Init(GPIOA, GPIO_PIN_11, false);
+  KeyRow_1.Init(GPIOA, GPIO_PIN_12, false);
+  KeyRow_2.Init(GPIOB, GPIO_PIN_4, false);
+  KeyRow_3.Init(GPIOB, GPIO_PIN_5, false);
+  KeyRow_0.SetDoSwitchCallback(DO_SwitchCallback);
+  KeyRow_1.SetDoSwitchCallback(DO_SwitchCallback);
+  KeyRow_2.SetDoSwitchCallback(DO_SwitchCallback);
+  KeyRow_3.SetDoSwitchCallback(DO_SwitchCallback);
+
+  KeyCol_0.Init(GPIOB, GPIO_PIN_6, false);
+  KeyCol_1.Init(GPIOB, GPIO_PIN_7, false);
+  KeyCol_2.Init(GPIOB, GPIO_PIN_8, false);
+  KeyCol_3.Init(GPIOB, GPIO_PIN_9, false);
+  KeyCol_0.SetCheckStateCallback(DIO_CheckStateCallback);
+  KeyCol_1.SetCheckStateCallback(DIO_CheckStateCallback);
+  KeyCol_2.SetCheckStateCallback(DIO_CheckStateCallback);
+  KeyCol_3.SetCheckStateCallback(DIO_CheckStateCallback);
+  
+  Keyboard.SetRowOutput(&KeyRow_0, 0);
+  Keyboard.SetRowOutput(&KeyRow_1, 1);
+  Keyboard.SetRowOutput(&KeyRow_2, 2);
+  Keyboard.SetRowOutput(&KeyRow_3, 3);
+
+  Keyboard.SetColInput(&KeyCol_0, 0);
+  Keyboard.SetColInput(&KeyCol_1, 1);
+  Keyboard.SetColInput(&KeyCol_2, 2);
+  Keyboard.SetColInput(&KeyCol_3, 3);
+}
 /* USER CODE END 0 */
 
 /**
@@ -326,6 +369,7 @@ int main(void)
   SetupMachine();
   SetupController();
   SetupUart();
+  SetupKeyboard();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -340,6 +384,7 @@ int main(void)
   while(1)
   {
     RunProcesses();
+    Keyboard.run();
     
     if((HAL_GetTick() - ticks) > 500)
     {
@@ -548,6 +593,20 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
+  // ------- ряды кнопок -------
+  GPIO_InitStruct.Pin = GPIO_PIN_11 | GPIO_PIN_12;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  GPIO_InitStruct.Pin = GPIO_PIN_4 | GPIO_PIN_5;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  // ------- ряды кнопок -------
+
   // digital inputs config
   GPIO_InitStruct.Pin = DI_PIN_UPPER_TOOL_TIP;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
@@ -570,6 +629,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
   
+  // ------- колонки кнопок -------
+  GPIO_InitStruct.Pin = GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  // ------- колонки кнопок -------
+
 //  HAL_GPIO_WritePin(DI_PORT_MIDDLE_TOOL_TIP, DI_PIN_MIDDLE_TOOL_TIP, GPIO_PIN_SET);
 }
 
