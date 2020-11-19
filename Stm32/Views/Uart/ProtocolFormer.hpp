@@ -18,10 +18,10 @@ typedef enum
 
 typedef struct
 {
-	uint8_t DeviceNumber;	// номер устройства
-	uint16_t ParamType;	// номер регистра
-	uint32_t Data;	// если команда чтения, то поле игнорируется
-	uint8_t CRC8;	// контрольная сумма
+	uint8_t DeviceNumber;	// РЅРѕРјРµСЂ СѓСЃС‚СЂРѕР№СЃС‚РІР°
+	uint16_t ParamType;	// РЅРѕРјРµСЂ СЂРµРіРёСЃС‚СЂР°
+	uint32_t Data;	// РµСЃР»Рё РєРѕРјР°РЅРґР° С‡С‚РµРЅРёСЏ, С‚Рѕ РїРѕР»Рµ РёРіРЅРѕСЂРёСЂСѓРµС‚СЃСЏ
+	uint8_t CRC8;	// РєРѕРЅС‚СЂРѕР»СЊРЅР°СЏ СЃСѓРјРјР°
 } t_out_protocol;
 
 class cProtocolFormer : public iProcess, public iView

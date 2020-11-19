@@ -553,6 +553,25 @@ static void MX_DMA_Init(void)
   HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQn);
 
 }
+// TODO заготовка для инициализации дискретных входов/выходов
+static void GPIO_DIO_Init(GPIO_TypeDef *port, uint16_t pin, bool isOutput)
+{
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+  if(isOutput)
+  {
+    GPIO_InitStruct.Pin = pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  }
+  else
+  {
+    GPIO_InitStruct.Pin = pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+  }
+  HAL_GPIO_Init(port, &GPIO_InitStruct);
+}
 /**
   * @brief GPIO Initialization Function
   * @param None

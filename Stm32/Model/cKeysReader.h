@@ -10,13 +10,22 @@
 
 #include <stdint.h>
 #include "iProcess.hpp"
+#include "../Interfaces/iController.hpp"
 #include "DigitalOut.hpp"
 #include "DigitalInput.hpp"
+
 
 //#define DEBUG_MESSAGES
 
 // чтение входов происходит в 2 такта.
 // первый такт включается ряд, второй - происходит чтение
+
+// кнопки 0-й ряд
+#define KEY_0_0_AVAR_STOP  (1<<0)
+#define KEY_0_1_SEMEN      (1<<1)
+#define KEY_0_2_KZ         (1<<2)
+#define KEY_0_3_           (1<<3)
+
 
 class cKeysReader : public iProcess
 {
@@ -39,6 +48,7 @@ class cKeysReader : public iProcess
 		cDigitalOut *m_pRowsArr[m_RowsCounterMax];
 		cDigitalInput *m_pColsArr[m_ColsCounterMax];
 		uint32_t m_KeyCodeArr[m_RowsCounterMax];
+    iController *m_MachineController;
 
 		void NextRowSwitch();
 		void NextColRead();
