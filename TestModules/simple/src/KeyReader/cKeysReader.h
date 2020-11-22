@@ -5,14 +5,14 @@
  *      Author: MSPC
  */
 
-#ifndef CKEYSREADER_H_
-#define CKEYSREADER_H_
+#ifndef KEYREADER_CKEYSREADER_H_
+#define KEYREADER_CKEYSREADER_H_
 
 #include <stdint.h>
-#include "../../../Stm32/Interfaces/iProcess.hpp"
-#include "../../../Stm32/Interfaces/iController.hpp"
-#include "DigitalOut.hpp"
-#include "DigitalInput.hpp"
+#include "../../../../Stm32/Interfaces/iProcess.hpp"
+#include "../../../../Stm32/Interfaces/iController.hpp"
+#include "../DigitalOut.hpp"
+#include "../DigitalInput.hpp"
 #include "cKeyHandler.h"
 
 //#define DEBUG_MESSAGES
@@ -47,4 +47,4 @@ class cKeysReader : public iProcess
 		void KeysPolling();
 };
 
-#endif /* CKEYSREADER_H_ */
+#endif /* KEYREADER_CKEYSREADER_H_ */

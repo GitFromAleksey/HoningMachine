@@ -5,33 +5,15 @@
  *      Author: MSPC
  */
 
-#ifndef CKEYHANDLER_H_
-#define CKEYHANDLER_H_
+#ifndef KEYREADER_CKEYHANDLER_H_
+#define KEYREADER_CKEYHANDLER_H_
 
 #include <iostream>
 #include <stdint.h>
 #include <stddef.h>
-#include "../../../Stm32/Interfaces/iProcess.hpp"
-#include "../../../Stm32/Interfaces/iController.hpp"
-
-class cKeyBind
-{
-	public:
-		std::string name;
-
-		cKeyBind();
-		virtual ~cKeyBind();
-
-		void Init(uint8_t row, uint8_t col, KeyIdentificator keyIdent, iController *machineController);
-		void CheckKey(uint8_t row, uint8_t col, uint32_t rowWord);
-
-	private:
-		// координаты кнопки в матрице
-		uint8_t m_Row;
-		uint8_t m_Col;
-		KeyIdentificator m_KeyIdent;
-		iController *m_MachineController; // интерфейс контроллера станка
-};
+#include "../../../../Stm32/Interfaces/iProcess.hpp"
+#include "../../../../Stm32/Interfaces/iController.hpp"
+#include "cKeyBind.h"
 
 class cKeyHandler : public iProcess
 {
@@ -59,4 +41,4 @@ class cKeyHandler : public iProcess
 		void ArrayInit(uint32_t *arr, uint8_t size);
 };
 
-#endif /* CKEYHANDLER_H_ */
+#endif /* KEYREADER_CKEYHANDLER_H_ */

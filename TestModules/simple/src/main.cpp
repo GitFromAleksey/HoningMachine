@@ -8,11 +8,12 @@
 
 #include <iostream>
 #include <string>
-#include "cKeysReader.h"
 #include "DigitalInput.hpp"
 #include "DigitalOut.hpp"
 #include "../../../Stm32/Interfaces/iController.hpp"
 #include "cController.h"
+#include "KeyReader/cKeysReader.h"
+#include "KeyReader/cKeyBind.h"
 
 using namespace std;
 

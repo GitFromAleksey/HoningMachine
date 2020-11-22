@@ -6,11 +6,6 @@
  */
 
 #include "cKeysReader.h"
-#ifdef DEBUG_MESSAGES
-#include <iostream>
-using namespace std;
-#endif
-
 
 cKeysReader::cKeysReader():
 		m_IsNextRowSwitched(false),
