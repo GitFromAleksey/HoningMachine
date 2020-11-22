@@ -6,11 +6,6 @@
  */
 
 #include "cKeysReader.h"
-#ifdef DEBUG_MESSAGES
-#include <iostream>
-using namespace std;
-#endif
-
 
 cKeysReader::cKeysReader():
 		m_IsNextRowSwitched(false),
@@ -19,12 +14,14 @@ cKeysReader::cKeysReader():
 	for(uint8_t i = 0; i < m_RowsCounterMax; ++i)
 	{
 		m_pRowsArr[i] = NULL;
-		m_KeyCodeArr[i] = 0;
+		m_KeyRowMatrix[i] = 0;
 	}
 	for(uint8_t i = 0; i < m_ColsCounterMax; ++i)
 	{
 		m_pColsArr[i] = NULL;
 	}
+
+	m_KeyHandler = new cKeyHandler(m_KeyRowMatrix, m_RowsCounterMax, m_ColsCounterMax);
 }
 // ----------------------------------------------------------------------------
 cKeysReader::~cKeysReader() {}
@@ -33,6 +30,7 @@ void cKeysReader::run()
 {
 	KeysPolling();
 	KeysPolling();
+	m_KeyHandler->run();
 }
 // ----------------------------------------------------------------------------
 bool cKeysReader::SetRowOutput(cDigitalOut *row, uint8_t index)
@@ -59,16 +57,9 @@ bool cKeysReader::SetColInput(cDigitalInput *col, uint8_t index)
 	return true;
 }
 // ----------------------------------------------------------------------------
-uint32_t cKeysReader::PrintKeyMatrix()
+void cKeysReader::AddKeysArray(cKeyBind *keysArray, uint8_t size)
 {
-#ifdef DEBUG_MESSAGES
-	cout << "Key Matrix:" << endl;
-	for(int i = 0; i < m_RowsCounterMax; ++i)
-	{
-		std::cout << i << ": 0x" << std::hex << m_KeyCodeArr[i] << std::endl;
-	}
-#endif
-	return 0;// todo функция для теста
+	m_KeyHandler->AddKeysArray(keysArray, size);
 }
 // ----------------------------------------------------------------------------
 // private:
@@ -111,6 +102,6 @@ void cKeysReader::NextColRead()
 		else
 			rowCode &= ~(uint32_t)(1<<i);
 	}
-	m_KeyCodeArr[m_RowsCounter] = rowCode; // состояние входов опрашиваемого ряда
+	m_KeyRowMatrix[m_RowsCounter] = rowCode; // состояние входов опрашиваемого ряда
 }
 // ----------------------------------------------------------------------------

@@ -10,7 +10,6 @@
       <TargetName>keil</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pArmCC>5060750::V5.06 update 6 (build 750)::.\ARMCC</pArmCC>
       <pCCUsed>5060750::V5.06 update 6 (build 750)::.\ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
@@ -190,7 +189,7 @@
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>1</useUlib>
+            <useUlib>0</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <nSecure>0</nSecure>
@@ -340,7 +339,7 @@
               <MiscControls>--exceptions</MiscControls>
               <Define>USE_HAL_DRIVER,STM32F103xB</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include;..\..\Interfaces;..\..\Drivers;..\..\Model;..\..\Views\Uart;..\..\Common</IncludePath>
+              <IncludePath>../Inc;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include;..\..\Interfaces;..\..\Drivers;..\..\Model;..\..\Views\Uart;..\..\Common;..\..\Views\KeyReader</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -403,11 +402,6 @@
               <FileName>machine.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\..\Model\machine.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>cKeysReader.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\..\Model\cKeysReader.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -638,6 +632,26 @@
               <FileName>StateSemenMovement.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\..\Model\States\StateSemenMovement.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Keys</GroupName>
+          <Files>
+            <File>
+              <FileName>cKeyBind.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Views\KeyReader\cKeyBind.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>cKeyHandler.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Views\KeyReader\cKeyHandler.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>cKeysReader.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Views\KeyReader\cKeysReader.cpp</FilePath>
             </File>
           </Files>
         </Group>
