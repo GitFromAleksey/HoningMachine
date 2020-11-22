@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include <stddef.h>
-#include "iProcess.hpp"
+#include "../../../Stm32/Interfaces/iProcess.hpp"
 //#include <iostream>
 
 
@@ -12,7 +12,7 @@ class cDigitalInput : public iProcess
 public:
 	cDigitalInput();
 	cDigitalInput(void *port, uint16_t pinNumber, bool inversion);
-	~cDigitalInput();
+	virtual ~cDigitalInput();
 
 	virtual void run();
 

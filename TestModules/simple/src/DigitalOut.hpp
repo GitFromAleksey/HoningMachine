@@ -3,14 +3,14 @@
 
 #include <stdint.h>
 #include <stddef.h>
-#include "iProcess.hpp"
+#include "../../../Stm32/Interfaces/iProcess.hpp"
 //#include <iostream>
 
 class cDigitalOut : public iProcess
 {
 public:
 	cDigitalOut();
-	~cDigitalOut();
+	virtual ~cDigitalOut();
 
 	virtual void run();
 

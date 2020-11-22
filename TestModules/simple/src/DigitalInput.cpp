@@ -17,6 +17,8 @@ cDigitalInput::cDigitalInput(void *port, uint16_t pinNumber, bool inversion):
 	m_PinNumber(pinNumber),
 	m_Iversion(inversion),
 	m_State(false),
+	m_DebounceCnt(0),
+	m_DebounceCntVal(0),
 	CheckStateCallback(NULL),
 	CallbackChangeState(NULL)
 {

@@ -138,7 +138,7 @@
             <DriverSelection>4107</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
-          <Flash2>STLink\ST-LINKIII-KEIL_SWO.dll</Flash2>
+          <Flash2>BIN\UL2CM3.DLL</Flash2>
           <Flash3></Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
@@ -403,11 +403,6 @@
               <FileName>machine.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\..\Model\machine.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>KeyBoard.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\..\Model\KeyBoard.cpp</FilePath>
             </File>
             <File>
               <FileName>cKeysReader.cpp</FileName>

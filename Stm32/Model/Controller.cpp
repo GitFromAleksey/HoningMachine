@@ -128,5 +128,71 @@ void cController::ToolStop()
 {
   m_Machine->ToolStop();
 }
+// ----------------------------------------------------------------------------
+void cController::KeyEventHandler(KeyIdentificator keyIdent)
+{
+  switch(keyIdent)
+  {
+    case pressKey1:
+      PressKey1();
+      break;
+    case pressKey2:
+      PressKey2();
+      break;
+    case pressKey3:
+      PressKey3();
+      break;
+    case pressKey4:
+      PressKey4();
+      break;
+    case pressKey5:
+      PressKey5();
+      break;
+    case pressKey6:
+      PressKey6();
+      break;
+    case pressKey7:
+      PressKey7();
+      break;
+    case pressKey8:
+      PressKey8();
+      break;
+    case pressKey9:
+      PressKey9();
+      break;
+    case machinePowerOn:
+      MachinePowerOn();
+      break;
+    case machinePowerOff:
+      MachinePowerOff();
+      break;
+    case verticalFeedMotorOn:
+      VerticalFeedMotorOn();
+      break;
+    case verticalFeedMotorOff:
+      VerticalFeedMotorOff();
+      break;
+    case toolLiftUp:
+      ToolLiftUp();
+      break;
+    case toolLiftDown:
+      ToolLiftDown();
+      break;
+    case toolLiftStop:
+      ToolLiftStop();
+      break;
+    case toolRotateRun:
+      ToolRotateRun();
+      break;
+    case toolRotateStop:
+      ToolRotateStop();
+      break;
+    case toolStop:
+      ToolStop();
+      break;
+    default:
+      break;
+  }
+}
 // конец реализации методов интерфейса iController
 // ----------------------------------------------------------------------------

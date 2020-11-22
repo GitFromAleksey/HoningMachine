@@ -76,6 +76,8 @@ public:
   virtual void ToolRotateStop();
   virtual void ToolStop();
 
+  virtual void KeyEventHandler(KeyIdentificator keyIdent);
+
 private:
   uint32_t m_Ticks;
   uint32_t m_TicksSendRepeat;

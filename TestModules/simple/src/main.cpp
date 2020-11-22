@@ -11,6 +11,8 @@
 #include "cKeysReader.h"
 #include "DigitalInput.hpp"
 #include "DigitalOut.hpp"
+#include "../../../Stm32/Interfaces/iController.hpp"
+#include "cController.h"
 
 using namespace std;
 
@@ -49,7 +51,9 @@ cDigitalOut row_1;
 cDigitalOut row_2;
 cDigitalOut row_3;
 
-cKeysReader keysReader;
+cKeysReader KeysReader;
+cController MachineController;
+cKeyBind KeysArray[4*4];
 
 void SwitchCallback(void *port, uint16_t pinNumber, bool hi_lo)
 {
@@ -65,8 +69,10 @@ bool CheckStateCallback(void *port, uint16_t pinNumber)
 	return res;
 }
 
-void SetupKeys()
+// конфигурация класса опроса клавиатуры
+void SetupKeyReader(cKeyBind *keysArray, uint8_t size)
 {
+// конфигурация дискретных выходов рядов
 	row_0.Init(&PORT_OUT, 0, false);
 	row_1.Init(&PORT_OUT, 1, false);
 	row_2.Init(&PORT_OUT, 2, false);
@@ -76,6 +82,7 @@ void SetupKeys()
 	row_2.SetDoSwitchCallback(SwitchCallback);
 	row_3.SetDoSwitchCallback(SwitchCallback);
 
+// конфигурация дискретных входов колонок
 	col_0.Init(&PORT_IN, 0, false);
 	col_1.Init(&PORT_IN, 1, false);
 	col_2.Init(&PORT_IN, 2, false);
@@ -85,15 +92,45 @@ void SetupKeys()
 	col_2.SetCheckStateCallback(CheckStateCallback);
 	col_3.SetCheckStateCallback(CheckStateCallback);
 
-	keysReader.SetRowOutput(&row_0, 0);
-	keysReader.SetRowOutput(&row_1, 1);
-	keysReader.SetRowOutput(&row_2, 2);
-	keysReader.SetRowOutput(&row_3, 3);
+// добавление рядов в класс опроса клавиатуры
+	KeysReader.SetRowOutput(&row_0, 0);
+	KeysReader.SetRowOutput(&row_1, 1);
+	KeysReader.SetRowOutput(&row_2, 2);
+	KeysReader.SetRowOutput(&row_3, 3);
+// добавление колонок в класс опроса клавиатуры
+	KeysReader.SetColInput(&col_0, 0);
+	KeysReader.SetColInput(&col_1, 1);
+	KeysReader.SetColInput(&col_2, 2);
+	KeysReader.SetColInput(&col_3, 3);
+// добавление массива настроенных кнопок в класс считывателя
+	KeysReader.AddKeysArray(keysArray, size);
+}
 
-	keysReader.SetColInput(&col_0, 0);
-	keysReader.SetColInput(&col_1, 1);
-	keysReader.SetColInput(&col_2, 2);
-	keysReader.SetColInput(&col_3, 3);
+// настройка кнопок(связь положения кнопки в матрице с методом контроллера станка)
+void SetupKeysArray()
+{
+	uint8_t i = 0;
+
+	// 0-й ряд кнопок
+	KeysArray[i++].Init(0, 0, pressKey1, &MachineController);
+	KeysArray[i++].Init(0, 1, pressKey2, &MachineController);
+	KeysArray[i++].Init(0, 2, pressKey3, &MachineController);
+	KeysArray[i++].Init(0, 3, pressKey4, &MachineController);
+	// 1-й ряд кнопок
+	KeysArray[i++].Init(1, 0, pressKey5, &MachineController);
+	KeysArray[i++].Init(1, 1, pressKey6, &MachineController);
+	KeysArray[i++].Init(1, 2, pressKey7, &MachineController);
+	KeysArray[i++].Init(1, 3, pressKey8, &MachineController);
+	// 2-й ряд кнопок
+	KeysArray[i++].Init(2, 0, pressKey9, &MachineController);
+	KeysArray[i++].Init(2, 1, switchToggle, &MachineController);
+	KeysArray[i++].Init(2, 2, machinePowerOn, &MachineController);
+	KeysArray[i++].Init(2, 3, machinePowerOff, &MachineController);
+	// 3-й ряд кнопок
+	KeysArray[i++].Init(3, 0, verticalFeedMotorOn, &MachineController);
+	KeysArray[i++].Init(3, 1, verticalFeedMotorOff, &MachineController);
+	KeysArray[i++].Init(3, 2, toolLiftUp, &MachineController);
+	KeysArray[i++].Init(3, 3, toolLiftDown, &MachineController);
 }
 
 void ReadAllRows(uint32_t keyRow, uint32_t keyCol)
@@ -104,7 +141,7 @@ void ReadAllRows(uint32_t keyRow, uint32_t keyCol)
 			PORT_IN.SetValue((1<<keyCol));
 		else
 			PORT_IN.SetValue(0);
-		keysReader.run();
+		KeysReader.run();
 	}
 }
 
@@ -115,19 +152,19 @@ int main()
 	cout << "PORT_OUT.value = " << hex << PORT_OUT.value << endl;
 	cout << "PORT_IN.value = " << hex << PORT_IN.value << endl;
 
-	SetupKeys();
+	SetupKeysArray();
+	SetupKeyReader(KeysArray, sizeof(KeysArray)/sizeof(cKeyBind));
+
 
 	ReadAllRows(3,3);
-	keysReader.PrintKeyMatrix();
 
 	ReadAllRows(3,2);
-	keysReader.PrintKeyMatrix();
 
 	ReadAllRows(3,1);
-	keysReader.PrintKeyMatrix();
 
 	ReadAllRows(3,0);
-	keysReader.PrintKeyMatrix();
+
+	ReadAllRows(3,3);
 
 	return 0;
 }
