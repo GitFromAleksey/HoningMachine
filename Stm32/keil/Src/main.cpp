@@ -129,15 +129,15 @@ cByteSender ByteSender(50);
 cProtocolFormer ProtocolFormer(&ByteSender);
 
 // кнопки
-cDigitalOut KeyRow_0;
-cDigitalOut KeyRow_1;
-cDigitalOut KeyRow_2;
-cDigitalOut KeyRow_3;
+//cDigitalOut KeyRow_0;
+//cDigitalOut KeyRow_1;
+//cDigitalOut KeyRow_2;
+//cDigitalOut KeyRow_3;
 
-cDigitalInput KeyCol_0;
-cDigitalInput KeyCol_1;
-cDigitalInput KeyCol_2;
-cDigitalInput KeyCol_3;
+//cDigitalInput KeyCol_0;
+//cDigitalInput KeyCol_1;
+//cDigitalInput KeyCol_2;
+//cDigitalInput KeyCol_3;
 
 cKeysReader Keyboard;
 /* USER CODE END PV */
@@ -297,33 +297,33 @@ void SetupUart()
 
 void SetupKeyboard(void)
 {
-  KeyRow_0.Init(GPIOA, GPIO_PIN_11, false);
-  KeyRow_1.Init(GPIOA, GPIO_PIN_12, false);
-  KeyRow_2.Init(GPIOB, GPIO_PIN_4, false);
-  KeyRow_3.Init(GPIOB, GPIO_PIN_5, false);
-  KeyRow_0.SetDoSwitchCallback(DO_SwitchCallback);
-  KeyRow_1.SetDoSwitchCallback(DO_SwitchCallback);
-  KeyRow_2.SetDoSwitchCallback(DO_SwitchCallback);
-  KeyRow_3.SetDoSwitchCallback(DO_SwitchCallback);
+//  KeyRow_0.Init(GPIOA, GPIO_PIN_11, false);
+//  KeyRow_1.Init(GPIOA, GPIO_PIN_12, false);
+//  KeyRow_2.Init(GPIOB, GPIO_PIN_4, false);
+//  KeyRow_3.Init(GPIOB, GPIO_PIN_5, false);
+//  KeyRow_0.SetDoSwitchCallback(DO_SwitchCallback);
+//  KeyRow_1.SetDoSwitchCallback(DO_SwitchCallback);
+//  KeyRow_2.SetDoSwitchCallback(DO_SwitchCallback);
+//  KeyRow_3.SetDoSwitchCallback(DO_SwitchCallback);
 
-  KeyCol_0.Init(GPIOB, GPIO_PIN_6, false);
-  KeyCol_1.Init(GPIOB, GPIO_PIN_7, false);
-  KeyCol_2.Init(GPIOB, GPIO_PIN_8, false);
-  KeyCol_3.Init(GPIOB, GPIO_PIN_9, false);
-  KeyCol_0.SetCheckStateCallback(DIO_CheckStateCallback);
-  KeyCol_1.SetCheckStateCallback(DIO_CheckStateCallback);
-  KeyCol_2.SetCheckStateCallback(DIO_CheckStateCallback);
-  KeyCol_3.SetCheckStateCallback(DIO_CheckStateCallback);
-  
-  Keyboard.SetRowOutput(&KeyRow_0, 0);
-  Keyboard.SetRowOutput(&KeyRow_1, 1);
-  Keyboard.SetRowOutput(&KeyRow_2, 2);
-  Keyboard.SetRowOutput(&KeyRow_3, 3);
+//  KeyCol_0.Init(GPIOB, GPIO_PIN_6, false);
+//  KeyCol_1.Init(GPIOB, GPIO_PIN_7, false);
+//  KeyCol_2.Init(GPIOB, GPIO_PIN_8, false);
+//  KeyCol_3.Init(GPIOB, GPIO_PIN_9, false);
+//  KeyCol_0.SetCheckStateCallback(DIO_CheckStateCallback);
+//  KeyCol_1.SetCheckStateCallback(DIO_CheckStateCallback);
+//  KeyCol_2.SetCheckStateCallback(DIO_CheckStateCallback);
+//  KeyCol_3.SetCheckStateCallback(DIO_CheckStateCallback);
+//  
+//  Keyboard.SetRowOutput(&KeyRow_0, 0);
+//  Keyboard.SetRowOutput(&KeyRow_1, 1);
+//  Keyboard.SetRowOutput(&KeyRow_2, 2);
+//  Keyboard.SetRowOutput(&KeyRow_3, 3);
 
-  Keyboard.SetColInput(&KeyCol_0, 0);
-  Keyboard.SetColInput(&KeyCol_1, 1);
-  Keyboard.SetColInput(&KeyCol_2, 2);
-  Keyboard.SetColInput(&KeyCol_3, 3);
+//  Keyboard.SetColInput(&KeyCol_0, 0);
+//  Keyboard.SetColInput(&KeyCol_1, 1);
+//  Keyboard.SetColInput(&KeyCol_2, 2);
+//  Keyboard.SetColInput(&KeyCol_3, 3);
 }
 /* USER CODE END 0 */
 
@@ -383,7 +383,7 @@ int main(void)
   while(1)
   {
     RunProcesses();
-    Keyboard.run();
+//    Keyboard.run();
     
     if((HAL_GetTick() - ticks) > 500)
     {

@@ -16,7 +16,7 @@ cKeyHandler::cKeyHandler(uint32_t *matrix, uint8_t rowsCount, uint8_t colsCount)
 	m_KeyMatrixRowsCount = rowsCount;
 	m_KeyMatrixColsCount = colsCount;
 
-	m_KeyStateMatrixArray = new uint32_t[rowsCount];
+	m_KeyStateMatrixArray = new uint32_t[rowsCount]; // TODO тут виснет
 	ArrayInit(m_KeyStateMatrixArray, rowsCount);
 	m_KeyStateTriggerArray = new uint32_t[rowsCount];
 	ArrayInit(m_KeyStateTriggerArray, rowsCount);
@@ -24,7 +24,12 @@ cKeyHandler::cKeyHandler(uint32_t *matrix, uint8_t rowsCount, uint8_t colsCount)
 	ArrayInit(m_KeyModeInverseArray, rowsCount);
 }
 // ----------------------------------------------------------------------------
-cKeyHandler::~cKeyHandler() {}
+cKeyHandler::~cKeyHandler()
+{
+  delete [] m_KeyStateMatrixArray;
+  delete [] m_KeyStateTriggerArray;
+  delete [] m_KeyModeInverseArray;
+}
 // ----------------------------------------------------------------------------
 void cKeyHandler::run()
 {
