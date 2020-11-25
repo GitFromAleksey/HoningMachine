@@ -18,11 +18,13 @@
 class cKeyHandler : public iProcess
 {
 	public:
+    cKeyHandler();
 		cKeyHandler(uint32_t *matrix, uint8_t rowsCount, uint8_t colsCount);
 		virtual ~cKeyHandler();
 
 		virtual void run();
 
+    void Init(uint32_t *matrix, uint8_t rowsCount, uint8_t colsCount);
 		void AddKeysArray(cKeyBind *keysBindArray, uint8_t size);
 		void SetMode(uint8_t rowNum, uint8_t colNum, bool fixed, bool inverted);
 		bool KeyIsFixed(uint8_t rowNum, uint8_t colNum);
@@ -30,11 +32,11 @@ class cKeyHandler : public iProcess
 
 	private:
 		uint8_t m_KeyMatrixRowsCount; // кол-во рядов из cKeysReader
-		uint8_t m_KeyMatrixColsCount; // кол-во кнопок из cKeysReader
+		uint8_t m_KeyMatrixColsCount; // кол-во колонок из cKeysReader
 		uint32_t *m_KeyRowMatrixArray; // указатель на массив состояний дискретных входов в cKeysReader
-		uint32_t *m_KeyStateMatrixArray; // массив состояний обработанных кнопок на основе настроек m_KeyModeFixingArray и m_KeyModeInverseArray
-		uint32_t *m_KeyStateTriggerArray; // триггер для отслеживания события нажатия
-		uint32_t *m_KeyModeInverseArray; // настройка инверсии сигнала кнопки
+		uint32_t m_KeyStateMatrixArray[4]; // массив состояний обработанных кнопок на основе настроек m_KeyModeFixingArray и m_KeyModeInverseArray
+		uint32_t m_KeyStateTriggerArray[4]; // триггер для отслеживания события нажатия
+		uint32_t m_KeyModeInverseArray[4]; // настройка инверсии сигнала кнопки
 		cKeyBind *m_KeysBindArray; // массив кнопок
 		uint8_t m_KeysBindArraySize; // размер массива кнопок
 

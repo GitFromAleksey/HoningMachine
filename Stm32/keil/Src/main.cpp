@@ -36,6 +36,8 @@
 #include "array.hpp"
 #include "States/AllStates.hpp"
 #include "cKeysReader.h"
+#include "cKeyHandler.h"
+#include "cKeyBind.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -129,21 +131,25 @@ cByteSender ByteSender(50);
 cProtocolFormer ProtocolFormer(&ByteSender);
 
 // кнопки
-//cDigitalOut KeyRow_0;
-//cDigitalOut KeyRow_1;
-//cDigitalOut KeyRow_2;
-//cDigitalOut KeyRow_3;
+// ряды матрицы(дискретные выходы)
+cDigitalOut KeyRow_0;
+cDigitalOut KeyRow_1;
+cDigitalOut KeyRow_2;
+cDigitalOut KeyRow_3;
+// колонки матрицы(дискретные входы)
+cDigitalInput KeyCol_0;
+cDigitalInput KeyCol_1;
+cDigitalInput KeyCol_2;
+cDigitalInput KeyCol_3;
 
-//cDigitalInput KeyCol_0;
-//cDigitalInput KeyCol_1;
-//cDigitalInput KeyCol_2;
-//cDigitalInput KeyCol_3;
-
-cKeysReader Keyboard;
+cKeysReader Keyboard; // класс опроса дискретных входов
+cKeyHandler KeyHandler; // класс обработки нажатий клавиш
+cKeyBind KeysArray[4*4]; // массив кнопок, привязанных к действиям станка
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+static void GPIO_DIO_Init(GPIO_TypeDef *port, uint16_t pin, bool isOutput);
 static void MX_GPIO_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_DMA_Init(void);
@@ -297,33 +303,79 @@ void SetupUart()
 
 void SetupKeyboard(void)
 {
-//  KeyRow_0.Init(GPIOA, GPIO_PIN_11, false);
-//  KeyRow_1.Init(GPIOA, GPIO_PIN_12, false);
-//  KeyRow_2.Init(GPIOB, GPIO_PIN_4, false);
-//  KeyRow_3.Init(GPIOB, GPIO_PIN_5, false);
-//  KeyRow_0.SetDoSwitchCallback(DO_SwitchCallback);
-//  KeyRow_1.SetDoSwitchCallback(DO_SwitchCallback);
-//  KeyRow_2.SetDoSwitchCallback(DO_SwitchCallback);
-//  KeyRow_3.SetDoSwitchCallback(DO_SwitchCallback);
+// конфигурация дискретных выходов(рядов) матрицы клавиатуры
+  // конфигурация портов выхода
+  GPIO_DIO_Init(GPIOA, GPIO_PIN_11, true);
+  GPIO_DIO_Init(GPIOA, GPIO_PIN_12, true);
+  GPIO_DIO_Init(GPIOB, GPIO_PIN_4, true);
+  GPIO_DIO_Init(GPIOB, GPIO_PIN_5, true);
+  // привязка дискретных выходов к портам
+  KeyRow_0.Init(GPIOA, GPIO_PIN_11, false);
+  KeyRow_1.Init(GPIOA, GPIO_PIN_12, false);
+  KeyRow_2.Init(GPIOB, GPIO_PIN_4, false);
+  KeyRow_3.Init(GPIOB, GPIO_PIN_5, false);
+  // привязка callbak функции для управления портом
+  KeyRow_0.SetDoSwitchCallback(DO_SwitchCallback);
+  KeyRow_1.SetDoSwitchCallback(DO_SwitchCallback);
+  KeyRow_2.SetDoSwitchCallback(DO_SwitchCallback);
+  KeyRow_3.SetDoSwitchCallback(DO_SwitchCallback);
+  
+// конфигурация дискретных входов(колонок) матрицы клавиатуры
+  // конфигурация портов входов
+  GPIO_DIO_Init(GPIOB, GPIO_PIN_6, false);
+  GPIO_DIO_Init(GPIOB, GPIO_PIN_7, false);
+  GPIO_DIO_Init(GPIOB, GPIO_PIN_8, false); // TODO виснет при замыкании с GPIOA, GPIO_PIN_12
+  GPIO_DIO_Init(GPIOB, GPIO_PIN_9, false);
+  // привязка дискретных входов к портам
+  KeyCol_0.Init(GPIOB, GPIO_PIN_6, false);
+  KeyCol_1.Init(GPIOB, GPIO_PIN_7, false);
+  KeyCol_2.Init(GPIOB, GPIO_PIN_8, false);
+  KeyCol_3.Init(GPIOB, GPIO_PIN_9, false);
+  // привязка callbak функции для чтения состояния порта
+  KeyCol_0.SetCheckStateCallback(DIO_CheckStateCallback);
+  KeyCol_1.SetCheckStateCallback(DIO_CheckStateCallback);
+  KeyCol_2.SetCheckStateCallback(DIO_CheckStateCallback);
+  KeyCol_3.SetCheckStateCallback(DIO_CheckStateCallback);
+  
+  // привязка клавиатуры к дискретным входам/выходам для осуществления опроса
+  Keyboard.SetRowOutput(&KeyRow_0, 0);
+  Keyboard.SetRowOutput(&KeyRow_1, 1);
+  Keyboard.SetRowOutput(&KeyRow_2, 2);
+  Keyboard.SetRowOutput(&KeyRow_3, 3);
 
-//  KeyCol_0.Init(GPIOB, GPIO_PIN_6, false);
-//  KeyCol_1.Init(GPIOB, GPIO_PIN_7, false);
-//  KeyCol_2.Init(GPIOB, GPIO_PIN_8, false);
-//  KeyCol_3.Init(GPIOB, GPIO_PIN_9, false);
-//  KeyCol_0.SetCheckStateCallback(DIO_CheckStateCallback);
-//  KeyCol_1.SetCheckStateCallback(DIO_CheckStateCallback);
-//  KeyCol_2.SetCheckStateCallback(DIO_CheckStateCallback);
-//  KeyCol_3.SetCheckStateCallback(DIO_CheckStateCallback);
-//  
-//  Keyboard.SetRowOutput(&KeyRow_0, 0);
-//  Keyboard.SetRowOutput(&KeyRow_1, 1);
-//  Keyboard.SetRowOutput(&KeyRow_2, 2);
-//  Keyboard.SetRowOutput(&KeyRow_3, 3);
+  Keyboard.SetColInput(&KeyCol_0, 0);
+  Keyboard.SetColInput(&KeyCol_1, 1);
+  Keyboard.SetColInput(&KeyCol_2, 2);
+  Keyboard.SetColInput(&KeyCol_3, 3);
 
-//  Keyboard.SetColInput(&KeyCol_0, 0);
-//  Keyboard.SetColInput(&KeyCol_1, 1);
-//  Keyboard.SetColInput(&KeyCol_2, 2);
-//  Keyboard.SetColInput(&KeyCol_3, 3);
+  Keyboard.AddKeyHandler(&KeyHandler); // привязка к клавиатуре обработчика нажатий
+
+
+// привязка кнопок к контроллеру
+	uint8_t i = 0;
+	// 0-й ряд кнопок
+	KeysArray[i++].Init(0, 0, pressKey1, &controller);
+	KeysArray[i++].Init(0, 1, pressKey2, &controller);
+	KeysArray[i++].Init(0, 2, pressKey3, &controller);
+	KeysArray[i++].Init(0, 3, pressKey4, &controller);
+	// 1-й ряд кнопок
+	KeysArray[i++].Init(1, 0, pressKey5, &controller);
+	KeysArray[i++].Init(1, 1, pressKey6, &controller);
+	KeysArray[i++].Init(1, 2, pressKey7, &controller);
+	KeysArray[i++].Init(1, 3, pressKey8, &controller);
+	// 2-й ряд кнопок
+	KeysArray[i++].Init(2, 0, pressKey9, &controller);
+	KeysArray[i++].Init(2, 1, switchToggle, &controller);
+	KeysArray[i++].Init(2, 2, machinePowerOn, &controller);
+	KeysArray[i++].Init(2, 3, machinePowerOff, &controller);
+	// 3-й ряд кнопок
+	KeysArray[i++].Init(3, 0, verticalFeedMotorOn, &controller);
+	KeysArray[i++].Init(3, 1, verticalFeedMotorOff, &controller);
+	KeysArray[i++].Init(3, 2, toolLiftUp, &controller);
+	KeysArray[i++].Init(3, 3, toolLiftDown, &controller);
+  
+// добавляем массив кнопок в обработчик нажатий кнопок
+  KeyHandler.AddKeysArray(KeysArray, i);
 }
 /* USER CODE END 0 */
 
@@ -383,12 +435,12 @@ int main(void)
   while(1)
   {
     RunProcesses();
-//    Keyboard.run();
+    Keyboard.run();
     
-    if((HAL_GetTick() - ticks) > 500)
-    {
-      ticks = HAL_GetTick();
-    }
+//    if((HAL_GetTick() - ticks) > 500)
+//    {
+//      ticks = HAL_GetTick();
+//    }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -567,7 +619,7 @@ static void GPIO_DIO_Init(GPIO_TypeDef *port, uint16_t pin, bool isOutput)
   {
     GPIO_InitStruct.Pin = pin;
     GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   }
   HAL_GPIO_Init(port, &GPIO_InitStruct);
 }
@@ -612,17 +664,17 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   // ------- ряды кнопок -------
-  GPIO_InitStruct.Pin = GPIO_PIN_11 | GPIO_PIN_12;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+//  GPIO_InitStruct.Pin = GPIO_PIN_11 | GPIO_PIN_12;
+//  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+//  GPIO_InitStruct.Pull = GPIO_NOPULL;
+//  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+//  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  GPIO_InitStruct.Pin = GPIO_PIN_4 | GPIO_PIN_5;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+//  GPIO_InitStruct.Pin = GPIO_PIN_4 | GPIO_PIN_5;
+//  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+//  GPIO_InitStruct.Pull = GPIO_NOPULL;
+//  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+//  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
   // ------- ряды кнопок -------
 
   // digital inputs config
@@ -648,10 +700,10 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
   
   // ------- колонки кнопок -------
-  GPIO_InitStruct.Pin = GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+//  GPIO_InitStruct.Pin = GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9;
+//  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+//  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+//  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
   // ------- колонки кнопок -------
 
 //  HAL_GPIO_WritePin(DI_PORT_MIDDLE_TOOL_TIP, DI_PIN_MIDDLE_TOOL_TIP, GPIO_PIN_SET);

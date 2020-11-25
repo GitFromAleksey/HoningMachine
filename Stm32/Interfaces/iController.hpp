@@ -4,7 +4,7 @@
 //typedef enum KeyIdentificator
 typedef enum e_KeyIdentificator_
 {
-  pressKey1,
+  pressKey1 = 1,
   pressKey2,
   pressKey3,
   pressKey4,

@@ -8,7 +8,7 @@
 #include "queue.hpp"
 
 
-class cByteReceiver : public iProcess // TODO наверное нужно было наследоваться от очереди
+class cByteReceiver : public iProcess // TODO РЅР°РІРµСЂРЅРѕРµ РЅСѓР¶РЅРѕ Р±С‹Р»Рѕ РЅР°СЃР»РµРґРѕРІР°С‚СЊСЃСЏ РѕС‚ РѕС‡РµСЂРµРґРё
 {
 public:
 	cByteReceiver(uint16_t bufSize);

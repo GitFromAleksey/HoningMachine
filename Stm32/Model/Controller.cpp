@@ -160,6 +160,9 @@ void cController::KeyEventHandler(KeyIdentificator keyIdent)
     case pressKey9:
       PressKey9();
       break;
+    case switchToggle:
+      SwitchToggle();
+      break;
     case machinePowerOn:
       MachinePowerOn();
       break;

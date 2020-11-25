@@ -20,8 +20,6 @@ cKeysReader::cKeysReader():
 	{
 		m_pColsArr[i] = NULL;
 	}
-
-	m_KeyHandler = new cKeyHandler(m_KeyRowMatrix, m_RowsCounterMax, m_ColsCounterMax);
 }
 // ----------------------------------------------------------------------------
 cKeysReader::~cKeysReader() {}
@@ -60,6 +58,13 @@ bool cKeysReader::SetColInput(cDigitalInput *col, uint8_t index)
 void cKeysReader::AddKeysArray(cKeyBind *keysArray, uint8_t size)
 {
 	m_KeyHandler->AddKeysArray(keysArray, size);
+}
+// ----------------------------------------------------------------------------
+void cKeysReader::AddKeyHandler(cKeyHandler *keyHandler)
+{
+  m_KeyHandler = keyHandler;
+  
+  m_KeyHandler->Init(m_KeyRowMatrix, m_RowsCounterMax, m_ColsCounterMax);
 }
 // ----------------------------------------------------------------------------
 // private:

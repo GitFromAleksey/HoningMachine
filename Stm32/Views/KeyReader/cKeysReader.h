@@ -33,6 +33,7 @@ class cKeysReader : public iProcess
 		bool SetRowOutput(cDigitalOut *row, uint8_t index);
 		bool SetColInput(cDigitalInput *col, uint8_t index);
 		void AddKeysArray(cKeyBind *keysArray, uint8_t size);
+    void AddKeyHandler(cKeyHandler *keyHandler);
 
 	private:
 		bool m_IsNextRowSwitched;

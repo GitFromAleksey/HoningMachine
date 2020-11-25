@@ -7,28 +7,26 @@
 
 #include "cKeyHandler.h"
 
+cKeyHandler::cKeyHandler():
+m_KeyMatrixRowsCount(4),
+m_KeyMatrixColsCount(4),
+m_KeyRowMatrixArray(NULL),
+m_KeysBindArray(NULL),
+m_KeysBindArraySize(0)
+{
+	ArrayInit(m_KeyStateMatrixArray, m_KeyMatrixRowsCount);
+	ArrayInit(m_KeyStateTriggerArray, m_KeyMatrixRowsCount);
+	ArrayInit(m_KeyModeInverseArray, m_KeyMatrixRowsCount);
+}
+// ----------------------------------------------------------------------------
 cKeyHandler::cKeyHandler(uint32_t *matrix, uint8_t rowsCount, uint8_t colsCount)
 {
-	if(matrix == NULL)
-		return;
-
-	m_KeyRowMatrixArray = matrix;
-	m_KeyMatrixRowsCount = rowsCount;
-	m_KeyMatrixColsCount = colsCount;
-
-	m_KeyStateMatrixArray = new uint32_t[rowsCount]; // TODO тут виснет
-	ArrayInit(m_KeyStateMatrixArray, rowsCount);
-	m_KeyStateTriggerArray = new uint32_t[rowsCount];
-	ArrayInit(m_KeyStateTriggerArray, rowsCount);
-	m_KeyModeInverseArray = new uint32_t[rowsCount];
-	ArrayInit(m_KeyModeInverseArray, rowsCount);
+  Init(matrix, rowsCount, colsCount);
 }
 // ----------------------------------------------------------------------------
 cKeyHandler::~cKeyHandler()
 {
-  delete [] m_KeyStateMatrixArray;
-  delete [] m_KeyStateTriggerArray;
-  delete [] m_KeyModeInverseArray;
+
 }
 // ----------------------------------------------------------------------------
 void cKeyHandler::run()
@@ -70,13 +68,26 @@ void cKeyHandler::run()
 	}
 }
 // ----------------------------------------------------------------------------
+void cKeyHandler::Init(uint32_t *matrix, uint8_t rowsCount, uint8_t colsCount)
+{
+	if(matrix == NULL)
+		return;
+
+	m_KeyRowMatrixArray = matrix;
+	m_KeyMatrixRowsCount = rowsCount;
+	m_KeyMatrixColsCount = colsCount;
+
+	ArrayInit(m_KeyStateMatrixArray, rowsCount);
+	ArrayInit(m_KeyStateTriggerArray, rowsCount);
+	ArrayInit(m_KeyModeInverseArray, rowsCount);
+}
+// ----------------------------------------------------------------------------
 void cKeyHandler::AddKeysArray(cKeyBind *keysBindArray, uint8_t size)
 {
 	if(keysBindArray == NULL)
 		return;
 	m_KeysBindArray = keysBindArray;
 	m_KeysBindArraySize = size;
-//	std::cout << "cKeyHandler::sizeof(keysBindArray)" << (int)m_KeysBindArraySize << std::endl;
 }
 // ----------------------------------------------------------------------------
 // private:
