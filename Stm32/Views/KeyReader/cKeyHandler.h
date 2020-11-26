@@ -20,7 +20,7 @@ class cKeyHandler : public iProcess
 	public:
     cKeyHandler();
 		cKeyHandler(uint32_t *matrix, uint8_t rowsCount, uint8_t colsCount);
-		virtual ~cKeyHandler();
+		~cKeyHandler();
 
 		virtual void run();
 

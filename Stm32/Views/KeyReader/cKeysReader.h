@@ -26,7 +26,7 @@ class cKeysReader : public iProcess
 {
 	public:
 		cKeysReader();
-		virtual ~cKeysReader();
+		~cKeysReader();
 
 		virtual void run();
 

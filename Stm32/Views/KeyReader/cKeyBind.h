@@ -18,7 +18,7 @@ class cKeyBind
 {
 	public:
 		cKeyBind();
-		virtual ~cKeyBind();
+		~cKeyBind();
 
 		void Init(uint8_t row, uint8_t col, KeyIdentificator keyIdent, iController *machineController);
 		void CheckKey(uint8_t row, uint8_t col, uint32_t rowWord);

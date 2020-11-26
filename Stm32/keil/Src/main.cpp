@@ -435,12 +435,12 @@ int main(void)
   while(1)
   {
     RunProcesses();
-    Keyboard.run();
+    Keyboard.run(); // TODO добавить в планировщик RunProcesses()
     
-//    if((HAL_GetTick() - ticks) > 500)
-//    {
-//      ticks = HAL_GetTick();
-//    }
+    if((HAL_GetTick() - ticks) > 500)
+    {
+      ticks = HAL_GetTick();
+    }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
