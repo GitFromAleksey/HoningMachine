@@ -55,7 +55,7 @@ void cQueue::AddItem(uint8_t element)
 	}
 }
 // ----------------------------------------------------------------------------
-uint8_t cQueue::GetItem()
+int8_t cQueue::GetItem()
 {
 	uint8_t element;
 

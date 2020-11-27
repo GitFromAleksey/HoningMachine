@@ -328,9 +328,14 @@ void SetupKeyboard(void)
   GPIO_DIO_Init(GPIOB, GPIO_PIN_9, false);
   // привязка дискретных входов к портам
   KeyCol_0.Init(GPIOB, GPIO_PIN_6, false);
+	KeyCol_0.SetDebounceCntValue(5);
   KeyCol_1.Init(GPIOB, GPIO_PIN_7, false);
+	KeyCol_1.SetDebounceCntValue(5);
   KeyCol_2.Init(GPIOB, GPIO_PIN_8, false);
+	KeyCol_2.SetDebounceCntValue(5);
   KeyCol_3.Init(GPIOB, GPIO_PIN_9, false);
+	KeyCol_3.SetDebounceCntValue(5);
+	
   // привязка callbak функции для чтения состояния порта
   KeyCol_0.SetCheckStateCallback(DIO_CheckStateCallback);
   KeyCol_1.SetCheckStateCallback(DIO_CheckStateCallback);
@@ -354,18 +359,18 @@ void SetupKeyboard(void)
 // привязка кнопок к контроллеру
 	uint8_t i = 0;
 	// 0-й ряд кнопок
-	KeysArray[i++].Init(0, 0, pressKey1, &controller);
-	KeysArray[i++].Init(0, 1, pressKey2, &controller);
+	KeysArray[i++].Init(0, 0, verticalFeedMotorOn, &controller);
+	KeysArray[i++].Init(0, 1, toolLiftDown, &controller);
 	KeysArray[i++].Init(0, 2, pressKey3, &controller);
 	KeysArray[i++].Init(0, 3, pressKey4, &controller);
 	// 1-й ряд кнопок
-	KeysArray[i++].Init(1, 0, pressKey5, &controller);
-	KeysArray[i++].Init(1, 1, pressKey6, &controller);
-	KeysArray[i++].Init(1, 2, pressKey7, &controller);
+	KeysArray[i++].Init(1, 0, toolRotateStop, &controller);
+	KeysArray[i++].Init(1, 1, toolLiftStop, &controller);
+	KeysArray[i++].Init(1, 2, verticalFeedMotorOff, &controller);
 	KeysArray[i++].Init(1, 3, pressKey8, &controller);
 	// 2-й ряд кнопок
-	KeysArray[i++].Init(2, 0, pressKey9, &controller);
-	KeysArray[i++].Init(2, 1, switchToggle, &controller);
+	KeysArray[i++].Init(2, 0, toolRotateRun, &controller);
+	KeysArray[i++].Init(2, 1, toolLiftUp, &controller);
 	KeysArray[i++].Init(2, 2, machinePowerOn, &controller);
 	KeysArray[i++].Init(2, 3, machinePowerOff, &controller);
 	// 3-й ряд кнопок

@@ -23,7 +23,7 @@ class cQueue
 		bool IsData();
 		bool isEmpty();
 		void AddItem(uint8_t element);
-		uint8_t GetItem();
+		int8_t GetItem();
 
 		void display();
 
