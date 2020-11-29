@@ -78,14 +78,20 @@ void cMachine::VerticalFeedMotorOff()
 // ----------------------------------------------------------------------------
 void cMachine::ToolLiftUp()
 {
-  m_ToolLiftDownSwich->SetOff();
-  m_ToolLiftUpSwitch->SetOn();
+  if(m_VerticalFeedMotorSwitch->IsOn())
+  {
+    m_ToolLiftDownSwich->SetOff();
+    m_ToolLiftUpSwitch->SetOn();
+  }
 }
 // ----------------------------------------------------------------------------
 void cMachine::ToolLiftDown()
 {
-  m_ToolLiftUpSwitch->SetOff();
-  m_ToolLiftDownSwich->SetOn();
+  if(m_VerticalFeedMotorSwitch->IsOn())
+  {
+    m_ToolLiftUpSwitch->SetOff();
+    m_ToolLiftDownSwich->SetOn();
+  }
 }
 // ----------------------------------------------------------------------------
 void cMachine::ToolLiftStop()

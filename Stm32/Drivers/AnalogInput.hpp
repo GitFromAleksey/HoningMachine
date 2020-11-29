@@ -19,13 +19,13 @@ public:
   uint32_t GetAverageData()const;
 
 private:
-  float m_Scale;
-  uint32_t m_DataRaw;
-  int32_t m_DataAcc;
-  uint8_t m_AvgDiv;
-  uint32_t m_DataAvg;
-  uint32_t m_DataScaling;
-  uint32_t m_MaxValue;
+  float m_Scale; // коффициент приведения входного сигнала к единицам измерения
+  uint32_t m_DataRaw; // сырые входные данные
+  int32_t m_DataAcc; // аккумулятор для рассчёта скользящего среднего
+  uint8_t m_AvgDiv; // дедитель для рассчёта скользящего среднего
+  uint32_t m_DataAvg; // рассчитанное среднее значение
+//  uint32_t m_DataScaling; // TODO не используется
+//  uint32_t m_MaxValue; // ограничение максимального значения(пока не мспользуется)
 
   void CalcAverage(uint32_t data);
   
