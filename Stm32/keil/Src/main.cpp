@@ -23,6 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdio.h>
 #include "DigitalOut.hpp"
 #include "DigitalInput.hpp"
 #include "machine.hpp"
@@ -188,7 +189,7 @@ bool AddToProcessArray(iProcess* proc)
   }
 #endif
 }
-
+// ----------------------------------------------------------------------------
 void RunProcesses() // TODO оформить в отдельный класс
 {
 #ifdef NEW_POC_ARR
@@ -203,7 +204,7 @@ void RunProcesses() // TODO оформить в отдельный класс
   iProcessArrCnt++;
 #endif
 }
-
+// ----------------------------------------------------------------------------
 void SetupDigitalOut()
 {
   MachinePowerSwitch.Init(DO_PORT_MACHINE_PWR_SWITCH, DO_PIN_MACHINE_PWR_SWITCH, true);
@@ -232,7 +233,7 @@ void SetupDigitalOut()
   AddToProcessArray(&ToolLiftUpSwitch);
   AddToProcessArray(&ToolLiftDownSwich);
 }
-
+// ----------------------------------------------------------------------------
 void SetupDigitalInput()
 {
 //  KeyMacinePwrOnOff.SetCheckStateCallback(DIO_CheckStateCallback);
@@ -251,13 +252,13 @@ void SetupDigitalInput()
   AddToProcessArray(&LowerToolTip);
   AddToProcessArray(&MiddleToolTip);
 }
-
+// ----------------------------------------------------------------------------
 void SetupAnalogInput()
 {
   AddToProcessArray(&ToolPositionSensor);
   AddToProcessArray(&CurrentSensor);
 }
-
+// ----------------------------------------------------------------------------
 void SetupMachine()
 {
   t_MachineInitStruct setupMachine;
@@ -279,7 +280,7 @@ void SetupMachine()
   
   AddToProcessArray(&machine);
 }
-
+// ----------------------------------------------------------------------------
 void SetupController()
 {
   controller.AddMachine(&machine);
@@ -288,7 +289,7 @@ void SetupController()
   
   AddToProcessArray(&controller);
 }
-
+// ----------------------------------------------------------------------------
 void SetupUart()
 {
   //ByteReceiver.SetByteCallback(GetByteCallback);
@@ -300,7 +301,7 @@ void SetupUart()
   AddToProcessArray(&ByteSender);
   AddToProcessArray(&ProtocolFormer);
 }
-
+// ----------------------------------------------------------------------------
 void SetupKeyboard(void)
 {
 // конфигурация дискретных выходов(рядов) матрицы клавиатуры
@@ -382,6 +383,7 @@ void SetupKeyboard(void)
 // добавляем массив кнопок в обработчик нажатий кнопок
   KeyHandler.AddKeysArray(KeysArray, i);
 }
+// ----------------------------------------------------------------------------
 /* USER CODE END 0 */
 
 /**
@@ -452,7 +454,7 @@ int main(void)
   }
   /* USER CODE END 3 */
 }
-
+// ----------------------------------------------------------------------------
 /**
   * @brief System Clock Configuration
   * @retval None
@@ -496,7 +498,7 @@ void SystemClock_Config(void)
     Error_Handler();
   }
 }
-
+// ----------------------------------------------------------------------------
 /**
   * @brief NVIC Configuration.
   * @retval None
@@ -507,7 +509,7 @@ static void MX_NVIC_Init(void)
   HAL_NVIC_SetPriority(ADC1_2_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(ADC1_2_IRQn);
 }
-
+// ----------------------------------------------------------------------------
 /**
   * @brief ADC1 Initialization Function
   * @param None
@@ -561,6 +563,7 @@ static void MX_ADC1_Init(void)
   /* USER CODE END ADC1_Init 2 */
 
 }
+// ----------------------------------------------------------------------------
 /**
   * @brief USART1 Initialization Function
   * @param None
@@ -593,7 +596,7 @@ static void MX_USART1_UART_Init(void)
   /* USER CODE END USART1_Init 2 */
 
 }
-
+// ----------------------------------------------------------------------------
 /** 
   * Enable DMA controller clock
   */
@@ -609,7 +612,9 @@ static void MX_DMA_Init(void)
   HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQn);
 
 }
+// ----------------------------------------------------------------------------
 // TODO заготовка для инициализации дискретных входов/выходов
+// нужно переделать инициализацию всех дискретных входов/выходов
 static void GPIO_DIO_Init(GPIO_TypeDef *port, uint16_t pin, bool isOutput)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
@@ -628,6 +633,7 @@ static void GPIO_DIO_Init(GPIO_TypeDef *port, uint16_t pin, bool isOutput)
   }
   HAL_GPIO_Init(port, &GPIO_InitStruct);
 }
+// ----------------------------------------------------------------------------
 /**
   * @brief GPIO Initialization Function
   * @param None
@@ -642,7 +648,6 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
   
-  // TODO сделать отдельную функцию для конфигурации дискретных входов и выходов
   // digital outputs config
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(DO_PORT_MACHINE_PWR_SWITCH, DO_PIN_MACHINE_PWR_SWITCH, GPIO_PIN_RESET);
@@ -668,20 +673,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  // ------- ряды кнопок -------
-//  GPIO_InitStruct.Pin = GPIO_PIN_11 | GPIO_PIN_12;
-//  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-//  GPIO_InitStruct.Pull = GPIO_NOPULL;
-//  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-//  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-//  GPIO_InitStruct.Pin = GPIO_PIN_4 | GPIO_PIN_5;
-//  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-//  GPIO_InitStruct.Pull = GPIO_NOPULL;
-//  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-//  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-  // ------- ряды кнопок -------
-
   // digital inputs config
   GPIO_InitStruct.Pin = DI_PIN_UPPER_TOOL_TIP;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
@@ -704,32 +695,27 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
   
-  // ------- колонки кнопок -------
-//  GPIO_InitStruct.Pin = GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9;
-//  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-//  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
-//  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-  // ------- колонки кнопок -------
-
-//  HAL_GPIO_WritePin(DI_PORT_MIDDLE_TOOL_TIP, DI_PIN_MIDDLE_TOOL_TIP, GPIO_PIN_SET);
 }
-
+// ----------------------------------------------------------------------------
 /* USER CODE BEGIN 4 */
 // callback для вкл/выкл дискретных выходов
 void DO_SwitchCallback(void *port, uint16_t pinNumber, bool hi_lo)
 {
   HAL_GPIO_WritePin((GPIO_TypeDef*)port, pinNumber, (GPIO_PinState) (hi_lo)?(GPIO_PIN_SET):(GPIO_PIN_RESET));
 }
+// ----------------------------------------------------------------------------
 // callback для запроса состояния на выводах
 bool DIO_CheckStateCallback(void *port, uint16_t pinNumber)
 {
   return (HAL_GPIO_ReadPin((GPIO_TypeDef *)port, pinNumber) == GPIO_PIN_SET) ? (true) : (false);
 }
+// ----------------------------------------------------------------------------
 // callback для запроса принятых байтов по UART
 bool GetByteCallback(uint8_t *data)
 {
   return (HAL_UART_Receive(&huart1, data, 1, 0x1) == HAL_OK);
 }
+// ----------------------------------------------------------------------------
 // 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
@@ -749,6 +735,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
   
   ADC_START_DMA; // FIXME это продолжение костыля в начале функции
 }
+// ----------------------------------------------------------------------------
 bool SetByteCallback(uint8_t *data)
 {
   // это проверка передатчика на занятость
@@ -757,6 +744,7 @@ bool SetByteCallback(uint8_t *data)
   // шлем по одному байту
   return (HAL_UART_Transmit(&huart1, data, 1, 0x1) == HAL_OK);  
 }
+// ----------------------------------------------------------------------------
 // callback окончания преобразования АЦП
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 {
@@ -770,6 +758,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
     ADC_START_DMA;
   }
 }
+// ----------------------------------------------------------------------------
 /* USER CODE END 4 */
 
 /**
@@ -783,7 +772,7 @@ void Error_Handler(void)
 
   /* USER CODE END Error_Handler_Debug */
 }
-
+// ----------------------------------------------------------------------------
 #ifdef  USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
