@@ -15,8 +15,9 @@ public:
   virtual void run();
 
   void Init();
-  void SetDataFromADC(uint32_t data);
+  void SetDataFromADC(const uint32_t data);
   uint32_t GetAverageData()const;
+  void SetScale(const float scale);
 
 private:
   float m_Scale; // коффициент приведения входного сигнала к единицам измерения

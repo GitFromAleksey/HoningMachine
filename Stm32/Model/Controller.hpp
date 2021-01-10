@@ -65,8 +65,8 @@ public:
   }
 
   // реализация методов интерфейса iController
-  virtual void MachinePowerOn();
-  virtual void MachinePowerOff();
+  virtual void MachinePowerOn(); // TODO ненужная кнопка
+  virtual void MachinePowerOff(); // TODO ненужная кнопка
   virtual void VerticalFeedMotorOn();
   virtual void VerticalFeedMotorOff();
   virtual void ToolLiftUp();

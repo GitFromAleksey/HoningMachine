@@ -101,10 +101,11 @@ public:
 private:
   MachineStates m_MachineState;
   ToolStates m_ToolState;
-  uint32_t m_CurrentPosition;
-  uint32_t m_UpperTipPosition;
-  uint32_t m_LowerTipPosition;
-  uint32_t m_PositionScale;
+  int32_t m_CurrentPosition;   // текущая позиция, мм
+  uint32_t m_UpperToolPosition; // верхнее положение инсрумента(размерность АЦП)
+  uint32_t m_LowerToolPosition; // нижнее положение инсрумента(размерность АЦП)
+  float m_PositionScale;        // коэф пересчёта АЦП в мм
+  uint32_t m_ToolTraectoryLen;  // длина хода инструмента, мм
 
   cDigitalOut *m_MachinePowerSwitch;
   cDigitalOut *m_VerticalFeedMotorSwitch;
@@ -120,6 +121,9 @@ private:
   cAnalogInput *m_CurrentSensor;
 
   void (*ControllerEventCallback)(MachineEvent event);
+
+  void CalcPositionScale();
+  void CalcCurrentPosition();
 };
 
 #endif /* MODEL_MACHINE_HPP_ */

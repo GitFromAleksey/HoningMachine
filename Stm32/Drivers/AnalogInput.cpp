@@ -27,15 +27,20 @@ void cAnalogInput::Init()
   //std::cout << "cAnalogInput::Init()" << std::endl;
 }
 // ----------------------------------------------------------------------------
-void cAnalogInput::SetDataFromADC(uint32_t data)
+void cAnalogInput::SetDataFromADC(const uint32_t data)
 {
-  m_DataRaw = data * m_Scale;
+  m_DataRaw = data;
   CalcAverage(m_DataRaw);
 }
 // ----------------------------------------------------------------------------
 uint32_t cAnalogInput::GetAverageData()const
 {
-  return m_DataAvg;
+  return (m_DataAvg * m_Scale);
+}
+// ----------------------------------------------------------------------------
+void cAnalogInput::SetScale(const float scale)
+{
+  m_Scale = scale;
 }
 // ----------------------------------------------------------------------------
 void cAnalogInput::CalcAverage(uint32_t data)

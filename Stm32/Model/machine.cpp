@@ -11,11 +11,14 @@ cMachine::cMachine():
     m_MachineState(machineStateNone),
     m_ToolState(toolStateNone),
     m_CurrentPosition(0),
-    m_UpperTipPosition(0),
-    m_LowerTipPosition(0),
+    m_UpperToolPosition(4000),
+    m_LowerToolPosition(100),
     m_PositionScale(0),
+    m_ToolTraectoryLen(1000),
     ControllerEventCallback(NULL)
-{}
+{
+  CalcPositionScale();
+}
 // ----------------------------------------------------------------------------
 cMachine::~cMachine(){}
 // ----------------------------------------------------------------------------
@@ -43,17 +46,32 @@ void cMachine::Init(t_MachineInitStruct initStruct)
 // ----------------------------------------------------------------------------
 void cMachine::run()
 {
-  if( m_UpperToolTip->IsOn() )
-  {
-    if(ToolIsLiftUp())
-    { ToolLiftStop(); }
-  }
-  if( m_LowerToolTip->IsOn() )
+// TODO походу концевиков не будет. Можно будет удалить эту часть кода
+//  if( m_UpperToolTip->IsOn() )
+//  {
+//    if(ToolIsLiftUp())
+//    { ToolLiftStop(); }
+//  }
+//  if( m_LowerToolTip->IsOn() )
+//  {
+//    if(ToolIsLiftDown())
+//    { ToolLiftStop(); }
+//  }
+
+  CalcCurrentPosition();
+  //m_CurrentPosition = m_ToolPositionSensor->GetAverageData();
+  
+  if(m_CurrentPosition <= m_LowerToolPosition)
   {
     if(ToolIsLiftDown())
-    { ToolLiftStop(); }
+      m_ToolLiftDownSwich->SetOff();
   }
-  m_CurrentPosition = m_ToolPositionSensor->GetAverageData();
+  if( (m_CurrentPosition >= m_UpperToolPosition) )
+  {
+    if(ToolIsLiftUp())
+      m_ToolLiftUpSwitch->SetOff();
+  }
+  
 }
 // ----------------------------------------------------------------------------
 void cMachine::MachinePowerOn()
@@ -158,3 +176,16 @@ uint32_t cMachine::GetLowerToolTipState()const
   return (m_LowerToolTip->IsOn()) ? (1) : (0);
 }
 // ----------------------------------------------------------------------------
+// private:
+void cMachine::CalcPositionScale()
+{
+  m_PositionScale = ((float)m_ToolTraectoryLen)/(m_UpperToolPosition - m_LowerToolPosition);
+}
+// ----------------------------------------------------------------------------
+void cMachine::CalcCurrentPosition()
+{
+  uint32_t adcData = m_ToolPositionSensor->GetAverageData();
+  int32_t tmp = (int32_t)(adcData - m_LowerToolPosition);
+  
+  m_CurrentPosition = tmp*m_PositionScale;
+}

@@ -8,7 +8,8 @@ namespace HoningMachineConfig
 {
     enum eSendingParamType
     {
-        paramTypeCurrentToolPosition = 1,
+        paramTypeNone = -1,
+    	paramTypeCurrentToolPosition = 1,
         paramTypeCurrentSensor = 2,
         paramTypeUpperToolTipState = 3,
         paramTypeLowerToolTipState = 4
@@ -112,7 +113,7 @@ namespace HoningMachineConfig
 
         public UInt32 GetParamValue(eSendingParamType paramType)
         {
-            foreach (IncomingParam param in ListOfParameters)
+        	foreach (IncomingParam param in ListOfParameters)
             {
                 if (param.GetType() == paramType)
                     return param.GetData();

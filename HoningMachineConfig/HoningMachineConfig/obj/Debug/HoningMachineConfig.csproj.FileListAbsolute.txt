@@ -20,8 +20,8 @@ C:\git\HoningMachine\HoningMachineConfig\HoningMachineConfig\bin\Debug\HoningMac
 C:\git\HoningMachine\HoningMachineConfig\HoningMachineConfig\bin\Debug\HoningMachineConfig.exe
 C:\git\HoningMachine\HoningMachineConfig\HoningMachineConfig\bin\Debug\HoningMachineConfig.pdb
 C:\git\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.csprojResolveAssemblyReference.cache
-C:\git\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.MainForm1.resources
 C:\git\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.Properties.Resources.resources
 C:\git\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.csproj.GenerateResource.Cache
 C:\git\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.exe
 C:\git\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.pdb
+C:\git\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.LabelWithText.resources

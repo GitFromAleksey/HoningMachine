@@ -81,12 +81,12 @@ void cController::EventsHandler(MachineEvent event)
 // реализация методов интерфейса iController
 void cController::MachinePowerOn()
 {
-  m_Machine->MachinePowerOn();
+  m_Machine->MachinePowerOn(); // TODO ненужная кнопка
 }
 // ----------------------------------------------------------------------------
 void cController::MachinePowerOff()
 {
-  m_Machine->MachinePowerOff();
+  m_Machine->MachinePowerOff(); // TODO ненужная кнопка
 }
 // ----------------------------------------------------------------------------
 void cController::VerticalFeedMotorOn()

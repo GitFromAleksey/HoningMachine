@@ -4,28 +4,73 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
+using System.Windows.Markup;
 
 namespace HoningMachineConfig
 {
+	// класс для автоматического отображения параметров в label-ах
+	class LabelWithText
+	{
+		public string textBefore = "";
+		public string textAfter = "";
+		public Label label = null;
+		cProtocolDeSerializer protocolDeser = null;
+		eSendingParamType paramType = eSendingParamType.paramTypeNone;
+		
+		public LabelWithText(string text_before, string text_after, Label label, cProtocolDeSerializer prot_des, eSendingParamType param_type)
+		{
+			this.textBefore = text_before;
+			this.textAfter = text_after;
+			this.label = label;
+			this.protocolDeser = prot_des;
+			this.paramType = param_type;
+		}
+		
+		public void ShowValue()
+		{
+			if(label == null) return;
+			
+			if(protocolDeser == null)
+			{
+				label.Text = textBefore + "protocol deserialiser == null" + textAfter;
+				return;
+			}
+			
+			int value = (int)protocolDeser.GetParamValue(paramType);
+			
+			label.Text = textBefore + value + textAfter;
+		}
+	}
+
+	
     public partial class MainForm1 : Form
     {
         const Byte DEVICE_NUMBER = 1;
         private cProtocolSerializer m_ProtocolSerializer;
         private cProtocolDeSerializer m_ProtocolDeSerializer;
+        private List<LabelWithText> m_ListOfLabels;
         
         public MainForm1()
         {
             InitializeComponent();
             // разворачиваем форму на весь экран
             //this.WindowState = FormWindowState.Maximized;
-
+            
             m_ProtocolSerializer = new cProtocolSerializer(DEVICE_NUMBER);
             m_ProtocolDeSerializer = new cProtocolDeSerializer(DEVICE_NUMBER);
             //m_ProtocolDeSerializer.SetFunc(Logging);
+
+            m_ListOfLabels = new List<LabelWithText>();
+            m_ListOfLabels.Add(new LabelWithText("Вертикальное положение: ", " мм", labelCurrentToolPosition, m_ProtocolDeSerializer, eSendingParamType.paramTypeCurrentToolPosition) );
+            m_ListOfLabels.Add(new LabelWithText("Датчик тока: ", " Ампер", labelCurrentSensor, m_ProtocolDeSerializer, eSendingParamType.paramTypeCurrentSensor) );
+            m_ListOfLabels.Add(new LabelWithText("Верхний концевик: ", "", labelUpperToolTipState, m_ProtocolDeSerializer, eSendingParamType.paramTypeUpperToolTipState) );
+			m_ListOfLabels.Add(new LabelWithText("Нижний концевик: ", "", labelLowerToolTipState, m_ProtocolDeSerializer, eSendingParamType.paramTypeLowerToolTipState) );
+
             timer1.Enabled = true;
         }
 
@@ -104,13 +149,16 @@ namespace HoningMachineConfig
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            labelCurrentToolPosition.Text = "CurrentToolPosition: " + m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeCurrentToolPosition);
-            labelCurrentSensor.Text = "CurrentSensor: " + m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeCurrentSensor);
-            labelUpperToolTipState.Text = "UpperToolTipState: " + m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeUpperToolTipState);
-            labelLowerToolTipState.Text = "LowerToolTipState: " + m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeLowerToolTipState);
+        	foreach(LabelWithText lwt in m_ListOfLabels)
+        		lwt.ShowValue();
+        	
+        	//labelCurrentToolPosition.Text = "CurrentToolPosition: " + (int)m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeCurrentToolPosition);
+//            labelCurrentSensor.Text = "CurrentSensor: " + m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeCurrentSensor);
+//            labelUpperToolTipState.Text = "UpperToolTipState: " + m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeUpperToolTipState);
+//            labelLowerToolTipState.Text = "LowerToolTipState: " + m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeLowerToolTipState);
 
             progressBar1.Value = (int)m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeCurrentSensor);
-            trackBar1.Value = (int)m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeCurrentToolPosition);
+            trackBarPosition.Value = (int)m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeCurrentToolPosition);
         }
 
         private void textBoxToSend_KeyDown(object sender, KeyEventArgs e)
