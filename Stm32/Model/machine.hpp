@@ -102,8 +102,8 @@ private:
   MachineStates m_MachineState;
   ToolStates m_ToolState;
   int32_t m_CurrentPosition;   // текущая позиция, мм
-  uint32_t m_UpperToolPosition; // верхнее положение инсрумента(размерность АЦП)
-  uint32_t m_LowerToolPosition; // нижнее положение инсрумента(размерность АЦП)
+  int32_t m_UpperToolPosition; // верхнее положение инсрумента(размерность АЦП)
+  int32_t m_LowerToolPosition; // нижнее положение инсрумента(размерность АЦП)
   float m_PositionScale;        // коэф пересчёта АЦП в мм
   uint32_t m_ToolTraectoryLen;  // длина хода инструмента, мм
 

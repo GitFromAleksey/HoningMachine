@@ -158,7 +158,10 @@ namespace HoningMachineConfig
 //            labelLowerToolTipState.Text = "LowerToolTipState: " + m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeLowerToolTipState);
 
             progressBar1.Value = (int)m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeCurrentSensor);
-            trackBarPosition.Value = (int)m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeCurrentToolPosition);
+            int position = (int)m_ProtocolDeSerializer.GetParamValue(eSendingParamType.paramTypeCurrentToolPosition);
+            position = (position > trackBarPosition.Maximum)?(trackBarPosition.Maximum):(position);
+            position = (position < trackBarPosition.Minimum)?(trackBarPosition.Minimum):(position);
+            trackBarPosition.Value = position;
         }
 
         private void textBoxToSend_KeyDown(object sender, KeyEventArgs e)

@@ -12,7 +12,7 @@ cMachine::cMachine():
     m_ToolState(toolStateNone),
     m_CurrentPosition(0),
     m_UpperToolPosition(4000),
-    m_LowerToolPosition(100),
+    m_LowerToolPosition(10),
     m_PositionScale(0),
     m_ToolTraectoryLen(1000),
     ControllerEventCallback(NULL)

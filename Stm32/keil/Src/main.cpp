@@ -51,30 +51,38 @@
 // digital outputs. Для добавления выхода нужно его добавить в MX_GPIO_Init()
 #define DO_PORT_MACHINE_PWR_SWITCH        GPIOB
 #define DO_PIN_MACHINE_PWR_SWITCH         GPIO_PIN_15 // TODO этот вывод управления не нужен
+#define DO_MACHINE_PWR_SWITCH_INVERSION   true
 
-#define DO_PORT_VERTICAL_FEED_MOTOR_SW    GPIOB
-#define DO_PIN_VERTICAL_FEED_MOTOR_SW     GPIO_PIN_13 // контактор К1 - двигатель подачи 
+#define DO_PORT_VERTICAL_FEED_MOTOR_SW        GPIOB
+#define DO_PIN_VERTICAL_FEED_MOTOR_SW         GPIO_PIN_13 // контактор К1 - двигатель подачи 
+#define DO_VERTICAL_FEED_MOTOR_SW_INVERSION   true
 
 #define DO_PORT_ROTATE_MOTOR_TOOL_SW      GPIOB
 #define DO_PIN_ROTATE_MOTOR_TOOL_SW       GPIO_PIN_11 // контактор К2 - двигатель вращения
+#define DO_ROTATE_MOTOR_TOOL_SW_INVERSION true
 
 #define DO_PORT_TOOL_LIFT_UP_SW           GPIOB
 #define DO_PIN_TOOL_LIFT_UP_SW            GPIO_PIN_10 // ЭММ1 - электромагнит подачи вверх
+#define DO_TOOL_LIFT_UP_SW_INVERSION      true
 
 #define DO_PORT_TOOL_LIFT_DOWN_SW         GPIOB
 #define DO_PIN_TOOL_LIFT_DOWN_SW          GPIO_PIN_1 // ЭММ2 - электромагнит подачи вниз
+#define DO_TOOL_LIFT_DOWN_SW_INVERSION    true
 
 // TODO ЭММ3(Ручное управление) нужно добавить для ручного управления
 
 // digital inputs. Для добавления входа нужно его добавить в MX_GPIO_Init()
 #define DI_PORT_UPPER_TOOL_TIP            GPIOB
 #define DI_PIN_UPPER_TOOL_TIP             GPIO_PIN_0 // верхний концевик
+#define DI_UPPER_TOOL_TIP_INVERSION       true
 
 #define DI_PORT_MIDDLE_TOOL_TIP           GPIOB
 #define DI_PIN_MIDDLE_TOOL_TIP            GPIO_PIN_2 // средний концевик
+#define DI_MIDDLE_TOOL_TIP_INVERSION      true
 
 #define DI_PORT_LOWER_TOOL_TIP            GPIOB
 #define DI_PIN_LOWER_TOOL_TIP             GPIO_PIN_12 // нижний концевик
+#define DI_LOWER_TOOL_TIP_INVERSION       true
 
 
 /* USER CODE END PD */
@@ -84,7 +92,7 @@
 #define ADC_CHANNEL_SUMM        2u
 volatile uint16_t               adcDmaData[ADC_CHANNEL_SUMM];  // указатель на этот массив передается в DMA
 #define ADC_POSITION_SENSOR     adcDmaData[0]  // ADC_IN0(PA0) - датчик положения
-#define ADC_CURRENT_SENSOR      adcDmaData[1]  // ADC_IN1(PA1) - датчик тока
+//#define ADC_CURRENT_SENSOR      adcDmaData[1]  // ADC_IN1(PA1) - датчик тока TODO временно отключен
 #define ADC_STOP_DMA            HAL_ADC_Stop_DMA(&hadc1);
 #define ADC_START_DMA           HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&adcDmaData[0], ADC_CHANNEL_SUMM);
 /* USER CODE END PM */
@@ -115,9 +123,9 @@ cDigitalOut ToolLiftDownSwich;
 
 //cDigitalInput KeyMacinePwrOnOff(GPIOA, GPIO_PIN_8, false);
 
-cDigitalInput UpperToolTip(DI_PORT_UPPER_TOOL_TIP, DI_PIN_UPPER_TOOL_TIP, true);
-cDigitalInput LowerToolTip(DI_PORT_LOWER_TOOL_TIP, DI_PIN_LOWER_TOOL_TIP, true);
-cDigitalInput MiddleToolTip(DI_PORT_MIDDLE_TOOL_TIP, DI_PIN_MIDDLE_TOOL_TIP, true);
+cDigitalInput UpperToolTip(DI_PORT_UPPER_TOOL_TIP, DI_PIN_UPPER_TOOL_TIP, DI_UPPER_TOOL_TIP_INVERSION);
+cDigitalInput LowerToolTip(DI_PORT_LOWER_TOOL_TIP, DI_PIN_LOWER_TOOL_TIP, DI_LOWER_TOOL_TIP_INVERSION);
+cDigitalInput MiddleToolTip(DI_PORT_MIDDLE_TOOL_TIP, DI_PIN_MIDDLE_TOOL_TIP, DI_MIDDLE_TOOL_TIP_INVERSION);
 
 cAnalogInput ToolPositionSensor;
 cAnalogInput CurrentSensor;
@@ -207,23 +215,23 @@ void RunProcesses() // TODO оформить в отдельный класс
 // ----------------------------------------------------------------------------
 void SetupDigitalOut()
 {
-  MachinePowerSwitch.Init(DO_PORT_MACHINE_PWR_SWITCH, DO_PIN_MACHINE_PWR_SWITCH, true);
+  MachinePowerSwitch.Init(DO_PORT_MACHINE_PWR_SWITCH, DO_PIN_MACHINE_PWR_SWITCH, DO_MACHINE_PWR_SWITCH_INVERSION);
   MachinePowerSwitch.SetDoSwitchCallback(DO_SwitchCallback);
   MachinePowerSwitch.SetCheckStateCallback(&DIO_CheckStateCallback);
   
-  VerticalFeedMotorSwitch.Init(DO_PORT_VERTICAL_FEED_MOTOR_SW, DO_PIN_VERTICAL_FEED_MOTOR_SW, true);
+  VerticalFeedMotorSwitch.Init(DO_PORT_VERTICAL_FEED_MOTOR_SW, DO_PIN_VERTICAL_FEED_MOTOR_SW, DO_VERTICAL_FEED_MOTOR_SW_INVERSION);
   VerticalFeedMotorSwitch.SetDoSwitchCallback(DO_SwitchCallback);
   VerticalFeedMotorSwitch.SetCheckStateCallback(&DIO_CheckStateCallback);
 
-  RotatedMotorToolSwitch.Init(DO_PORT_ROTATE_MOTOR_TOOL_SW, DO_PIN_ROTATE_MOTOR_TOOL_SW, true);
+  RotatedMotorToolSwitch.Init(DO_PORT_ROTATE_MOTOR_TOOL_SW, DO_PIN_ROTATE_MOTOR_TOOL_SW, DO_ROTATE_MOTOR_TOOL_SW_INVERSION);
   RotatedMotorToolSwitch.SetDoSwitchCallback(DO_SwitchCallback);
   RotatedMotorToolSwitch.SetCheckStateCallback(&DIO_CheckStateCallback);
   
-  ToolLiftUpSwitch.Init(DO_PORT_TOOL_LIFT_UP_SW, DO_PIN_TOOL_LIFT_UP_SW, true);
+  ToolLiftUpSwitch.Init(DO_PORT_TOOL_LIFT_UP_SW, DO_PIN_TOOL_LIFT_UP_SW, DO_TOOL_LIFT_UP_SW_INVERSION);
   ToolLiftUpSwitch.SetDoSwitchCallback(DO_SwitchCallback);
   ToolLiftUpSwitch.SetCheckStateCallback(&DIO_CheckStateCallback);
 
-  ToolLiftDownSwich.Init(DO_PORT_TOOL_LIFT_DOWN_SW, DO_PIN_TOOL_LIFT_DOWN_SW, true);
+  ToolLiftDownSwich.Init(DO_PORT_TOOL_LIFT_DOWN_SW, DO_PIN_TOOL_LIFT_DOWN_SW, DO_TOOL_LIFT_DOWN_SW_INVERSION);
   ToolLiftDownSwich.SetDoSwitchCallback(DO_SwitchCallback);
   ToolLiftDownSwich.SetCheckStateCallback(&DIO_CheckStateCallback);
 
@@ -551,13 +559,15 @@ static void MX_ADC1_Init(void)
   }
   /** Configure Regular Channel 
   */
-  sConfig.Channel = ADC_CHANNEL_1;
-  sConfig.Rank = ADC_REGULAR_RANK_2;
-  sConfig.SamplingTime = ADC_SAMPLETIME_28CYCLES_5;
-  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
+  // TODO тут отключил токовый канал, так как DMA как-то нестабильно работает совместно с прерываниями по UART
+  // с работой DMA нужно отдельно разобраться
+//  sConfig.Channel = ADC_CHANNEL_1;
+//  sConfig.Rank = ADC_REGULAR_RANK_2;
+//  sConfig.SamplingTime = ADC_SAMPLETIME_28CYCLES_5;
+//  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+//  {
+//    Error_Handler();
+//  }
   /* USER CODE BEGIN ADC1_Init 2 */
 
   /* USER CODE END ADC1_Init 2 */
@@ -610,7 +620,6 @@ static void MX_DMA_Init(void)
   /* DMA1_Channel1_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQn);
-
 }
 // ----------------------------------------------------------------------------
 // TODO заготовка для инициализации дискретных входов/выходов
@@ -753,7 +762,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
     //HAL_ADC_Stop_DMA(&hadc1);
 
     ToolPositionSensor.SetDataFromADC(ADC_POSITION_SENSOR);
-    CurrentSensor.SetDataFromADC(ADC_CURRENT_SENSOR);
+//    CurrentSensor.SetDataFromADC(ADC_CURRENT_SENSOR); // TODO пока отключил
     
     ADC_START_DMA;
   }
