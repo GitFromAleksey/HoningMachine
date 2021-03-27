@@ -49,9 +49,9 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 // digital outputs. Для добавления выхода нужно его добавить в MX_GPIO_Init()
-#define DO_PORT_MACHINE_PWR_SWITCH        GPIOB
-#define DO_PIN_MACHINE_PWR_SWITCH         GPIO_PIN_15 // TODO этот вывод управления не нужен
-#define DO_MACHINE_PWR_SWITCH_INVERSION   true
+//#define DO_PORT_MACHINE_PWR_SWITCH        GPIOB
+//#define DO_PIN_MACHINE_PWR_SWITCH         GPIO_PIN_15 // TODO этот вывод управления не нужен
+//#define DO_MACHINE_PWR_SWITCH_INVERSION   true
 
 #define DO_PORT_VERTICAL_FEED_MOTOR_SW        GPIOB
 #define DO_PIN_VERTICAL_FEED_MOTOR_SW         GPIO_PIN_13 // контактор К1 - двигатель подачи 
@@ -115,7 +115,7 @@ iProcess* ProcessesArr[I_PROCESS_ARRAY_SIZE];
 cArray<iProcess> _ProcessesArr; // TODO для замены ProcessesArr. Пока тестируется
 #endif
 
-cDigitalOut MachinePowerSwitch;
+//cDigitalOut MachinePowerSwitch;
 cDigitalOut VerticalFeedMotorSwitch;
 cDigitalOut RotatedMotorToolSwitch;
 cDigitalOut ToolLiftUpSwitch;
@@ -141,19 +141,19 @@ cProtocolFormer ProtocolFormer(&ByteSender);
 
 // кнопки
 // ряды матрицы(дискретные выходы)
-cDigitalOut KeyRow_0;
-cDigitalOut KeyRow_1;
-cDigitalOut KeyRow_2;
-cDigitalOut KeyRow_3;
-// колонки матрицы(дискретные входы)
-cDigitalInput KeyCol_0;
-cDigitalInput KeyCol_1;
-cDigitalInput KeyCol_2;
-cDigitalInput KeyCol_3;
+//cDigitalOut KeyRow_0;
+//cDigitalOut KeyRow_1;
+//cDigitalOut KeyRow_2;
+//cDigitalOut KeyRow_3;
+//// колонки матрицы(дискретные входы)
+//cDigitalInput KeyCol_0;
+//cDigitalInput KeyCol_1;
+//cDigitalInput KeyCol_2;
+//cDigitalInput KeyCol_3;
 
-cKeysReader Keyboard; // класс опроса дискретных входов
-cKeyHandler KeyHandler; // класс обработки нажатий клавиш
-cKeyBind KeysArray[4*4]; // массив кнопок, привязанных к действиям станка
+//cKeysReader Keyboard; // класс опроса дискретных входов
+//cKeyHandler KeyHandler; // класс обработки нажатий клавиш
+//cKeyBind KeysArray[4*4]; // массив кнопок, привязанных к действиям станка
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -215,9 +215,9 @@ void RunProcesses() // TODO оформить в отдельный класс
 // ----------------------------------------------------------------------------
 void SetupDigitalOut()
 {
-  MachinePowerSwitch.Init(DO_PORT_MACHINE_PWR_SWITCH, DO_PIN_MACHINE_PWR_SWITCH, DO_MACHINE_PWR_SWITCH_INVERSION);
-  MachinePowerSwitch.SetDoSwitchCallback(DO_SwitchCallback);
-  MachinePowerSwitch.SetCheckStateCallback(&DIO_CheckStateCallback);
+//  MachinePowerSwitch.Init(DO_PORT_MACHINE_PWR_SWITCH, DO_PIN_MACHINE_PWR_SWITCH, DO_MACHINE_PWR_SWITCH_INVERSION);
+//  MachinePowerSwitch.SetDoSwitchCallback(DO_SwitchCallback);
+//  MachinePowerSwitch.SetCheckStateCallback(&DIO_CheckStateCallback);
   
   VerticalFeedMotorSwitch.Init(DO_PORT_VERTICAL_FEED_MOTOR_SW, DO_PIN_VERTICAL_FEED_MOTOR_SW, DO_VERTICAL_FEED_MOTOR_SW_INVERSION);
   VerticalFeedMotorSwitch.SetDoSwitchCallback(DO_SwitchCallback);
@@ -235,7 +235,7 @@ void SetupDigitalOut()
   ToolLiftDownSwich.SetDoSwitchCallback(DO_SwitchCallback);
   ToolLiftDownSwich.SetCheckStateCallback(&DIO_CheckStateCallback);
 
-  AddToProcessArray(&MachinePowerSwitch);
+//  AddToProcessArray(&MachinePowerSwitch);
   AddToProcessArray(&VerticalFeedMotorSwitch);
   AddToProcessArray(&RotatedMotorToolSwitch);
   AddToProcessArray(&ToolLiftUpSwitch);
@@ -271,7 +271,7 @@ void SetupMachine()
 {
   t_MachineInitStruct setupMachine;
 
-  setupMachine.MachinePowerSwitch = &MachinePowerSwitch;
+//  setupMachine.MachinePowerSwitch = &MachinePowerSwitch;
   setupMachine.VerticalFeedMotorSwitch = &VerticalFeedMotorSwitch;
   setupMachine.RotatedMotorToolSwitch = &RotatedMotorToolSwitch;
   setupMachine.ToolLiftUpSwitch = &ToolLiftUpSwitch;
@@ -310,87 +310,87 @@ void SetupUart()
   AddToProcessArray(&ProtocolFormer);
 }
 // ----------------------------------------------------------------------------
-void SetupKeyboard(void)
-{
-// конфигурация дискретных выходов(рядов) матрицы клавиатуры
-  // конфигурация портов выхода
-  GPIO_DIO_Init(GPIOA, GPIO_PIN_11, true);
-  GPIO_DIO_Init(GPIOA, GPIO_PIN_12, true);
-  GPIO_DIO_Init(GPIOB, GPIO_PIN_4, true);
-  GPIO_DIO_Init(GPIOB, GPIO_PIN_5, true);
-  // привязка дискретных выходов к портам
-  KeyRow_0.Init(GPIOA, GPIO_PIN_11, false);
-  KeyRow_1.Init(GPIOA, GPIO_PIN_12, false);
-  KeyRow_2.Init(GPIOB, GPIO_PIN_4, false);
-  KeyRow_3.Init(GPIOB, GPIO_PIN_5, false);
-  // привязка callbak функции для управления портом
-  KeyRow_0.SetDoSwitchCallback(DO_SwitchCallback);
-  KeyRow_1.SetDoSwitchCallback(DO_SwitchCallback);
-  KeyRow_2.SetDoSwitchCallback(DO_SwitchCallback);
-  KeyRow_3.SetDoSwitchCallback(DO_SwitchCallback);
-  
-// конфигурация дискретных входов(колонок) матрицы клавиатуры
-  // конфигурация портов входов
-  GPIO_DIO_Init(GPIOB, GPIO_PIN_6, false);
-  GPIO_DIO_Init(GPIOB, GPIO_PIN_7, false);
-  GPIO_DIO_Init(GPIOB, GPIO_PIN_8, false); // TODO виснет при замыкании с GPIOA, GPIO_PIN_12
-  GPIO_DIO_Init(GPIOB, GPIO_PIN_9, false);
-  // привязка дискретных входов к портам
-  KeyCol_0.Init(GPIOB, GPIO_PIN_6, false);
-	KeyCol_0.SetDebounceCntValue(5);
-  KeyCol_1.Init(GPIOB, GPIO_PIN_7, false);
-	KeyCol_1.SetDebounceCntValue(5);
-  KeyCol_2.Init(GPIOB, GPIO_PIN_8, false);
-	KeyCol_2.SetDebounceCntValue(5);
-  KeyCol_3.Init(GPIOB, GPIO_PIN_9, false);
-	KeyCol_3.SetDebounceCntValue(5);
-	
-  // привязка callbak функции для чтения состояния порта
-  KeyCol_0.SetCheckStateCallback(DIO_CheckStateCallback);
-  KeyCol_1.SetCheckStateCallback(DIO_CheckStateCallback);
-  KeyCol_2.SetCheckStateCallback(DIO_CheckStateCallback);
-  KeyCol_3.SetCheckStateCallback(DIO_CheckStateCallback);
-  
-  // привязка клавиатуры к дискретным входам/выходам для осуществления опроса
-  Keyboard.SetRowOutput(&KeyRow_0, 0);
-  Keyboard.SetRowOutput(&KeyRow_1, 1);
-  Keyboard.SetRowOutput(&KeyRow_2, 2);
-  Keyboard.SetRowOutput(&KeyRow_3, 3);
+//void SetupKeyboard(void)
+//{
+//// конфигурация дискретных выходов(рядов) матрицы клавиатуры
+//  // конфигурация портов выхода
+//  GPIO_DIO_Init(GPIOA, GPIO_PIN_11, true);
+//  GPIO_DIO_Init(GPIOA, GPIO_PIN_12, true);
+//  GPIO_DIO_Init(GPIOB, GPIO_PIN_4, true);
+//  GPIO_DIO_Init(GPIOB, GPIO_PIN_5, true);
+//  // привязка дискретных выходов к портам
+//  KeyRow_0.Init(GPIOA, GPIO_PIN_11, false);
+//  KeyRow_1.Init(GPIOA, GPIO_PIN_12, false);
+//  KeyRow_2.Init(GPIOB, GPIO_PIN_4, false);
+//  KeyRow_3.Init(GPIOB, GPIO_PIN_5, false);
+//  // привязка callbak функции для управления портом
+//  KeyRow_0.SetDoSwitchCallback(DO_SwitchCallback);
+//  KeyRow_1.SetDoSwitchCallback(DO_SwitchCallback);
+//  KeyRow_2.SetDoSwitchCallback(DO_SwitchCallback);
+//  KeyRow_3.SetDoSwitchCallback(DO_SwitchCallback);
+//  
+//// конфигурация дискретных входов(колонок) матрицы клавиатуры
+//  // конфигурация портов входов
+//  GPIO_DIO_Init(GPIOB, GPIO_PIN_6, false);
+//  GPIO_DIO_Init(GPIOB, GPIO_PIN_7, false);
+//  GPIO_DIO_Init(GPIOB, GPIO_PIN_8, false); // TODO виснет при замыкании с GPIOA, GPIO_PIN_12
+//  GPIO_DIO_Init(GPIOB, GPIO_PIN_9, false);
+//  // привязка дискретных входов к портам
+//  KeyCol_0.Init(GPIOB, GPIO_PIN_6, false);
+//	KeyCol_0.SetDebounceCntValue(5);
+//  KeyCol_1.Init(GPIOB, GPIO_PIN_7, false);
+//	KeyCol_1.SetDebounceCntValue(5);
+//  KeyCol_2.Init(GPIOB, GPIO_PIN_8, false);
+//	KeyCol_2.SetDebounceCntValue(5);
+//  KeyCol_3.Init(GPIOB, GPIO_PIN_9, false);
+//	KeyCol_3.SetDebounceCntValue(5);
+//	
+//  // привязка callbak функции для чтения состояния порта
+//  KeyCol_0.SetCheckStateCallback(DIO_CheckStateCallback);
+//  KeyCol_1.SetCheckStateCallback(DIO_CheckStateCallback);
+//  KeyCol_2.SetCheckStateCallback(DIO_CheckStateCallback);
+//  KeyCol_3.SetCheckStateCallback(DIO_CheckStateCallback);
+//  
+//  // привязка клавиатуры к дискретным входам/выходам для осуществления опроса
+//  Keyboard.SetRowOutput(&KeyRow_0, 0);
+//  Keyboard.SetRowOutput(&KeyRow_1, 1);
+//  Keyboard.SetRowOutput(&KeyRow_2, 2);
+//  Keyboard.SetRowOutput(&KeyRow_3, 3);
 
-  Keyboard.SetColInput(&KeyCol_0, 0);
-  Keyboard.SetColInput(&KeyCol_1, 1);
-  Keyboard.SetColInput(&KeyCol_2, 2);
-  Keyboard.SetColInput(&KeyCol_3, 3);
+//  Keyboard.SetColInput(&KeyCol_0, 0);
+//  Keyboard.SetColInput(&KeyCol_1, 1);
+//  Keyboard.SetColInput(&KeyCol_2, 2);
+//  Keyboard.SetColInput(&KeyCol_3, 3);
 
-  Keyboard.AddKeyHandler(&KeyHandler); // привязка к клавиатуре обработчика нажатий
+//  Keyboard.AddKeyHandler(&KeyHandler); // привязка к клавиатуре обработчика нажатий
 
 
-// привязка кнопок к контроллеру
-	uint8_t i = 0;
-	// 0-й ряд кнопок
-	KeysArray[i++].Init(0, 0, verticalFeedMotorOn, &controller);
-	KeysArray[i++].Init(0, 1, toolLiftDown, &controller);
-	KeysArray[i++].Init(0, 2, pressKey3, &controller);
-	KeysArray[i++].Init(0, 3, pressKey4, &controller);
-	// 1-й ряд кнопок
-	KeysArray[i++].Init(1, 0, toolRotateStop, &controller);
-	KeysArray[i++].Init(1, 1, toolLiftStop, &controller);
-	KeysArray[i++].Init(1, 2, verticalFeedMotorOff, &controller);
-	KeysArray[i++].Init(1, 3, pressKey8, &controller);
-	// 2-й ряд кнопок
-	KeysArray[i++].Init(2, 0, toolRotateRun, &controller);
-	KeysArray[i++].Init(2, 1, toolLiftUp, &controller);
-	KeysArray[i++].Init(2, 2, machinePowerOn, &controller);
-	KeysArray[i++].Init(2, 3, machinePowerOff, &controller);
-	// 3-й ряд кнопок
-	KeysArray[i++].Init(3, 0, verticalFeedMotorOn, &controller);
-	KeysArray[i++].Init(3, 1, verticalFeedMotorOff, &controller);
-	KeysArray[i++].Init(3, 2, toolLiftUp, &controller);
-	KeysArray[i++].Init(3, 3, toolLiftDown, &controller);
-  
-// добавляем массив кнопок в обработчик нажатий кнопок
-  KeyHandler.AddKeysArray(KeysArray, i);
-}
+//// привязка кнопок к контроллеру
+//	uint8_t i = 0;
+//	// 0-й ряд кнопок
+//	KeysArray[i++].Init(0, 0, verticalFeedMotorOn, &controller);
+//	KeysArray[i++].Init(0, 1, toolLiftDown, &controller);
+//	KeysArray[i++].Init(0, 2, pressKey3, &controller);
+//	KeysArray[i++].Init(0, 3, pressKey4, &controller);
+//	// 1-й ряд кнопок
+//	KeysArray[i++].Init(1, 0, toolRotateStop, &controller);
+//	KeysArray[i++].Init(1, 1, toolLiftStop, &controller);
+//	KeysArray[i++].Init(1, 2, verticalFeedMotorOff, &controller);
+//	KeysArray[i++].Init(1, 3, pressKey8, &controller);
+//	// 2-й ряд кнопок
+//	KeysArray[i++].Init(2, 0, toolRotateRun, &controller);
+//	KeysArray[i++].Init(2, 1, toolLiftUp, &controller);
+//	KeysArray[i++].Init(2, 2, machinePowerOn, &controller);
+//	KeysArray[i++].Init(2, 3, machinePowerOff, &controller);
+//	// 3-й ряд кнопок
+//	KeysArray[i++].Init(3, 0, verticalFeedMotorOn, &controller);
+//	KeysArray[i++].Init(3, 1, verticalFeedMotorOff, &controller);
+//	KeysArray[i++].Init(3, 2, toolLiftUp, &controller);
+//	KeysArray[i++].Init(3, 3, toolLiftDown, &controller);
+//  
+//// добавляем массив кнопок в обработчик нажатий кнопок
+//  KeyHandler.AddKeysArray(KeysArray, i);
+//}
 // ----------------------------------------------------------------------------
 /* USER CODE END 0 */
 
@@ -435,7 +435,7 @@ int main(void)
   SetupMachine();
   SetupController();
   SetupUart();
-  SetupKeyboard();
+//  SetupKeyboard();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -450,7 +450,7 @@ int main(void)
   while(1)
   {
     RunProcesses();
-    Keyboard.run(); // TODO добавить в планировщик RunProcesses()
+//    Keyboard.run(); // TODO добавить в планировщик RunProcesses()
     
     if((HAL_GetTick() - ticks) > 500)
     {
@@ -659,14 +659,14 @@ static void MX_GPIO_Init(void)
   
   // digital outputs config
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(DO_PORT_MACHINE_PWR_SWITCH, DO_PIN_MACHINE_PWR_SWITCH, GPIO_PIN_RESET);
+//  HAL_GPIO_WritePin(DO_PORT_MACHINE_PWR_SWITCH, DO_PIN_MACHINE_PWR_SWITCH, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : PB15 */
-  GPIO_InitStruct.Pin = DO_PIN_MACHINE_PWR_SWITCH;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+//  /*Configure GPIO pin : PB15 */
+//  GPIO_InitStruct.Pin = DO_PIN_MACHINE_PWR_SWITCH;
+//  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+//  GPIO_InitStruct.Pull = GPIO_NOPULL;
+//  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+//  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   HAL_GPIO_WritePin(DO_PORT_TOOL_LIFT_DOWN_SW, DO_PIN_TOOL_LIFT_DOWN_SW, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(DO_PORT_TOOL_LIFT_UP_SW, DO_PIN_TOOL_LIFT_UP_SW, GPIO_PIN_RESET);

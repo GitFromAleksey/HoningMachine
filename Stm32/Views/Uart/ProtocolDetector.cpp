@@ -7,8 +7,8 @@
 #define PROTOCOL_CMD_WRITE_RW_REG             4
 #define PROTOCOL_CMD_READ_RW_REG              5
 
-#define PROTOCOL_CMD_MACHINE_PWR_ON           6
-#define PROTOCOL_CMD_MACHINE_PWR_OFF          7
+//#define PROTOCOL_CMD_MACHINE_PWR_ON           6
+//#define PROTOCOL_CMD_MACHINE_PWR_OFF          7
 #define PROTOCOL_CMD_TOOL_LIFT_UP             8
 #define PROTOCOL_CMD_TOOL_LIFT_DOWN           9
 #define PROTOCOL_CMD_TOOL_LIFT_STOP           10
@@ -106,12 +106,12 @@ void cProtocolDetector::PacketParse(uint8_t *pData)
       
       break;
     
-    case PROTOCOL_CMD_MACHINE_PWR_ON:
-      m_MachineController->MachinePowerOn();
-      break;
-    case PROTOCOL_CMD_MACHINE_PWR_OFF:
-      m_MachineController->MachinePowerOff();
-      break;
+//    case PROTOCOL_CMD_MACHINE_PWR_ON:
+//      m_MachineController->MachinePowerOn();
+//      break;
+//    case PROTOCOL_CMD_MACHINE_PWR_OFF:
+//      m_MachineController->MachinePowerOff();
+//      break;
     case PROTOCOL_CMD_TOOL_LIFT_UP:
       m_MachineController->ToolLiftUp();
       break;

@@ -22,7 +22,7 @@ cDigitalInput::cDigitalInput(void *port, uint16_t pinNumber, bool inversion):
 	CheckStateCallback(NULL),
 	CallbackChangeState(NULL)
 {
-	
+
 }
 // ----------------------------------------------------------------------------
 cDigitalInput::~cDigitalInput()
@@ -33,7 +33,7 @@ cDigitalInput::~cDigitalInput()
 void cDigitalInput::run()
 {
 	bool state;
-	
+
 	if(m_Port != NULL)
 	{
 		if(CheckStateCallback != NULL)
@@ -50,7 +50,7 @@ void cDigitalInput::run()
 			else
 			{
 				m_DebounceCnt = 0;
-			}			
+			}
 		}
 	}
 }
@@ -58,7 +58,7 @@ void cDigitalInput::run()
 void cDigitalInput::Init(void *port, uint16_t pinNumber, bool inversion)
 {
 	if(port == NULL) return;
-	
+
 	this->m_Port = port;
 	this->m_PinNumber = pinNumber;
 	this->m_Iversion = inversion;

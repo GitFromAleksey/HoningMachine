@@ -79,15 +79,15 @@ void cController::EventsHandler(MachineEvent event)
 }
 // ----------------------------------------------------------------------------
 // реализация методов интерфейса iController
-void cController::MachinePowerOn()
-{
-  m_Machine->MachinePowerOn(); // TODO ненужная кнопка
-}
+//void cController::MachinePowerOn()
+//{
+////  m_Machine->MachinePowerOn(); // TODO ненужная кнопка
+//}
 // ----------------------------------------------------------------------------
-void cController::MachinePowerOff()
-{
-  m_Machine->MachinePowerOff(); // TODO ненужная кнопка
-}
+//void cController::MachinePowerOff()
+//{
+////  m_Machine->MachinePowerOff(); // TODO ненужная кнопка
+//}
 // ----------------------------------------------------------------------------
 void cController::VerticalFeedMotorOn()
 {
@@ -163,12 +163,12 @@ void cController::KeyEventHandler(KeyIdentificator keyIdent)
     case switchToggle:
       SwitchToggle();
       break;
-    case machinePowerOn:
-      MachinePowerOn();
-      break;
-    case machinePowerOff:
-      MachinePowerOff();
-      break;
+//    case machinePowerOn:
+//      MachinePowerOn();
+//      break;
+//    case machinePowerOff:
+//      MachinePowerOff();
+//      break;
     case verticalFeedMotorOn:
       VerticalFeedMotorOn();
       break;

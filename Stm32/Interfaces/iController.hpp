@@ -44,8 +44,8 @@ public:
   virtual void PressKey9() = 0;
   virtual void SwitchToggle() = 0;
 
-  virtual void MachinePowerOn() = 0;
-  virtual void MachinePowerOff() = 0;
+//  virtual void MachinePowerOn() = 0;
+//  virtual void MachinePowerOff() = 0;
   virtual void VerticalFeedMotorOn() = 0;
   virtual void VerticalFeedMotorOff() = 0;
   virtual void ToolLiftUp() = 0;

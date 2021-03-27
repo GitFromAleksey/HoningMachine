@@ -11,7 +11,7 @@ cMachine::cMachine():
     m_MachineState(machineStateNone),
     m_ToolState(toolStateNone),
     m_CurrentPosition(0),
-    m_UpperToolPosition(4000),
+    m_UpperToolPosition(1000),
     m_LowerToolPosition(10),
     m_PositionScale(0),
     m_ToolTraectoryLen(1000),
@@ -24,7 +24,7 @@ cMachine::~cMachine(){}
 // ----------------------------------------------------------------------------
 void cMachine::Init(t_MachineInitStruct initStruct)
 {
-  m_MachinePowerSwitch = initStruct.MachinePowerSwitch;
+//  m_MachinePowerSwitch = initStruct.MachinePowerSwitch;
   m_VerticalFeedMotorSwitch = initStruct.VerticalFeedMotorSwitch;
   m_RotatedMotorToolSwitch = initStruct.RotatedMotorToolSwitch;
   m_ToolLiftUpSwitch = initStruct.ToolLiftUpSwitch;
@@ -37,7 +37,7 @@ void cMachine::Init(t_MachineInitStruct initStruct)
   m_ToolPositionSensor = initStruct.ToolPositionSensor;
   m_CurrentSensor = initStruct.CurrentSensor;
   
-  m_MachinePowerSwitch->SetOff();
+//  m_MachinePowerSwitch->SetOff();
   m_VerticalFeedMotorSwitch->SetOff();
   m_RotatedMotorToolSwitch->SetOff();
   m_ToolLiftUpSwitch->SetOff();
@@ -74,15 +74,15 @@ void cMachine::run()
   
 }
 // ----------------------------------------------------------------------------
-void cMachine::MachinePowerOn()
-{
-  m_MachinePowerSwitch->SetOn();
-}
+//void cMachine::MachinePowerOn()
+//{
+//  m_MachinePowerSwitch->SetOn();
+//}
 // ----------------------------------------------------------------------------
-void cMachine::MachinePowerOff()
-{
-  m_MachinePowerSwitch->SetOff();
-}
+//void cMachine::MachinePowerOff()
+//{
+//  m_MachinePowerSwitch->SetOff();
+//}
 // ----------------------------------------------------------------------------
 void cMachine::VerticalFeedMotorOn()
 {

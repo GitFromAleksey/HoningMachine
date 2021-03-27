@@ -46,7 +46,7 @@ enum ToolStates
 
 typedef struct
 {
-  cDigitalOut *MachinePowerSwitch;
+//  cDigitalOut *MachinePowerSwitch;
   cDigitalOut *VerticalFeedMotorSwitch;
   cDigitalOut *RotatedMotorToolSwitch;
   cDigitalOut *ToolLiftUpSwitch;
@@ -72,8 +72,8 @@ public:
   void Init(t_MachineInitStruct initStruct);
   virtual void run();
 
-  void MachinePowerOn();
-  void MachinePowerOff();
+//  void MachinePowerOn();
+//  void MachinePowerOff();
   void VerticalFeedMotorOn();
   void VerticalFeedMotorOff();
   void ToolLiftUp();

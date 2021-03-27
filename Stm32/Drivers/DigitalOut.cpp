@@ -60,8 +60,13 @@ void cDigitalOut::Toggle()
 // ----------------------------------------------------------------------------
 bool cDigitalOut::IsOn()
 {
-	if((this->CheckStateCallback == NULL) || (this->m_Port == NULL)) return false;
-	
-	return CheckStateCallback(this->m_Port, this->m_PinNumber);
+  bool state = false;
+
+  if((this->CheckStateCallback == NULL) || (this->m_Port == NULL)) return false;
+
+  state = CheckStateCallback(this->m_Port, this->m_PinNumber);
+  state = (this->m_Inversion)?(!state):(state);
+
+  return state;
 }
 // ----------------------------------------------------------------------------
