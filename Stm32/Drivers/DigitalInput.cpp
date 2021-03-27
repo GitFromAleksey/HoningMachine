@@ -5,6 +5,8 @@ cDigitalInput::cDigitalInput() :
 	m_PinNumber(0),
 	m_Iversion(false),
 	m_State(false),
+	m_DebounceCnt(0),
+	m_DebounceCntVal(0),
 	CheckStateCallback(NULL),
 	CallbackChangeState(NULL)
 {
@@ -15,6 +17,8 @@ cDigitalInput::cDigitalInput(void *port, uint16_t pinNumber, bool inversion):
 	m_PinNumber(pinNumber),
 	m_Iversion(inversion),
 	m_State(false),
+	m_DebounceCnt(0),
+	m_DebounceCntVal(0),
 	CheckStateCallback(NULL),
 	CallbackChangeState(NULL)
 {
@@ -68,7 +72,7 @@ void cDigitalInput::SetCheckStateCallback(bool (*CheckStateCallback)(void *port,
 // ----------------------------------------------------------------------------
 void cDigitalInput::SetDebounceCntValue(uint16_t debounceCntVal)
 {
-	
+	m_DebounceCntVal = debounceCntVal;
 }
 // ----------------------------------------------------------------------------
 bool cDigitalInput::IsOn()
