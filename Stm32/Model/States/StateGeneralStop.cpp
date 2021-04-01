@@ -16,6 +16,10 @@ void cStateGeneralStop::run(void *params)
   cController *controller = (cController*)params;
   uint32_t keys_reg = controller->GetKeysRegister();
   
+  controller->ToolLiftStop();
+  controller->VerticalFeedMotorOff();
+  controller->ToolRotateStop();
+  
   if( keys_reg & KEY_7 )
   {
     // создать класс "Позиция 0"

@@ -372,7 +372,7 @@
         	this.buttonKey_1.Name = "buttonKey_1";
         	this.buttonKey_1.Size = new System.Drawing.Size(171, 28);
         	this.buttonKey_1.TabIndex = 20;
-        	this.buttonKey_1.Text = "Key_1";
+        	this.buttonKey_1.Text = "Key_1(Общий стоп)";
         	this.buttonKey_1.UseVisualStyleBackColor = true;
         	this.buttonKey_1.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
         	// 
@@ -438,7 +438,7 @@
         	this.buttonKey_7.Name = "buttonKey_7";
         	this.buttonKey_7.Size = new System.Drawing.Size(171, 28);
         	this.buttonKey_7.TabIndex = 26;
-        	this.buttonKey_7.Text = "Key_7";
+        	this.buttonKey_7.Text = "Key_7(Позиция 0)";
         	this.buttonKey_7.UseVisualStyleBackColor = true;
         	this.buttonKey_7.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
         	// 

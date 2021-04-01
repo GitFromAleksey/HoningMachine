@@ -15,6 +15,9 @@ void cStatePositionZero::run(void *params)
 {
   cController *controller = (cController*)params;
   uint32_t keys_reg = controller->GetKeysRegister();
+
+  controller->VerticalFeedMotorOn();
+  controller->ToolLiftUp();
   
   if(keys_reg & SWITCH)
   {

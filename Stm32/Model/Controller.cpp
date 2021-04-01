@@ -45,7 +45,7 @@ void cController::run()
 {
   if(m_Machine == NULL)
     return;
-
+// 
   if(m_CurrentState != NULL)
   {
     m_CurrentState->run(this);

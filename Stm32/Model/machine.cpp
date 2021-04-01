@@ -98,8 +98,15 @@ void cMachine::ToolLiftUp()
 {
   if(m_VerticalFeedMotorSwitch->IsOn())
   {
-    m_ToolLiftDownSwich->SetOff();
-    m_ToolLiftUpSwitch->SetOn();
+    if(m_CurrentPosition <= m_UpperToolPosition)
+    {
+      m_ToolLiftDownSwich->SetOff();
+      m_ToolLiftUpSwitch->SetOn();
+    }
+    else
+    {
+      m_ToolLiftUpSwitch->SetOff();
+    }
   }
 }
 // ----------------------------------------------------------------------------

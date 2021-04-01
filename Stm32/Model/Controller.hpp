@@ -40,7 +40,7 @@ public:
 
   void EventsHandler(MachineEvent event);
 
-  virtual void PressKey1(){ m_KeysRegister |= KEY_1; }
+  virtual void PressKey1(){ m_KeysRegister |= KEY_1; } // General Stop (общий стоп)
   virtual void PressKey2(){ m_KeysRegister |= KEY_2; }
   virtual void PressKey3(){ m_KeysRegister |= KEY_3; }
   virtual void PressKey4(){ m_KeysRegister |= KEY_4; }
