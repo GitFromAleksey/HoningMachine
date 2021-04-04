@@ -34,6 +34,7 @@ public:
   virtual void run();
 
   void SetCurrentState(iState *state);
+  iState *GetCurrentState()const;
   void AddMachine(cMachine *machine);
   void AddView(iView *view);
   void SetGetTicksCallback(uint32_t (*GetTicksCallback)());

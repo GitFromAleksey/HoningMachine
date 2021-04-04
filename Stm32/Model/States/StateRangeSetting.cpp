@@ -3,7 +3,7 @@
 
 cStateRangeSetting::cStateRangeSetting()
 {
-
+	m_StateIdentifier = StateRangeSetting;
 }
 // ----------------------------------------------------------------------------
 cStateRangeSetting::~cStateRangeSetting()
@@ -18,7 +18,17 @@ void cStateRangeSetting::run(void *params)
 
   if(keys_reg & KEY_1)
   {
+    controller->SetCurrentState(new cStatePositionZero());
+    delete this;
+  }
+  else if(keys_reg & KEY_7)
+  {
     controller->SetCurrentState(new cStateGeneralStop());
+    delete this;
+  }
+  else if(keys_reg & SWITCH)
+  {
+    controller->SetCurrentState(new cStateHandleHeld());
     delete this;
   }
   else if(keys_reg & KEY_5)

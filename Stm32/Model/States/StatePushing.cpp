@@ -1,44 +1,47 @@
-#include "StateSemenMovement.hpp"
+#include "StatePushing.hpp"
 
 
-cStateSemenMovement::cStateSemenMovement()
+cStatePushing::cStatePushing()
 {
-	m_StateIdentifier = StateSemenMovement;
+	m_StateIdentifier = StatePushing;
 }
 // ----------------------------------------------------------------------------
-cStateSemenMovement::~cStateSemenMovement()
+cStatePushing::~cStatePushing()
 {
 
 }
 // ----------------------------------------------------------------------------
-void cStateSemenMovement::run(void *params)
+void cStatePushing::run(void *params)
 {
   cController *controller = (cController*)params;
   uint32_t keys_reg = controller->GetKeysRegister();
 
+  controller->VerticalFeedMotorOn();
+  controller->ToolLiftUp();
+  
   if(keys_reg & SWITCH)
-  {
+  {// ручной
     controller->SetCurrentState(new cStateHandleHeld());
     delete this;
   }
   else if(keys_reg & KEY_1)
-  {
+  {// 
     controller->SetCurrentState(new cStatePositionZero());
     delete this;
   }
-  else if(keys_reg & KEY_7)
-  {
-    controller->SetCurrentState(new cStateGeneralStop());
-    delete this;
-  }
-  else if(keys_reg & KEY_5)
-  {
-    controller->SetCurrentState(new cStateWorking());
+  else if(keys_reg & KEY_3)
+  {// 
+    controller->SetCurrentState(new cStateRangeSetting());
     delete this;
   }
   else if(keys_reg & KEY_8)
-  {
+  {//
     controller->SetCurrentState(new cStateFeedEnabled());
+    delete this;
+  }
+  else if(keys_reg & KEY_5)
+  {//
+    controller->SetCurrentState(new cStateWorking());
     delete this;
   }
 }

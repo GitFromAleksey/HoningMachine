@@ -3,13 +3,10 @@
 
 cStateGeneralStop::cStateGeneralStop()
 {
-
+  m_StateIdentifier = StateGeneralStop;
 }
 // ----------------------------------------------------------------------------
-cStateGeneralStop::~cStateGeneralStop()
-{
-
-}
+cStateGeneralStop::~cStateGeneralStop() {}
 // ----------------------------------------------------------------------------
 void cStateGeneralStop::run(void *params)
 {
@@ -20,10 +17,21 @@ void cStateGeneralStop::run(void *params)
   controller->VerticalFeedMotorOff();
   controller->ToolRotateStop();
   
-  if( keys_reg & KEY_7 )
+  if( keys_reg & KEY_1 )
   {
-    // создать класс "Позиция 0"
     controller->SetCurrentState(new cStatePositionZero());
-    delete this;
+//    delete this;
   }
+  else if( keys_reg & KEY_5 )
+  {
+    controller->SetCurrentState(new cStateWorking());
+//    delete this;
+  }
+  else if( keys_reg & KEY_8 )
+  {
+    controller->SetCurrentState(new cStateFeedEnabled());
+//    delete this;
+  }
+//  if(this != controller->GetCurrentState())
+//	  delete this;
 }

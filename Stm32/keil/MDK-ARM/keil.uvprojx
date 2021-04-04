@@ -634,6 +634,11 @@
               <FileType>8</FileType>
               <FilePath>..\..\Model\States\StateSemenMovement.cpp</FilePath>
             </File>
+            <File>
+              <FileName>StatePushing.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Model\States\StatePushing.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

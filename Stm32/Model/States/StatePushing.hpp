@@ -1,6 +1,6 @@
 // позиция 0
-#ifndef _STATE_START_HPP_
-#define _STATE_START_HPP_
+#ifndef _STATE_PUSHING_HPP_
+#define _STATE_PUSHING_HPP_
 
 #include <stdint.h>
 #include <stddef.h>
@@ -8,15 +8,15 @@
 #include "../Model/Controller.hpp"
 #include "AllStates.hpp"
 
-
-class cStatePositionZero : public iState
+// толчковый
+class cStatePushing : public iState
 {
 public:
-  cStatePositionZero();
-  ~cStatePositionZero();
+  cStatePushing();
+  ~cStatePushing();
   
   virtual void run(void *params);
 
 };
 
-#endif /* _STATE_START_HPP_ */
+#endif /* _STATE_PUSHING_HPP_ */

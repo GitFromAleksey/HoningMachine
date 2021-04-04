@@ -3,7 +3,7 @@
 
 cStateSlowSpeed::cStateSlowSpeed()
 {
-
+	m_StateIdentifier = StateSlowSpeed;
 }
 // ----------------------------------------------------------------------------
 cStateSlowSpeed::~cStateSlowSpeed()

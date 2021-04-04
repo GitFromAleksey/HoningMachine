@@ -372,7 +372,7 @@
         	this.buttonKey_1.Name = "buttonKey_1";
         	this.buttonKey_1.Size = new System.Drawing.Size(171, 28);
         	this.buttonKey_1.TabIndex = 20;
-        	this.buttonKey_1.Text = "Key_1(Общий стоп)";
+        	this.buttonKey_1.Text = "Key_1(Позиция 0)";
         	this.buttonKey_1.UseVisualStyleBackColor = true;
         	this.buttonKey_1.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
         	// 
@@ -383,7 +383,7 @@
         	this.buttonKey_2.Name = "buttonKey_2";
         	this.buttonKey_2.Size = new System.Drawing.Size(171, 28);
         	this.buttonKey_2.TabIndex = 21;
-        	this.buttonKey_2.Text = "Key_2";
+        	this.buttonKey_2.Text = "Key_2(толчковый)";
         	this.buttonKey_2.UseVisualStyleBackColor = true;
         	this.buttonKey_2.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
         	// 
@@ -394,7 +394,7 @@
         	this.buttonKey_3.Name = "buttonKey_3";
         	this.buttonKey_3.Size = new System.Drawing.Size(171, 28);
         	this.buttonKey_3.TabIndex = 22;
-        	this.buttonKey_3.Text = "Key_3";
+        	this.buttonKey_3.Text = "Key_3(уст.диапазона)";
         	this.buttonKey_3.UseVisualStyleBackColor = true;
         	this.buttonKey_3.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
         	// 
@@ -405,7 +405,7 @@
         	this.buttonKey_4.Name = "buttonKey_4";
         	this.buttonKey_4.Size = new System.Drawing.Size(171, 28);
         	this.buttonKey_4.TabIndex = 23;
-        	this.buttonKey_4.Text = "Key_4";
+        	this.buttonKey_4.Text = "Key_4(уск.возврат в раб.)";
         	this.buttonKey_4.UseVisualStyleBackColor = true;
         	this.buttonKey_4.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
         	// 
@@ -416,7 +416,7 @@
         	this.buttonKey_5.Name = "buttonKey_5";
         	this.buttonKey_5.Size = new System.Drawing.Size(171, 28);
         	this.buttonKey_5.TabIndex = 24;
-        	this.buttonKey_5.Text = "Key_5";
+        	this.buttonKey_5.Text = "Key_5(работа)";
         	this.buttonKey_5.UseVisualStyleBackColor = true;
         	this.buttonKey_5.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
         	// 
@@ -427,7 +427,7 @@
         	this.buttonKey_6.Name = "buttonKey_6";
         	this.buttonKey_6.Size = new System.Drawing.Size(171, 28);
         	this.buttonKey_6.TabIndex = 25;
-        	this.buttonKey_6.Text = "Key_6";
+        	this.buttonKey_6.Text = "Key_6(семенящее)";
         	this.buttonKey_6.UseVisualStyleBackColor = true;
         	this.buttonKey_6.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
         	// 
@@ -438,7 +438,7 @@
         	this.buttonKey_7.Name = "buttonKey_7";
         	this.buttonKey_7.Size = new System.Drawing.Size(171, 28);
         	this.buttonKey_7.TabIndex = 26;
-        	this.buttonKey_7.Text = "Key_7(Позиция 0)";
+        	this.buttonKey_7.Text = "Key_7(общий стоп)";
         	this.buttonKey_7.UseVisualStyleBackColor = true;
         	this.buttonKey_7.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
         	// 
@@ -449,7 +449,7 @@
         	this.buttonKey_8.Name = "buttonKey_8";
         	this.buttonKey_8.Size = new System.Drawing.Size(171, 28);
         	this.buttonKey_8.TabIndex = 27;
-        	this.buttonKey_8.Text = "Key_8";
+        	this.buttonKey_8.Text = "Key_8(подача вкл)";
         	this.buttonKey_8.UseVisualStyleBackColor = true;
         	this.buttonKey_8.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
         	// 
@@ -471,7 +471,7 @@
         	this.buttonSWITCH.Name = "buttonSWITCH";
         	this.buttonSWITCH.Size = new System.Drawing.Size(171, 28);
         	this.buttonSWITCH.TabIndex = 29;
-        	this.buttonSWITCH.Text = "SWITCH";
+        	this.buttonSWITCH.Text = "SWITCH(ручной)";
         	this.buttonSWITCH.UseVisualStyleBackColor = true;
         	this.buttonSWITCH.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
         	// 

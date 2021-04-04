@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include <stddef.h>
 #include "../Interfaces/iState.hpp"
-#include "Controller.hpp"
+#include "../Model/Controller.hpp"
 
 
 class cStateGeneralStop : public iState

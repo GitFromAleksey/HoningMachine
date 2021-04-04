@@ -6,7 +6,7 @@
 #include <stddef.h>
 #include "../Interfaces/iState.hpp"
 #include "StateGeneralStop.hpp"
-#include "Controller.hpp"
+#include "../Model/Controller.hpp"
 
 
 class cStateFeedIsDisabled : public iState

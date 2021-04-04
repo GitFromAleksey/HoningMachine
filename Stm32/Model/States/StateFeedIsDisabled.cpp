@@ -3,7 +3,7 @@
 
 cStateFeedIsDisabled::cStateFeedIsDisabled()
 {
-
+	m_StateIdentifier = StateFeedIsDisabled;
 }
 // ----------------------------------------------------------------------------
 cStateFeedIsDisabled::~cStateFeedIsDisabled()

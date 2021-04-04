@@ -5,7 +5,9 @@ m_Ticks(0),
 m_TicksSendRepeat(100),
 m_Machine(NULL),
 m_View(NULL),
-m_KeysRegister(0)
+m_CurrentState(NULL),
+m_KeysRegister(0),
+GetTicksCallback(NULL)
 {
   SetCurrentState(new cStateGeneralStop());
 }
@@ -41,11 +43,13 @@ void cController::SetCurrentState(iState *state)
   m_CurrentState = state;
 }
 // ----------------------------------------------------------------------------
+iState *cController::GetCurrentState()const
+{
+	return m_CurrentState;
+}
+// ----------------------------------------------------------------------------
 void cController::run()
 {
-  if(m_Machine == NULL)
-    return;
-// 
   if(m_CurrentState != NULL)
   {
     m_CurrentState->run(this);
@@ -56,10 +60,13 @@ void cController::run()
     if((GetTicksCallback() - m_Ticks) > m_TicksSendRepeat)
     {
       m_Ticks = GetTicksCallback();
-      m_View->SendCurrentPosition( m_Machine->GetCurrentPosition());
-      m_View->SendCurrent( m_Machine->GetCurrent());
-      m_View->SendLowerToolTipState(m_Machine->GetLowerToolTipState());
-      m_View->SendUpperToolTipState(m_Machine->GetUpperToolTipState());
+      if(m_Machine != NULL)
+      {
+		  m_View->SendCurrentPosition( m_Machine->GetCurrentPosition());
+		  m_View->SendCurrent( m_Machine->GetCurrent());
+		  m_View->SendLowerToolTipState(m_Machine->GetLowerToolTipState());
+		  m_View->SendUpperToolTipState(m_Machine->GetUpperToolTipState());
+      }
     }
   }
 }
@@ -91,42 +98,50 @@ void cController::EventsHandler(MachineEvent event)
 // ----------------------------------------------------------------------------
 void cController::VerticalFeedMotorOn()
 {
-  m_Machine->VerticalFeedMotorOn();
+	if(m_Machine)
+		m_Machine->VerticalFeedMotorOn();
 }
 // ----------------------------------------------------------------------------
 void cController::VerticalFeedMotorOff()
 {
-  m_Machine->VerticalFeedMotorOff();
+	if(m_Machine == NULL) return;
+		m_Machine->VerticalFeedMotorOff();
 }
 // ----------------------------------------------------------------------------
 void cController::ToolLiftUp()
 {
-  m_Machine->ToolLiftUp();
+	if(m_Machine == NULL) return;
+		m_Machine->ToolLiftUp();
 }
 // ----------------------------------------------------------------------------
 void cController::ToolLiftDown()
 {
-  m_Machine->ToolLiftDown();
+	if(m_Machine == NULL) return;
+		m_Machine->ToolLiftDown();
 }
 // ----------------------------------------------------------------------------
 void cController::ToolLiftStop()
 {
-  m_Machine->ToolLiftStop();
+	if(m_Machine == NULL) return;
+	m_Machine->ToolLiftStop();
 }
 // ----------------------------------------------------------------------------
 void cController::ToolRotateRun()
 {
-  m_Machine->ToolRotateRun();
+	if(m_Machine == NULL) return;
+		m_Machine->ToolRotateRun();
 }
 // ----------------------------------------------------------------------------
 void cController::ToolRotateStop()
 {
-  m_Machine->ToolRotateStop();
+	if(m_Machine == NULL) return;
+		m_Machine->ToolRotateStop();
 }
 // ----------------------------------------------------------------------------
 void cController::ToolStop()
 {
-  m_Machine->ToolStop();
+	if(m_Machine == NULL) return;
+		m_Machine->ToolStop();
 }
 // ----------------------------------------------------------------------------
 void cController::KeyEventHandler(KeyIdentificator keyIdent)
