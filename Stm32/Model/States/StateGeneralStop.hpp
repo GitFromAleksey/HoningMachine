@@ -12,7 +12,7 @@ class cStateGeneralStop : public iState
 {
 public:
   cStateGeneralStop();
-  ~cStateGeneralStop();
+  virtual ~cStateGeneralStop();
   
   virtual void run(void *params);
 

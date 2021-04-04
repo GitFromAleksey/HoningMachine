@@ -39,6 +39,10 @@ void cProtocolFormer::SendLowerToolTipState(uint32_t data)
 {
 	PacketFormingAndSend(paramTypeLowerToolTipState, data);
 }
+void cProtocolFormer::SendStateOfWork(uint32_t data)
+{
+  PacketFormingAndSend(paramTypeStateOfWork, data);
+}
 // ----------------------------------------------------------------------------
 void cProtocolFormer::PacketFormingAndSend(eSendingParamType param, uint32_t data)
 {

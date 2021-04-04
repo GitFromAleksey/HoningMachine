@@ -8,11 +8,12 @@ namespace HoningMachineConfig
 {
     enum eSendingParamType
     {
-        paramTypeNone = -1,
-    	paramTypeCurrentToolPosition = 1,
-        paramTypeCurrentSensor = 2,
-        paramTypeUpperToolTipState = 3,
-        paramTypeLowerToolTipState = 4
+        paramTypeNone					= -1,
+    	paramTypeCurrentToolPosition	= 1,
+        paramTypeCurrentSensor			= 2,
+        paramTypeUpperToolTipState		= 3,
+        paramTypeLowerToolTipState		= 4,
+        paramTypeStateOfWork			= 5
     };
 
     class cProtocolDeSerializer
@@ -76,10 +77,11 @@ namespace HoningMachineConfig
             m_IncomingBytesBuffer = new Byte[MAX_PACKET_LENGHT_BYTES];
 
             ListOfParameters = new List<IncomingParam>();
-            ListOfParameters.Add(new IncomingParam(DEVICE_NUMBER, eSendingParamType.paramTypeCurrentSensor, "CurrentSensor"));
-            ListOfParameters.Add(new IncomingParam(DEVICE_NUMBER, eSendingParamType.paramTypeCurrentToolPosition, "CurrentToolPosition"));
-            ListOfParameters.Add(new IncomingParam(DEVICE_NUMBER, eSendingParamType.paramTypeLowerToolTipState, "LowerToolTipState"));
-            ListOfParameters.Add(new IncomingParam(DEVICE_NUMBER, eSendingParamType.paramTypeUpperToolTipState, "UpperToolTipState"));
+            ListOfParameters.Add(new IncomingParam(DEVICE_NUMBER, eSendingParamType.paramTypeCurrentSensor,			"CurrentSensor"));
+            ListOfParameters.Add(new IncomingParam(DEVICE_NUMBER, eSendingParamType.paramTypeCurrentToolPosition,	"CurrentToolPosition"));
+            ListOfParameters.Add(new IncomingParam(DEVICE_NUMBER, eSendingParamType.paramTypeLowerToolTipState,		"LowerToolTipState"));
+            ListOfParameters.Add(new IncomingParam(DEVICE_NUMBER, eSendingParamType.paramTypeUpperToolTipState,		"UpperToolTipState"));
+            ListOfParameters.Add(new IncomingParam(DEVICE_NUMBER, eSendingParamType.paramTypeStateOfWork,			"StateOfWork"));
         }
 
         public void AddBytes(int[] data)

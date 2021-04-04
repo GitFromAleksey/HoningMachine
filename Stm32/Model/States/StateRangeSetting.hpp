@@ -13,7 +13,7 @@ class cStateRangeSetting : public iState
 {
 public:
   cStateRangeSetting();
-  ~cStateRangeSetting();
+  virtual ~cStateRangeSetting();
   
   virtual void run(void *params);
 

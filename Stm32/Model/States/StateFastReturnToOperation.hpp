@@ -13,7 +13,7 @@ class cStateFastReturnToOperation : public iState
 {
 public:
   cStateFastReturnToOperation();
-  ~cStateFastReturnToOperation();
+  virtual ~cStateFastReturnToOperation();
   
   virtual void run(void *params);
 

@@ -13,7 +13,7 @@ class cStateFeedIsDisabled : public iState
 {
 public:
   cStateFeedIsDisabled();
-  ~cStateFeedIsDisabled();
+  virtual ~cStateFeedIsDisabled();
   
   virtual void run(void *params);
 

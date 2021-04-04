@@ -13,7 +13,7 @@ class cStateSemenMovement : public iState
 {
 public:
   cStateSemenMovement();
-  ~cStateSemenMovement();
+  virtual ~cStateSemenMovement();
   
   virtual void run(void *params);
 

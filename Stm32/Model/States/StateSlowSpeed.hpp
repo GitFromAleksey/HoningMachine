@@ -13,7 +13,7 @@ class cStateSlowSpeed : public iState
 {
 public:
   cStateSlowSpeed();
-  ~cStateSlowSpeed();
+  virtual ~cStateSlowSpeed();
   
   virtual void run(void *params);
 

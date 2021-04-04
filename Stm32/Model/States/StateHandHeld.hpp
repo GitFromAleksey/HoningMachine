@@ -13,7 +13,7 @@ class cStateHandleHeld : public iState
 {
 public:
   cStateHandleHeld();
-  ~cStateHandleHeld();
+  virtual ~cStateHandleHeld();
   
   virtual void run(void *params);
 

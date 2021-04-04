@@ -69,6 +69,7 @@
         	this.buttonKey_8 = new System.Windows.Forms.Button();
         	this.buttonKey_9 = new System.Windows.Forms.Button();
         	this.buttonSWITCH = new System.Windows.Forms.Button();
+        	this.labelStateOfWork = new System.Windows.Forms.Label();
         	this.menuStrip1.SuspendLayout();
         	((System.ComponentModel.ISupportInitialize)(this.trackBarPosition)).BeginInit();
         	this.SuspendLayout();
@@ -475,12 +476,23 @@
         	this.buttonSWITCH.UseVisualStyleBackColor = true;
         	this.buttonSWITCH.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
         	// 
+        	// labelStateOfWork
+        	// 
+        	this.labelStateOfWork.AutoSize = true;
+        	this.labelStateOfWork.Location = new System.Drawing.Point(469, 111);
+        	this.labelStateOfWork.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+        	this.labelStateOfWork.Name = "labelStateOfWork";
+        	this.labelStateOfWork.Size = new System.Drawing.Size(93, 17);
+        	this.labelStateOfWork.TabIndex = 30;
+        	this.labelStateOfWork.Text = "StateOfWork:";
+        	// 
         	// MainForm1
         	// 
         	this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
         	this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         	this.BackColor = System.Drawing.SystemColors.ControlDark;
         	this.ClientSize = new System.Drawing.Size(1273, 1053);
+        	this.Controls.Add(this.labelStateOfWork);
         	this.Controls.Add(this.buttonSWITCH);
         	this.Controls.Add(this.buttonKey_9);
         	this.Controls.Add(this.buttonKey_8);
@@ -524,6 +536,7 @@
         	this.ResumeLayout(false);
         	this.PerformLayout();
         }
+        private System.Windows.Forms.Label labelStateOfWork;
         private System.Windows.Forms.Button buttonSWITCH;
         private System.Windows.Forms.Button buttonKey_9;
         private System.Windows.Forms.Button buttonKey_8;

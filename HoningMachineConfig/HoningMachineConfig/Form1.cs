@@ -70,6 +70,8 @@ namespace HoningMachineConfig
             m_ListOfLabels.Add(new LabelWithText("Датчик тока: ", " Ампер", labelCurrentSensor, m_ProtocolDeSerializer, eSendingParamType.paramTypeCurrentSensor) );
             m_ListOfLabels.Add(new LabelWithText("Верхний концевик: ", "", labelUpperToolTipState, m_ProtocolDeSerializer, eSendingParamType.paramTypeUpperToolTipState) );
 			m_ListOfLabels.Add(new LabelWithText("Нижний концевик: ", "", labelLowerToolTipState, m_ProtocolDeSerializer, eSendingParamType.paramTypeLowerToolTipState) );
+			m_ListOfLabels.Add(new LabelWithText("Режим работы: ", "", labelStateOfWork, m_ProtocolDeSerializer, eSendingParamType.paramTypeStateOfWork) );
+			
 
             timer1.Enabled = true;
         }

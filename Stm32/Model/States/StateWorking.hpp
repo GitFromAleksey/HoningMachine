@@ -13,7 +13,7 @@ class cStateWorking : public iState
 {
 public:
   cStateWorking();
-  ~cStateWorking();
+  virtual ~cStateWorking();
   
   virtual void run(void *params);
 

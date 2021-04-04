@@ -36,6 +36,11 @@ void cStateRangeSetting::run(void *params)
     controller->SetCurrentState(new cStateWorking());
     delete this;
   }
+  else if(keys_reg & KEY_6)
+  {
+    controller->SetCurrentState(new cStateSemenMovement());
+    delete this;
+  }
   else if(keys_reg & KEY_8)
   {
     controller->SetCurrentState(new cStateFeedEnabled());

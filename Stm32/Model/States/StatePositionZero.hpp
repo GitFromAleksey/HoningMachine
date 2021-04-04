@@ -13,7 +13,7 @@ class cStatePositionZero : public iState
 {
 public:
   cStatePositionZero();
-  ~cStatePositionZero();
+  virtual ~cStatePositionZero();
   
   virtual void run(void *params);
 

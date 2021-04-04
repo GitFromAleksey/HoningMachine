@@ -247,6 +247,13 @@ TEST_CASE("States test")
 		controller.SetCurrentState(new cStateRangeSetting());
 		sgs = controller.GetCurrentState();
 		REQUIRE( sgs->getStateIdentifier() == StateRangeSetting);
+		controller.PressKey6();
+		controller.run();
+		REQUIRE( controller.GetCurrentState()->getStateIdentifier() == StateSemenMovement);
+
+		controller.SetCurrentState(new cStateRangeSetting());
+		sgs = controller.GetCurrentState();
+		REQUIRE( sgs->getStateIdentifier() == StateRangeSetting);
 		controller.PressKey8();
 		controller.run();
 		REQUIRE( controller.GetCurrentState()->getStateIdentifier() == StateFeedEnabled);

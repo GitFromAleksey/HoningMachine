@@ -13,7 +13,7 @@ class cStatePushing : public iState
 {
 public:
   cStatePushing();
-  ~cStatePushing();
+  virtual ~cStatePushing();
   
   virtual void run(void *params);
 

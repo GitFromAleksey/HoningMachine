@@ -13,7 +13,7 @@ class cStateFeedEnabled : public iState
 {
 public:
   cStateFeedEnabled();
-  ~cStateFeedEnabled();
+  virtual ~cStateFeedEnabled();
   
   virtual void run(void *params);
 

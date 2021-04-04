@@ -60,12 +60,13 @@ void cController::run()
     if((GetTicksCallback() - m_Ticks) > m_TicksSendRepeat)
     {
       m_Ticks = GetTicksCallback();
+      m_View->SendStateOfWork(m_CurrentState->getStateIdentifier());
       if(m_Machine != NULL)
       {
-		  m_View->SendCurrentPosition( m_Machine->GetCurrentPosition());
-		  m_View->SendCurrent( m_Machine->GetCurrent());
-		  m_View->SendLowerToolTipState(m_Machine->GetLowerToolTipState());
-		  m_View->SendUpperToolTipState(m_Machine->GetUpperToolTipState());
+        m_View->SendCurrentPosition( m_Machine->GetCurrentPosition());
+        m_View->SendCurrent( m_Machine->GetCurrent());
+        m_View->SendLowerToolTipState(m_Machine->GetLowerToolTipState());
+        m_View->SendUpperToolTipState(m_Machine->GetUpperToolTipState());
       }
     }
   }

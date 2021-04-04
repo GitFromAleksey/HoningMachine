@@ -9,10 +9,11 @@
 
 typedef enum
 {
-	paramTypeCurrentToolPosition = 1,
-	paramTypeCurrentSensor = 2,
-	paramTypeUpperToolTipState = 3,
-	paramTypeLowerToolTipState = 4
+	paramTypeCurrentToolPosition  = 1,
+	paramTypeCurrentSensor        = 2,
+	paramTypeUpperToolTipState    = 3,
+	paramTypeLowerToolTipState    = 4,
+  paramTypeStateOfWork          = 5
 } eSendingParamType;
 
 
@@ -36,6 +37,7 @@ class cProtocolFormer : public iProcess, public iView
 		virtual void SendCurrent(uint32_t data);
 		virtual void SendUpperToolTipState(uint32_t data);
 		virtual void SendLowerToolTipState(uint32_t data);
+    virtual void SendStateOfWork(uint32_t data);
 	
 	private:
 		cByteSender *m_pByteSender;
