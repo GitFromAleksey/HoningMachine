@@ -25,3 +25,12 @@ C:\git\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMac
 C:\git\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.exe
 C:\git\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.pdb
 C:\git\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.LabelWithText.resources
+D:\Borzenkov\Projects\HoningMachine\HoningMachineConfig\HoningMachineConfig\bin\Debug\HoningMachineConfig.exe.config
+D:\Borzenkov\Projects\HoningMachine\HoningMachineConfig\HoningMachineConfig\bin\Debug\HoningMachineConfig.exe
+D:\Borzenkov\Projects\HoningMachine\HoningMachineConfig\HoningMachineConfig\bin\Debug\HoningMachineConfig.pdb
+D:\Borzenkov\Projects\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.csprojResolveAssemblyReference.cache
+D:\Borzenkov\Projects\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.LabelWithText.resources
+D:\Borzenkov\Projects\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.Properties.Resources.resources
+D:\Borzenkov\Projects\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.csproj.GenerateResource.Cache
+D:\Borzenkov\Projects\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.exe
+D:\Borzenkov\Projects\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.pdb

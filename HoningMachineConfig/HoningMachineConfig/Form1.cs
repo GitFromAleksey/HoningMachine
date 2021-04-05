@@ -21,6 +21,7 @@ namespace HoningMachineConfig
 		public Label label = null;
 		cProtocolDeSerializer protocolDeser = null;
 		eSendingParamType paramType = eSendingParamType.paramTypeNone;
+		Dictionary<int,string> numberToText = null; // соответствие номера параметра текстовому значению
 		
 		public LabelWithText(string text_before, string text_after, Label label, cProtocolDeSerializer prot_des, eSendingParamType param_type)
 		{
@@ -29,6 +30,17 @@ namespace HoningMachineConfig
 			this.label = label;
 			this.protocolDeser = prot_des;
 			this.paramType = param_type;
+		}
+		
+		public LabelWithText(string text_before, string text_after, Label label, 
+		                     cProtocolDeSerializer prot_des, eSendingParamType param_type, Dictionary<int,string> number_text)
+		{
+			this.textBefore		= text_before;
+			this.textAfter		= text_after;
+			this.label			= label;
+			this.protocolDeser	= prot_des;
+			this.paramType		= param_type;
+			this.numberToText	= number_text;
 		}
 		
 		public void ShowValue()
@@ -42,8 +54,12 @@ namespace HoningMachineConfig
 			}
 			
 			int value = (int)protocolDeser.GetParamValue(paramType);
-			
-			label.Text = textBefore + value + textAfter;
+			if(numberToText == null)
+				label.Text = textBefore + value + textAfter;
+			else
+			{
+				label.Text = textBefore + numberToText[value] + textAfter;
+			}
 		}
 	}
 
@@ -70,7 +86,21 @@ namespace HoningMachineConfig
             m_ListOfLabels.Add(new LabelWithText("Датчик тока: ", " Ампер", labelCurrentSensor, m_ProtocolDeSerializer, eSendingParamType.paramTypeCurrentSensor) );
             m_ListOfLabels.Add(new LabelWithText("Верхний концевик: ", "", labelUpperToolTipState, m_ProtocolDeSerializer, eSendingParamType.paramTypeUpperToolTipState) );
 			m_ListOfLabels.Add(new LabelWithText("Нижний концевик: ", "", labelLowerToolTipState, m_ProtocolDeSerializer, eSendingParamType.paramTypeLowerToolTipState) );
-			m_ListOfLabels.Add(new LabelWithText("Режим работы: ", "", labelStateOfWork, m_ProtocolDeSerializer, eSendingParamType.paramTypeStateOfWork) );
+			
+			Dictionary<int,string> dic = new Dictionary<int, string>();
+			dic.Add(0, "нет связи");
+			dic.Add(1, "ускоренный возврат в рабочий ход");
+			dic.Add(2, "подача включена");
+			dic.Add(3, "подача выключена");
+			dic.Add(4, "общий стоп");
+			dic.Add(5, "ручной");
+			dic.Add(6, "позиция ноль");
+			dic.Add(7, "установка диапазона");
+			dic.Add(8, "семенящий");
+			dic.Add(9, "медленная скорость");
+			dic.Add(10, "работа");
+			dic.Add(11, "толчковый");
+			m_ListOfLabels.Add(new LabelWithText("Режим работы: ", "", labelStateOfWork, m_ProtocolDeSerializer, eSendingParamType.paramTypeStateOfWork, dic));
 			
 
             timer1.Enabled = true;
