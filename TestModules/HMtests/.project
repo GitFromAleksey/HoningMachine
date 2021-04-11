@@ -41,6 +41,11 @@
 			<location>C:/git/HoningMachine/Stm32/Drivers/DigitalOut.cpp</location>
 		</link>
 		<link>
+			<name>src/States/AllStates.cpp</name>
+			<type>1</type>
+			<location>C:/git/HoningMachine/Stm32/Model/States/AllStates.cpp</location>
+		</link>
+		<link>
 			<name>src/States/StateFastReturnToOperation.cpp</name>
 			<type>1</type>
 			<location>C:/git/HoningMachine/Stm32/Model/States/StateFastReturnToOperation.cpp</location>
