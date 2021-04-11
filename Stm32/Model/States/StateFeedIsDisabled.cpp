@@ -18,17 +18,14 @@ void cStateFeedIsDisabled::run(void *params)
 
   if(keys_reg & KEY_1)
   {
-    controller->SetCurrentState(&StateGeneralStop);//(new cStateGeneralStop());
-//    delete this;
+    controller->SetCurrentState(&StateGeneralStop);
   }
   else if(keys_reg & KEY_5)
   {
-    controller->SetCurrentState(&StateWorking);//(new cStateWorking());
-//    delete this;
+    controller->SetCurrentState(&StateWorking);
   }
   else if(keys_reg & SWITCH)
   {
-    controller->SetCurrentState(&StateHandleHeld);//(new cStateHandleHeld());
-//    delete this;
+    controller->SetCurrentState(&StateHandleHeld);
   }
 }

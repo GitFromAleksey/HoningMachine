@@ -12,3 +12,5 @@
 *.hex
 /Debug/
 *.mk
+*.exe
+

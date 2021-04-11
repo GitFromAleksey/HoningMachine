@@ -19,29 +19,34 @@ void cStatePushing::run(void *params)
   controller->VerticalFeedMotorOn();
   controller->ToolLiftUp();
   
+//1. Эл.двиг вращения шпинделя  | Выкл            | Выкл
+//2. Эл.двиг подачи бабки       | Вкл             | Вкл
+//3. Муфта вверх                | Выкл            | Выкл
+//5. Муфта ручной               | Выкл            | Выкл
+
+//4. Муфта вниз                 | Вкл             | Выкл
+//6. ЭМТ                        | Разблокировано  | Заблокировано
+
+  
+  
   if(keys_reg & SWITCH)
   {// ручной
-    controller->SetCurrentState(&StateHandleHeld);//(new StateHandleHeld());
-//    delete this;
+    controller->SetCurrentState(&StateHandleHeld);
   }
   else if(keys_reg & KEY_1)
   {// 
-    controller->SetCurrentState(&StatePositionZero);//(new StatePositionZero());
-//    delete this;
+    controller->SetCurrentState(&StatePositionZero);
   }
   else if(keys_reg & KEY_3)
   {// 
-    controller->SetCurrentState(&StateRangeSetting);//(new StateRangeSetting());
-//    delete this;
+    controller->SetCurrentState(&StateRangeSetting);
   }
   else if(keys_reg & KEY_8)
   {//
-    controller->SetCurrentState(&StateFeedEnabled);//(new StateFeedEnabled());
-//    delete this;
+    controller->SetCurrentState(&StateFeedEnabled);
   }
   else if(keys_reg & KEY_5)
   {//
-    controller->SetCurrentState(&StateWorking);//(new StateWorking());
-//    delete this;
+    controller->SetCurrentState(&StateWorking);
   }
 }

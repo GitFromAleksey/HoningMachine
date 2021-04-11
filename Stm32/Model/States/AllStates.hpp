@@ -16,23 +16,6 @@
 #include "../../Model/States/StatePushing.hpp"
 
 
-//#include "StateFastReturnToOperation.hpp"
-//#include "StateFeedEnabled.hpp"
-//#include "StateFeedIsDisabled.hpp"
-//#include "StateGeneralStop.hpp"
-//#include "StateHandHeld.hpp"
-//#include "StatePositionZero.hpp"
-//#include "StateRangeSetting.hpp"
-//#include "StateSemenMovement.hpp"
-//#include "StateSlowSpeed.hpp"
-//#include "StateWorking.hpp"
-//#include "StatePushing.hpp"
-
-//void StatesOfMachineInit();
-
-//cStateFastReturnToOperation StateFastReturnToOperation;
-
-
 class cStateFastReturnToOperation;
 class cStateFeedEnabled;
 class cStateFeedIsDisabled;
@@ -56,18 +39,6 @@ extern cStateSemenMovement         StateSemenMovement;
 extern cStateSlowSpeed             StateSlowSpeed;
 extern cStateWorking               StateWorking;
 extern cStatePushing               StatePushing;
-
-//extern iState* StateFastReturnToOperation;
-//extern iState* StateFeedEnabled;
-//extern iState* StateFeedIsDisabled;
-//extern iState* StateGeneralStop;
-//extern iState* StateHandleHeld;
-//extern iState* StatePositionZero;
-//extern iState* StateRangeSetting;
-//extern iState* StateSemenMovement;
-//extern iState* StateSlowSpeed;
-//extern iState* StateWorking;
-//extern iState* StatePushing;
 
 
 

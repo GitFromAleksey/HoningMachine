@@ -12,24 +12,22 @@ void cStateGeneralStop::run(void *params)
 {
   cController *controller = (cController*)params;
   uint32_t keys_reg = controller->GetKeysRegister();
-  
+
   controller->ToolLiftStop();
   controller->VerticalFeedMotorOff();
   controller->ToolRotateStop();
-  
+
+
   if( keys_reg & KEY_1 )
   {
-    controller->SetCurrentState(&StatePositionZero);//(new cStatePositionZero());
-//    delete this;
+    controller->SetCurrentState(&StatePositionZero);
   }
   else if( keys_reg & KEY_5 )
   {
-    controller->SetCurrentState(&StateWorking);//(new cStateWorking());
-//    delete this;
+    controller->SetCurrentState(&StateWorking);
   }
   else if( keys_reg & KEY_8 )
   {
-    controller->SetCurrentState(&StateFeedEnabled);//(new cStateFeedEnabled());
-//    delete this;
+    controller->SetCurrentState(&StateFeedEnabled);
   }
 }
