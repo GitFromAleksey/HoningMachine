@@ -3,7 +3,7 @@
 
 cStatePositionZero::cStatePositionZero()
 {
-	m_StateIdentifier = StatePositionZero;
+	m_StateIdentifier = eStatePositionZero;
 }
 // ----------------------------------------------------------------------------
 cStatePositionZero::~cStatePositionZero()
@@ -21,23 +21,23 @@ void cStatePositionZero::run(void *params)
   
   if(keys_reg & SWITCH)
   {
-    controller->SetCurrentState(new cStateHandleHeld());
-    delete this;
+    controller->SetCurrentState(&StateHandleHeld);//(new cStateHandleHeld());
+//    delete this;
   }
   else if(keys_reg & KEY_2)
   {
-    controller->SetCurrentState(new cStatePushing()); //толчковый
-    delete this;
+    controller->SetCurrentState(&StatePushing);//(new cStatePushing()); //толчковый
+//    delete this;
   }
   else if(keys_reg & KEY_4)
   {//ускоренный возврат в рабочий ход
-    controller->SetCurrentState(new cStateFastReturnToOperation());
-    delete this;
+    controller->SetCurrentState(&StateFastReturnToOperation);//(new cStateFastReturnToOperation());
+//    delete this;
   }
   else if(keys_reg & KEY_7)
   {//ускоренный возврат в рабочий ход
-    controller->SetCurrentState(new cStateGeneralStop());
-    delete this;
+    controller->SetCurrentState(&StateGeneralStop);//(new cStateGeneralStop());
+//    delete this;
   }
 
 }

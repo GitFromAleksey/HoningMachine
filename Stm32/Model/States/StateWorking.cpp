@@ -3,7 +3,7 @@
 
 cStateWorking::cStateWorking()
 {
-	m_StateIdentifier = StateWorking;
+	m_StateIdentifier = eStateWorking;
 }
 // ----------------------------------------------------------------------------
 cStateWorking::~cStateWorking()
@@ -18,22 +18,22 @@ void cStateWorking::run(void *params)
 
   if(keys_reg & KEY_1)
   {
-    controller->SetCurrentState(new cStatePositionZero());
-    delete this;
+    controller->SetCurrentState(&StatePositionZero);//(new cStatePositionZero());
+//    delete this;
   }
   else if(keys_reg & SWITCH)
   {
-    controller->SetCurrentState(new cStateHandleHeld());
-    delete this;
+    controller->SetCurrentState(&StateHandleHeld);//(new cStateHandleHeld());
+//    delete this;
   }
   else if(keys_reg & KEY_7)
   {
-    controller->SetCurrentState(new cStateGeneralStop());
-    delete this;
+    controller->SetCurrentState(&StateGeneralStop);//(new cStateGeneralStop());
+//    delete this;
   }
   else if(keys_reg & KEY_8)
   {
-    controller->SetCurrentState(new cStateFeedEnabled());
-    delete this;
+    controller->SetCurrentState(&StateFeedEnabled);//(new cStateFeedEnabled());
+//    delete this;
   }
 }

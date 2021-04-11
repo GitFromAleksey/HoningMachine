@@ -5,8 +5,8 @@
 #include <stdint.h>
 #include <stddef.h>
 #include "../Interfaces/iState.hpp"
-#include "StateGeneralStop.hpp"
 #include "../Model/Controller.hpp"
+#include "../../Model/States/AllStates.hpp"
 
 
 class cStateFeedIsDisabled : public iState

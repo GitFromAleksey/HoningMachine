@@ -639,6 +639,11 @@
               <FileType>8</FileType>
               <FilePath>..\..\Model\States\StatePushing.cpp</FilePath>
             </File>
+            <File>
+              <FileName>AllStates.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Model\States\AllStates.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

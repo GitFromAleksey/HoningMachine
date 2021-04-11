@@ -53,10 +53,6 @@ public:
   virtual void SwitchToggle() // переключатель с фиксацией
   {
     m_KeysRegister ^= SWITCH;
-//    if( (m_KeysRegister & SWITCH) == SWITCH )
-//    { m_KeysRegister &= ~SWITCH; }
-//    else
-//    { m_KeysRegister |= SWITCH; }
   }
   uint32_t GetKeysRegister()
   {

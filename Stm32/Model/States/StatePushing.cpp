@@ -3,7 +3,7 @@
 
 cStatePushing::cStatePushing()
 {
-	m_StateIdentifier = StatePushing;
+	m_StateIdentifier = eStatePushing;
 }
 // ----------------------------------------------------------------------------
 cStatePushing::~cStatePushing()
@@ -21,27 +21,27 @@ void cStatePushing::run(void *params)
   
   if(keys_reg & SWITCH)
   {// ручной
-    controller->SetCurrentState(new cStateHandleHeld());
-    delete this;
+    controller->SetCurrentState(&StateHandleHeld);//(new StateHandleHeld());
+//    delete this;
   }
   else if(keys_reg & KEY_1)
   {// 
-    controller->SetCurrentState(new cStatePositionZero());
-    delete this;
+    controller->SetCurrentState(&StatePositionZero);//(new StatePositionZero());
+//    delete this;
   }
   else if(keys_reg & KEY_3)
   {// 
-    controller->SetCurrentState(new cStateRangeSetting());
-    delete this;
+    controller->SetCurrentState(&StateRangeSetting);//(new StateRangeSetting());
+//    delete this;
   }
   else if(keys_reg & KEY_8)
   {//
-    controller->SetCurrentState(new cStateFeedEnabled());
-    delete this;
+    controller->SetCurrentState(&StateFeedEnabled);//(new StateFeedEnabled());
+//    delete this;
   }
   else if(keys_reg & KEY_5)
   {//
-    controller->SetCurrentState(new cStateWorking());
-    delete this;
+    controller->SetCurrentState(&StateWorking);//(new StateWorking());
+//    delete this;
   }
 }

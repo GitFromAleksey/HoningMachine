@@ -9,7 +9,7 @@ m_CurrentState(NULL),
 m_KeysRegister(0),
 GetTicksCallback(NULL)
 {
-  SetCurrentState(new cStateGeneralStop());
+  SetCurrentState(&StateGeneralStop);//(new cStateGeneralStop());
 }
 // ----------------------------------------------------------------------------
 cController::cController(cMachine *machine)

@@ -3,7 +3,7 @@
 
 cStateGeneralStop::cStateGeneralStop()
 {
-  m_StateIdentifier = StateGeneralStop;
+  m_StateIdentifier = eStateGeneralStop;
 }
 // ----------------------------------------------------------------------------
 cStateGeneralStop::~cStateGeneralStop() {}
@@ -19,19 +19,17 @@ void cStateGeneralStop::run(void *params)
   
   if( keys_reg & KEY_1 )
   {
-    controller->SetCurrentState(new cStatePositionZero());
+    controller->SetCurrentState(&StatePositionZero);//(new cStatePositionZero());
 //    delete this;
   }
   else if( keys_reg & KEY_5 )
   {
-    controller->SetCurrentState(new cStateWorking());
+    controller->SetCurrentState(&StateWorking);//(new cStateWorking());
 //    delete this;
   }
   else if( keys_reg & KEY_8 )
   {
-    controller->SetCurrentState(new cStateFeedEnabled());
+    controller->SetCurrentState(&StateFeedEnabled);//(new cStateFeedEnabled());
 //    delete this;
   }
-//  if(this != controller->GetCurrentState())
-//	  delete this;
 }

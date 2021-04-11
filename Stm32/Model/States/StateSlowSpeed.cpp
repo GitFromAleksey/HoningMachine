@@ -3,7 +3,7 @@
 
 cStateSlowSpeed::cStateSlowSpeed()
 {
-	m_StateIdentifier = StateSlowSpeed;
+	m_StateIdentifier = eStateSlowSpeed;
 }
 // ----------------------------------------------------------------------------
 cStateSlowSpeed::~cStateSlowSpeed()
@@ -18,12 +18,12 @@ void cStateSlowSpeed::run(void *params)
   
   if( keys_reg & KEY_1 )
   {
-    controller->SetCurrentState(new cStateGeneralStop());
-    delete this;
+    controller->SetCurrentState(&StateGeneralStop);//(new cStateGeneralStop());
+//    delete this;
   }
   else if( keys_reg & KEY_3 )
   {
-    controller->SetCurrentState(new cStateRangeSetting());
-    delete this;
+    controller->SetCurrentState(&StateRangeSetting);//(new cStateRangeSetting());
+//    delete this;
   }
 }

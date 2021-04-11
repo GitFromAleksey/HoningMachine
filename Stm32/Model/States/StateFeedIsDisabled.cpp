@@ -3,7 +3,7 @@
 
 cStateFeedIsDisabled::cStateFeedIsDisabled()
 {
-	m_StateIdentifier = StateFeedIsDisabled;
+	m_StateIdentifier = eStateFeedIsDisabled;
 }
 // ----------------------------------------------------------------------------
 cStateFeedIsDisabled::~cStateFeedIsDisabled()
@@ -18,17 +18,17 @@ void cStateFeedIsDisabled::run(void *params)
 
   if(keys_reg & KEY_1)
   {
-    controller->SetCurrentState(new cStateGeneralStop());
-    delete this;
+    controller->SetCurrentState(&StateGeneralStop);//(new cStateGeneralStop());
+//    delete this;
   }
   else if(keys_reg & KEY_5)
   {
-    controller->SetCurrentState(new cStateWorking());
-    delete this;
+    controller->SetCurrentState(&StateWorking);//(new cStateWorking());
+//    delete this;
   }
   else if(keys_reg & SWITCH)
   {
-    controller->SetCurrentState(new cStateHandleHeld());
-    delete this;
+    controller->SetCurrentState(&StateHandleHeld);//(new cStateHandleHeld());
+//    delete this;
   }
 }

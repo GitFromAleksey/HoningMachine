@@ -5,17 +5,17 @@
 
 typedef enum
 {
-  StateFastReturnToOperation  = 1,	// ускоренный возврат в рабочий ход
-  StateFeedEnabled            = 2,	// подача включена
-  StateFeedIsDisabled         = 3,	// подача выключена
-  StateGeneralStop            = 4,	// общий стоп
-  StateHandHeld               = 5,	// ручной
-  StatePositionZero           = 6,	// позиция ноль
-  StateRangeSetting           = 7,	// установка диапазона
-  StateSemenMovement          = 8,	// семенящий
-  StateSlowSpeed              = 9,	// медленная скорость
-  StateWorking                = 10,	// работа
-  StatePushing                = 11	// толчковый
+  eStateFastReturnToOperation  = 1,	// ускоренный возврат в рабочий ход
+  eStateFeedEnabled            = 2,	// подача включена
+  eStateFeedIsDisabled         = 3,	// подача выключена
+  eStateGeneralStop            = 4,	// общий стоп
+  eStateHandHeld               = 5,	// ручной
+  eStatePositionZero           = 6,	// позиция ноль
+  eStateRangeSetting           = 7,	// установка диапазона
+  eStateSemenMovement          = 8,	// семенящий
+  eStateSlowSpeed              = 9,	// медленная скорость
+  eStateWorking                = 10,	// работа
+  eStatePushing                = 11	// толчковый
 } t_state_identifier;
 
 class iState

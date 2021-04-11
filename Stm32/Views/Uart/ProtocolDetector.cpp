@@ -81,7 +81,7 @@ void cProtocolDetector::run()
       m_IsPacketBegin = false;
       PacketParse(&m_Array[1]);
     }
-    if(m_ArrayCnt == m_ArraySize)
+    if(m_ArrayCnt >= m_ArraySize)
     {
       m_ArrayCnt = 0;
       m_IsPacketBegin = false;
@@ -106,12 +106,6 @@ void cProtocolDetector::PacketParse(uint8_t *pData)
       
       break;
     
-//    case PROTOCOL_CMD_MACHINE_PWR_ON:
-//      m_MachineController->MachinePowerOn();
-//      break;
-//    case PROTOCOL_CMD_MACHINE_PWR_OFF:
-//      m_MachineController->MachinePowerOff();
-//      break;
     case PROTOCOL_CMD_TOOL_LIFT_UP:
       m_MachineController->ToolLiftUp();
       break;

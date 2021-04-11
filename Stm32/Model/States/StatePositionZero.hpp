@@ -6,7 +6,7 @@
 #include <stddef.h>
 #include "../Interfaces/iState.hpp"
 #include "../Model/Controller.hpp"
-#include "AllStates.hpp"
+#include "../../Model/States/AllStates.hpp"
 
 
 class cStatePositionZero : public iState
