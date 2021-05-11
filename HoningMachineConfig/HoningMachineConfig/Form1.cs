@@ -217,11 +217,6 @@ namespace HoningMachineConfig
         private void buttonsMachineDriving_Click(object sender, EventArgs e)
             //private void buttonMachinePwrOn_Click(object sender, EventArgs e)
         {
-
-            if(sender == buttonMachinePwrOn)
-            { SendData(m_ProtocolSerializer.GetCommand(ProtocolCommands.PROTOCOL_CMD_MACHINE_PWR_ON)); }
-            if (sender == buttonMachinePwrOff)
-            { SendData(m_ProtocolSerializer.GetCommand(ProtocolCommands.PROTOCOL_CMD_MACHINE_PWR_OFF)); }
             if (sender == buttonToolLiftUp)
             { SendData(m_ProtocolSerializer.GetCommand(ProtocolCommands.PROTOCOL_CMD_TOOL_LIFT_UP));  }
             if (sender == buttonToolLiftDown)

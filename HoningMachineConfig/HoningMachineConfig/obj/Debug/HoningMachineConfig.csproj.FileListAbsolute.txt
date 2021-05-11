@@ -19,7 +19,6 @@ C:\Users\HP-G7000\eclipse-workspace\HoningMachine\HoningMachineConfig\HoningMach
 C:\git\HoningMachine\HoningMachineConfig\HoningMachineConfig\bin\Debug\HoningMachineConfig.exe.config
 C:\git\HoningMachine\HoningMachineConfig\HoningMachineConfig\bin\Debug\HoningMachineConfig.exe
 C:\git\HoningMachine\HoningMachineConfig\HoningMachineConfig\bin\Debug\HoningMachineConfig.pdb
-C:\git\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.csprojResolveAssemblyReference.cache
 C:\git\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.Properties.Resources.resources
 C:\git\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.csproj.GenerateResource.Cache
 C:\git\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.exe
@@ -34,3 +33,4 @@ D:\Borzenkov\Projects\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\
 D:\Borzenkov\Projects\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.csproj.GenerateResource.Cache
 D:\Borzenkov\Projects\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.exe
 D:\Borzenkov\Projects\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.pdb
+C:\git\HoningMachine\HoningMachineConfig\HoningMachineConfig\obj\Debug\HoningMachineConfig.csprojResolveAssemblyReference.cache

@@ -42,8 +42,6 @@
         	this.textBoxLog = new System.Windows.Forms.TextBox();
         	this.textBoxToSend = new System.Windows.Forms.TextBox();
         	this.button1 = new System.Windows.Forms.Button();
-        	this.buttonMachinePwrOn = new System.Windows.Forms.Button();
-        	this.buttonMachinePwrOff = new System.Windows.Forms.Button();
         	this.buttonToolLiftUp = new System.Windows.Forms.Button();
         	this.buttonToolLiftDown = new System.Windows.Forms.Button();
         	this.buttonToolLiftStop = new System.Windows.Forms.Button();
@@ -83,7 +81,7 @@
         	this.menuStrip1.Location = new System.Drawing.Point(0, 0);
         	this.menuStrip1.Name = "menuStrip1";
         	this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-        	this.menuStrip1.Size = new System.Drawing.Size(1273, 28);
+        	this.menuStrip1.Size = new System.Drawing.Size(712, 28);
         	this.menuStrip1.TabIndex = 0;
         	this.menuStrip1.Text = "menuStrip1";
         	// 
@@ -153,12 +151,12 @@
         	// 
         	// textBoxLog
         	// 
-        	this.textBoxLog.Location = new System.Drawing.Point(815, 397);
+        	this.textBoxLog.Location = new System.Drawing.Point(80, 655);
         	this.textBoxLog.Margin = new System.Windows.Forms.Padding(4);
         	this.textBoxLog.Multiline = true;
         	this.textBoxLog.Name = "textBoxLog";
         	this.textBoxLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-        	this.textBoxLog.Size = new System.Drawing.Size(443, 172);
+        	this.textBoxLog.Size = new System.Drawing.Size(601, 172);
         	this.textBoxLog.TabIndex = 1;
         	this.textBoxLog.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm1_KeyDown);
         	// 
@@ -180,35 +178,12 @@
         	this.button1.TabIndex = 3;
         	this.button1.Text = "buttonTestSend";
         	this.button1.UseVisualStyleBackColor = true;
+        	this.button1.Visible = false;
         	this.button1.Click += new System.EventHandler(this.button1_Click);
-        	// 
-        	// buttonMachinePwrOn
-        	// 
-        	this.buttonMachinePwrOn.Location = new System.Drawing.Point(259, 113);
-        	this.buttonMachinePwrOn.Margin = new System.Windows.Forms.Padding(4);
-        	this.buttonMachinePwrOn.Name = "buttonMachinePwrOn";
-        	this.buttonMachinePwrOn.Size = new System.Drawing.Size(171, 28);
-        	this.buttonMachinePwrOn.TabIndex = 4;
-        	this.buttonMachinePwrOn.Text = "MachinePwrOn";
-        	this.buttonMachinePwrOn.UseVisualStyleBackColor = true;
-        	this.buttonMachinePwrOn.Visible = false;
-        	this.buttonMachinePwrOn.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
-        	// 
-        	// buttonMachinePwrOff
-        	// 
-        	this.buttonMachinePwrOff.Location = new System.Drawing.Point(259, 149);
-        	this.buttonMachinePwrOff.Margin = new System.Windows.Forms.Padding(4);
-        	this.buttonMachinePwrOff.Name = "buttonMachinePwrOff";
-        	this.buttonMachinePwrOff.Size = new System.Drawing.Size(171, 28);
-        	this.buttonMachinePwrOff.TabIndex = 5;
-        	this.buttonMachinePwrOff.Text = "MachinePwrOff";
-        	this.buttonMachinePwrOff.UseVisualStyleBackColor = true;
-        	this.buttonMachinePwrOff.Visible = false;
-        	this.buttonMachinePwrOff.Click += new System.EventHandler(this.buttonsMachineDriving_Click);
         	// 
         	// buttonToolLiftUp
         	// 
-        	this.buttonToolLiftUp.Location = new System.Drawing.Point(80, 218);
+        	this.buttonToolLiftUp.Location = new System.Drawing.Point(80, 309);
         	this.buttonToolLiftUp.Margin = new System.Windows.Forms.Padding(4);
         	this.buttonToolLiftUp.Name = "buttonToolLiftUp";
         	this.buttonToolLiftUp.Size = new System.Drawing.Size(171, 28);
@@ -220,7 +195,7 @@
         	// 
         	// buttonToolLiftDown
         	// 
-        	this.buttonToolLiftDown.Location = new System.Drawing.Point(80, 254);
+        	this.buttonToolLiftDown.Location = new System.Drawing.Point(80, 345);
         	this.buttonToolLiftDown.Margin = new System.Windows.Forms.Padding(4);
         	this.buttonToolLiftDown.Name = "buttonToolLiftDown";
         	this.buttonToolLiftDown.Size = new System.Drawing.Size(171, 28);
@@ -231,7 +206,7 @@
         	// 
         	// buttonToolLiftStop
         	// 
-        	this.buttonToolLiftStop.Location = new System.Drawing.Point(80, 289);
+        	this.buttonToolLiftStop.Location = new System.Drawing.Point(80, 380);
         	this.buttonToolLiftStop.Margin = new System.Windows.Forms.Padding(4);
         	this.buttonToolLiftStop.Name = "buttonToolLiftStop";
         	this.buttonToolLiftStop.Size = new System.Drawing.Size(171, 28);
@@ -242,7 +217,7 @@
         	// 
         	// buttonToolRotateRun
         	// 
-        	this.buttonToolRotateRun.Location = new System.Drawing.Point(80, 355);
+        	this.buttonToolRotateRun.Location = new System.Drawing.Point(80, 446);
         	this.buttonToolRotateRun.Margin = new System.Windows.Forms.Padding(4);
         	this.buttonToolRotateRun.Name = "buttonToolRotateRun";
         	this.buttonToolRotateRun.Size = new System.Drawing.Size(171, 28);
@@ -253,7 +228,7 @@
         	// 
         	// buttonToolRotateStop
         	// 
-        	this.buttonToolRotateStop.Location = new System.Drawing.Point(80, 391);
+        	this.buttonToolRotateStop.Location = new System.Drawing.Point(80, 482);
         	this.buttonToolRotateStop.Margin = new System.Windows.Forms.Padding(4);
         	this.buttonToolRotateStop.Name = "buttonToolRotateStop";
         	this.buttonToolRotateStop.Size = new System.Drawing.Size(171, 28);
@@ -264,7 +239,7 @@
         	// 
         	// buttonToolStop
         	// 
-        	this.buttonToolStop.Location = new System.Drawing.Point(80, 453);
+        	this.buttonToolStop.Location = new System.Drawing.Point(80, 544);
         	this.buttonToolStop.Margin = new System.Windows.Forms.Padding(4);
         	this.buttonToolStop.Name = "buttonToolStop";
         	this.buttonToolStop.Size = new System.Drawing.Size(171, 28);
@@ -292,7 +267,7 @@
         	// 
         	this.labelCurrentSensor.AutoSize = true;
         	this.labelCurrentSensor.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-        	this.labelCurrentSensor.Location = new System.Drawing.Point(16, 945);
+        	this.labelCurrentSensor.Location = new System.Drawing.Point(16, 849);
         	this.labelCurrentSensor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
         	this.labelCurrentSensor.Name = "labelCurrentSensor";
         	this.labelCurrentSensor.Size = new System.Drawing.Size(137, 20);
@@ -302,7 +277,7 @@
         	// labelUpperToolTipState
         	// 
         	this.labelUpperToolTipState.AutoSize = true;
-        	this.labelUpperToolTipState.Location = new System.Drawing.Point(469, 146);
+        	this.labelUpperToolTipState.Location = new System.Drawing.Point(80, 598);
         	this.labelUpperToolTipState.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
         	this.labelUpperToolTipState.Name = "labelUpperToolTipState";
         	this.labelUpperToolTipState.Size = new System.Drawing.Size(132, 17);
@@ -312,7 +287,7 @@
         	// labelLowerToolTipState
         	// 
         	this.labelLowerToolTipState.AutoSize = true;
-        	this.labelLowerToolTipState.Location = new System.Drawing.Point(469, 182);
+        	this.labelLowerToolTipState.Location = new System.Drawing.Point(80, 634);
         	this.labelLowerToolTipState.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
         	this.labelLowerToolTipState.Name = "labelLowerToolTipState";
         	this.labelLowerToolTipState.Size = new System.Drawing.Size(131, 17);
@@ -321,11 +296,11 @@
         	// 
         	// progressBar1
         	// 
-        	this.progressBar1.Location = new System.Drawing.Point(16, 931);
+        	this.progressBar1.Location = new System.Drawing.Point(16, 835);
         	this.progressBar1.Margin = new System.Windows.Forms.Padding(4);
         	this.progressBar1.Maximum = 4096;
         	this.progressBar1.Name = "progressBar1";
-        	this.progressBar1.Size = new System.Drawing.Size(1242, 10);
+        	this.progressBar1.Size = new System.Drawing.Size(683, 10);
         	this.progressBar1.Step = 1;
         	this.progressBar1.TabIndex = 16;
         	// 
@@ -335,18 +310,18 @@
         	this.trackBarPosition.Enabled = false;
         	this.trackBarPosition.Location = new System.Drawing.Point(16, 63);
         	this.trackBarPosition.Margin = new System.Windows.Forms.Padding(4);
-        	this.trackBarPosition.Maximum = 1100;
+        	this.trackBarPosition.Maximum = 4000;
         	this.trackBarPosition.Minimum = -100;
         	this.trackBarPosition.Name = "trackBarPosition";
         	this.trackBarPosition.Orientation = System.Windows.Forms.Orientation.Vertical;
         	this.trackBarPosition.RightToLeft = System.Windows.Forms.RightToLeft.No;
-        	this.trackBarPosition.Size = new System.Drawing.Size(56, 860);
+        	this.trackBarPosition.Size = new System.Drawing.Size(56, 764);
         	this.trackBarPosition.TabIndex = 17;
         	this.trackBarPosition.TickFrequency = 10;
         	// 
         	// buttonVerticalFeedMotorOn
         	// 
-        	this.buttonVerticalFeedMotorOn.Location = new System.Drawing.Point(80, 113);
+        	this.buttonVerticalFeedMotorOn.Location = new System.Drawing.Point(80, 204);
         	this.buttonVerticalFeedMotorOn.Margin = new System.Windows.Forms.Padding(4);
         	this.buttonVerticalFeedMotorOn.Name = "buttonVerticalFeedMotorOn";
         	this.buttonVerticalFeedMotorOn.Size = new System.Drawing.Size(171, 28);
@@ -357,7 +332,7 @@
         	// 
         	// buttonVerticalFeedMotorOff
         	// 
-        	this.buttonVerticalFeedMotorOff.Location = new System.Drawing.Point(80, 149);
+        	this.buttonVerticalFeedMotorOff.Location = new System.Drawing.Point(80, 240);
         	this.buttonVerticalFeedMotorOff.Margin = new System.Windows.Forms.Padding(4);
         	this.buttonVerticalFeedMotorOff.Name = "buttonVerticalFeedMotorOff";
         	this.buttonVerticalFeedMotorOff.Size = new System.Drawing.Size(171, 28);
@@ -368,7 +343,7 @@
         	// 
         	// buttonKey_1
         	// 
-        	this.buttonKey_1.Location = new System.Drawing.Point(993, 75);
+        	this.buttonKey_1.Location = new System.Drawing.Point(510, 133);
         	this.buttonKey_1.Margin = new System.Windows.Forms.Padding(4);
         	this.buttonKey_1.Name = "buttonKey_1";
         	this.buttonKey_1.Size = new System.Drawing.Size(171, 28);
@@ -379,7 +354,7 @@
         	// 
         	// buttonKey_2
         	// 
-        	this.buttonKey_2.Location = new System.Drawing.Point(993, 111);
+        	this.buttonKey_2.Location = new System.Drawing.Point(510, 169);
         	this.buttonKey_2.Margin = new System.Windows.Forms.Padding(4);
         	this.buttonKey_2.Name = "buttonKey_2";
         	this.buttonKey_2.Size = new System.Drawing.Size(171, 28);
@@ -390,7 +365,7 @@
         	// 
         	// buttonKey_3
         	// 
-        	this.buttonKey_3.Location = new System.Drawing.Point(993, 146);
+        	this.buttonKey_3.Location = new System.Drawing.Point(510, 204);
         	this.buttonKey_3.Margin = new System.Windows.Forms.Padding(4);
         	this.buttonKey_3.Name = "buttonKey_3";
         	this.buttonKey_3.Size = new System.Drawing.Size(171, 28);
@@ -401,7 +376,7 @@
         	// 
         	// buttonKey_4
         	// 
-        	this.buttonKey_4.Location = new System.Drawing.Point(993, 182);
+        	this.buttonKey_4.Location = new System.Drawing.Point(510, 240);
         	this.buttonKey_4.Margin = new System.Windows.Forms.Padding(4);
         	this.buttonKey_4.Name = "buttonKey_4";
         	this.buttonKey_4.Size = new System.Drawing.Size(171, 28);
@@ -412,7 +387,7 @@
         	// 
         	// buttonKey_5
         	// 
-        	this.buttonKey_5.Location = new System.Drawing.Point(993, 218);
+        	this.buttonKey_5.Location = new System.Drawing.Point(510, 276);
         	this.buttonKey_5.Margin = new System.Windows.Forms.Padding(4);
         	this.buttonKey_5.Name = "buttonKey_5";
         	this.buttonKey_5.Size = new System.Drawing.Size(171, 28);
@@ -423,7 +398,7 @@
         	// 
         	// buttonKey_6
         	// 
-        	this.buttonKey_6.Location = new System.Drawing.Point(993, 254);
+        	this.buttonKey_6.Location = new System.Drawing.Point(510, 312);
         	this.buttonKey_6.Margin = new System.Windows.Forms.Padding(4);
         	this.buttonKey_6.Name = "buttonKey_6";
         	this.buttonKey_6.Size = new System.Drawing.Size(171, 28);
@@ -434,7 +409,7 @@
         	// 
         	// buttonKey_7
         	// 
-        	this.buttonKey_7.Location = new System.Drawing.Point(993, 289);
+        	this.buttonKey_7.Location = new System.Drawing.Point(510, 347);
         	this.buttonKey_7.Margin = new System.Windows.Forms.Padding(4);
         	this.buttonKey_7.Name = "buttonKey_7";
         	this.buttonKey_7.Size = new System.Drawing.Size(171, 28);
@@ -445,7 +420,7 @@
         	// 
         	// buttonKey_8
         	// 
-        	this.buttonKey_8.Location = new System.Drawing.Point(993, 325);
+        	this.buttonKey_8.Location = new System.Drawing.Point(510, 383);
         	this.buttonKey_8.Margin = new System.Windows.Forms.Padding(4);
         	this.buttonKey_8.Name = "buttonKey_8";
         	this.buttonKey_8.Size = new System.Drawing.Size(171, 28);
@@ -456,7 +431,7 @@
         	// 
         	// buttonKey_9
         	// 
-        	this.buttonKey_9.Location = new System.Drawing.Point(993, 361);
+        	this.buttonKey_9.Location = new System.Drawing.Point(510, 419);
         	this.buttonKey_9.Margin = new System.Windows.Forms.Padding(4);
         	this.buttonKey_9.Name = "buttonKey_9";
         	this.buttonKey_9.Size = new System.Drawing.Size(171, 28);
@@ -467,7 +442,7 @@
         	// 
         	// buttonSWITCH
         	// 
-        	this.buttonSWITCH.Location = new System.Drawing.Point(815, 75);
+        	this.buttonSWITCH.Location = new System.Drawing.Point(80, 133);
         	this.buttonSWITCH.Margin = new System.Windows.Forms.Padding(4);
         	this.buttonSWITCH.Name = "buttonSWITCH";
         	this.buttonSWITCH.Size = new System.Drawing.Size(171, 28);
@@ -479,10 +454,11 @@
         	// labelStateOfWork
         	// 
         	this.labelStateOfWork.AutoSize = true;
-        	this.labelStateOfWork.Location = new System.Drawing.Point(469, 111);
+        	this.labelStateOfWork.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+        	this.labelStateOfWork.Location = new System.Drawing.Point(337, 41);
         	this.labelStateOfWork.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
         	this.labelStateOfWork.Name = "labelStateOfWork";
-        	this.labelStateOfWork.Size = new System.Drawing.Size(93, 17);
+        	this.labelStateOfWork.Size = new System.Drawing.Size(132, 25);
         	this.labelStateOfWork.TabIndex = 30;
         	this.labelStateOfWork.Text = "StateOfWork:";
         	// 
@@ -491,7 +467,7 @@
         	this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
         	this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         	this.BackColor = System.Drawing.SystemColors.ControlDark;
-        	this.ClientSize = new System.Drawing.Size(1273, 1053);
+        	this.ClientSize = new System.Drawing.Size(712, 902);
         	this.Controls.Add(this.labelStateOfWork);
         	this.Controls.Add(this.buttonSWITCH);
         	this.Controls.Add(this.buttonKey_9);
@@ -517,8 +493,6 @@
         	this.Controls.Add(this.buttonToolLiftStop);
         	this.Controls.Add(this.buttonToolLiftDown);
         	this.Controls.Add(this.buttonToolLiftUp);
-        	this.Controls.Add(this.buttonMachinePwrOff);
-        	this.Controls.Add(this.buttonMachinePwrOn);
         	this.Controls.Add(this.button1);
         	this.Controls.Add(this.textBoxToSend);
         	this.Controls.Add(this.textBoxLog);
@@ -526,9 +500,7 @@
         	this.MainMenuStrip = this.menuStrip1;
         	this.Margin = new System.Windows.Forms.Padding(4);
         	this.Name = "MainForm1";
-        	this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
         	this.Text = "HoningMachineConfig";
-        	this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
         	this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm1_KeyDown);
         	this.menuStrip1.ResumeLayout(false);
         	this.menuStrip1.PerformLayout();
@@ -563,8 +535,6 @@
         private System.Windows.Forms.ToolStripMenuItem closePortToolStripMenuItem;
         private System.Windows.Forms.TextBox textBoxToSend;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button buttonMachinePwrOn;
-        private System.Windows.Forms.Button buttonMachinePwrOff;
         private System.Windows.Forms.Button buttonToolLiftUp;
         private System.Windows.Forms.Button buttonToolLiftDown;
         private System.Windows.Forms.Button buttonToolLiftStop;

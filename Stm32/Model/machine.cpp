@@ -11,10 +11,10 @@ cMachine::cMachine():
     m_MachineState(machineStateNone),
     m_ToolState(toolStateNone),
     m_CurrentPosition(0),
-    m_UpperToolPosition(1000),
-    m_LowerToolPosition(10),
+    m_UpperToolPosition(3500),
+    m_LowerToolPosition(900),
     m_PositionScale(0),
-    m_ToolTraectoryLen(1000),
+    m_ToolTraectoryLen(4000),
     ControllerEventCallback(NULL)
 {
   CalcPositionScale();

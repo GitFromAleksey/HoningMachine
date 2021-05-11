@@ -69,6 +69,9 @@
 #define DO_TOOL_LIFT_DOWN_SW_INVERSION    true
 
 // TODO ЭММ3(Ручное управление) нужно добавить для ручного управления
+#define DO_PORT_AMR_CONTROL               GPIOA
+#define DO_PIN_AMR_CONTROL                GPIO_PIN_7 // ЭММ3 - электромагнит подачи вниз
+#define DO_AMR_CONTROL_INVERSION          true
 
 // digital inputs. Для добавления входа нужно его добавить в MX_GPIO_Init()
 #define DI_PORT_UPPER_TOOL_TIP            GPIOB
@@ -119,6 +122,7 @@ cDigitalOut VerticalFeedMotorSwitch;
 cDigitalOut RotatedMotorToolSwitch;
 cDigitalOut ToolLiftUpSwitch;
 cDigitalOut ToolLiftDownSwich;
+cDigitalOut ArmControlSwich;
 
 //cDigitalInput KeyMacinePwrOnOff(GPIOA, GPIO_PIN_8, false);
 
@@ -233,6 +237,8 @@ void SetupDigitalOut()
   ToolLiftDownSwich.Init(DO_PORT_TOOL_LIFT_DOWN_SW, DO_PIN_TOOL_LIFT_DOWN_SW, DO_TOOL_LIFT_DOWN_SW_INVERSION);
   ToolLiftDownSwich.SetDoSwitchCallback(DO_SwitchCallback);
   ToolLiftDownSwich.SetCheckStateCallback(&DIO_CheckStateCallback);
+
+  ArmControlSwich.Init(DO_PORT_AMR_CONTROL, DO_PIN_AMR_CONTROL, DO_AMR_CONTROL_INVERSION);
 
 //  AddToProcessArray(&MachinePowerSwitch);
   AddToProcessArray(&VerticalFeedMotorSwitch);
